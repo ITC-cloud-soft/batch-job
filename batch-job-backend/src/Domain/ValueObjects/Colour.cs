@@ -1,7 +1,13 @@
 ﻿namespace batch_job_backend.Domain.ValueObjects;
 
-public class Colour(string code) : ValueObject
+
+public class Colour : ValueObject
 {
+    public Colour(string code)
+    {
+        Code = string.IsNullOrWhiteSpace(code) ? "#000000" : code;
+    }
+
     public static Colour From(string code)
     {
         var colour = new Colour(code);
@@ -30,7 +36,7 @@ public class Colour(string code) : ValueObject
 
     public static Colour Grey => new("#999999");
 
-    public string Code { get; private set; } = string.IsNullOrWhiteSpace(code)?"#000000":code;
+    public string Code { get; private set; }
 
     public static implicit operator string(Colour colour)
     {

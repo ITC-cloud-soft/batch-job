@@ -20,36 +20,33 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0-preview.6.23329.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
             modelBuilder.Entity("batch_job_backend.Domain.Entities.TodoItem", b =>
             {
                 b.Property<int>("Id")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                 b.Property<DateTimeOffset>("Created")
-                    .HasColumnType("datetimeoffset");
+                    .HasColumnType("datetime");
 
                 b.Property<string>("CreatedBy")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<bool>("Done")
                     .HasColumnType("bit");
 
                 b.Property<DateTimeOffset>("LastModified")
-                    .HasColumnType("datetimeoffset");
+                    .HasColumnType("datetime");
 
                 b.Property<string>("LastModifiedBy")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<int>("ListId")
                     .HasColumnType("int");
 
                 b.Property<string>("Note")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<int>("Priority")
                     .HasColumnType("int");
@@ -60,7 +57,7 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
                 b.Property<string>("Title")
                     .IsRequired()
                     .HasMaxLength(200)
-                    .HasColumnType("nvarchar(200)");
+                    .HasColumnType("varchar(200)");
 
                 b.HasKey("Id");
 
@@ -75,24 +72,23 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
                     .ValueGeneratedOnAdd()
                     .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                 b.Property<DateTimeOffset>("Created")
-                    .HasColumnType("datetimeoffset");
+                    .HasColumnType("datetime");
 
                 b.Property<string>("CreatedBy")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<DateTimeOffset>("LastModified")
-                    .HasColumnType("datetimeoffset");
+                    .HasColumnType("datetime");
 
                 b.Property<string>("LastModifiedBy")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("Title")
                     .IsRequired()
                     .HasMaxLength(200)
-                    .HasColumnType("nvarchar(200)");
+                    .HasColumnType("varchar(200)");
 
                 b.HasKey("Id");
 
@@ -102,18 +98,18 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
             modelBuilder.Entity("batch_job_backend.Infrastructure.Identity.ApplicationUser", b =>
             {
                 b.Property<string>("Id")
-                    .HasColumnType("nvarchar(450)");
+                    .HasColumnType("varchar(450)");
 
                 b.Property<int>("AccessFailedCount")
                     .HasColumnType("int");
 
                 b.Property<string>("ConcurrencyStamp")
                     .IsConcurrencyToken()
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("Email")
                     .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<bool>("EmailConfirmed")
                     .HasColumnType("bit");
@@ -122,34 +118,34 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
                     .HasColumnType("bit");
 
                 b.Property<DateTimeOffset?>("LockoutEnd")
-                    .HasColumnType("datetimeoffset");
+                    .HasColumnType("datetime");
 
                 b.Property<string>("NormalizedEmail")
                     .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("NormalizedUserName")
                     .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("PasswordHash")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("PhoneNumber")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<bool>("PhoneNumberConfirmed")
                     .HasColumnType("bit");
 
                 b.Property<string>("SecurityStamp")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<bool>("TwoFactorEnabled")
                     .HasColumnType("bit");
 
                 b.Property<string>("UserName")
                     .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    .HasColumnType("varchar(256)");
 
                 b.HasKey("Id");
 
@@ -167,19 +163,19 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
             {
                 b.Property<string>("Id")
-                    .HasColumnType("nvarchar(450)");
+                    .HasColumnType("varchar(450)");
 
                 b.Property<string>("ConcurrencyStamp")
                     .IsConcurrencyToken()
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("Name")
                     .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("NormalizedName")
                     .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    .HasColumnType("varchar(256)");
 
                 b.HasKey("Id");
 
@@ -197,17 +193,16 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
                     .ValueGeneratedOnAdd()
                     .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                 b.Property<string>("ClaimType")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("ClaimValue")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("RoleId")
                     .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    .HasColumnType("varchar(450)");
 
                 b.HasKey("Id");
 
@@ -222,17 +217,16 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
                     .ValueGeneratedOnAdd()
                     .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                 b.Property<string>("ClaimType")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("ClaimValue")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("UserId")
                     .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    .HasColumnType("varchar(450)");
 
                 b.HasKey("Id");
 
@@ -245,18 +239,18 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
             {
                 b.Property<string>("LoginProvider")
                     .HasMaxLength(128)
-                    .HasColumnType("nvarchar(128)");
+                    .HasColumnType("varchar(128)");
 
                 b.Property<string>("ProviderKey")
                     .HasMaxLength(128)
-                    .HasColumnType("nvarchar(128)");
+                    .HasColumnType("varchar(128)");
 
                 b.Property<string>("ProviderDisplayName")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.Property<string>("UserId")
                     .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    .HasColumnType("varchar(450)");
 
                 b.HasKey("LoginProvider", "ProviderKey");
 
@@ -268,10 +262,10 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
             {
                 b.Property<string>("UserId")
-                    .HasColumnType("nvarchar(450)");
+                    .HasColumnType("varchar(450)");
 
                 b.Property<string>("RoleId")
-                    .HasColumnType("nvarchar(450)");
+                    .HasColumnType("varchar(450)");
 
                 b.HasKey("UserId", "RoleId");
 
@@ -283,18 +277,18 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
             {
                 b.Property<string>("UserId")
-                    .HasColumnType("nvarchar(450)");
+                    .HasColumnType("varchar(450)");
 
                 b.Property<string>("LoginProvider")
                     .HasMaxLength(128)
-                    .HasColumnType("nvarchar(128)");
+                    .HasColumnType("varchar(128)");
 
                 b.Property<string>("Name")
                     .HasMaxLength(128)
-                    .HasColumnType("nvarchar(128)");
+                    .HasColumnType("varchar(128)");
 
                 b.Property<string>("Value")
-                    .HasColumnType("nvarchar(max)");
+                    .HasColumnType("varchar(256)");
 
                 b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -321,7 +315,7 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
 
                     b1.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(256)");
 
                     b1.HasKey("TodoListId");
 
