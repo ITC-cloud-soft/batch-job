@@ -1,0 +1,15 @@
+﻿using batch_job_backend.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace batch_job_backend.Infrastructure.Data.Configurations;
+
+public class TodoItemConfiguration : IEntityTypeConfiguration<TodoItem>
+{
+    public void Configure(EntityTypeBuilder<TodoItem> builder)
+    {
+        builder.Property(t => t.Title)
+            .HasMaxLength(200)
+            .IsRequired();
+    }
+}
