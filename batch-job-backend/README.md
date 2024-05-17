@@ -1,7 +1,11 @@
 ﻿# batch_job_backend
 
 The project was generated using the [Clean.Architecture.Solution.Template](https://github.com/jasontaylordev/batch_job_backend) version 8.0.5.
-
+## Installation
+```bash
+dotnet ef migrations add InitialCreate --project src/Infrastructure --startup-project src/Web --output-dir Data/Migrations --no-build
+dotnet ef database update --project src/Infrastructure --startup-project src/Web --no-build -v
+```
 ## Build
 
 Run `dotnet build -tl` to build the solution.
