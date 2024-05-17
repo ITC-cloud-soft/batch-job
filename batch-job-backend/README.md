@@ -4,7 +4,11 @@ The project was generated using the [Clean.Architecture.Solution.Template](https
 ## Installation
 ```bash
 dotnet ef migrations add InitialCreate --project src/Infrastructure --startup-project src/Web --output-dir Data/Migrations --no-build
+
+dotnet ef migrations add Job --project src/Infrastructure --startup-project src/Web --output-dir Data/Migrations --no-build -v
+
 dotnet ef database update --project src/Infrastructure --startup-project src/Web --no-build -v
+
 ```
 ## Build
 
