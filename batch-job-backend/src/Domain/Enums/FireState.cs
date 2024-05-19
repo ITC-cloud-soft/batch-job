@@ -1,6 +1,6 @@
 namespace batch_job_backend.Domain.Enums;
 
-public enum JobState
+public enum FireState
 {
     None = 0,
     Low = 1,

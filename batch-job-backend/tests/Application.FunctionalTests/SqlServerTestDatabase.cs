@@ -32,7 +32,7 @@ public class SqlServerTestDatabase : ITestDatabase
         _connection = new SqlConnection(_connectionString);
 
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseSqlServer(_connectionString)
+            .UseMySql(_connection, new MySqlServerVersion(new Version(8, 0, 32)))
             .Options;
 
         var context = new ApplicationDbContext(options);
