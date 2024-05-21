@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Quartz;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -44,6 +45,10 @@ public static class DependencyInjection
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
 
+        services.AddQuartz();
+        // 添加 Quartz Hosted Service
+        services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+        
         return services;
     }
 }

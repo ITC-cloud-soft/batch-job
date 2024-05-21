@@ -102,7 +102,7 @@ public class ApplicationDbContextInitialiser
                     new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
                 }
             });
-
+        
             await _context.SaveChangesAsync();
         }
     }

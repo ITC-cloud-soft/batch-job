@@ -10,6 +10,29 @@ dotnet ef migrations add Job --project src/Infrastructure --startup-project src/
 dotnet ef database update --project src/Infrastructure --startup-project src/Web --no-build -v
 
 ```
+
+To learn more, run the following command:
+```bash
+dotnet new ca-sln --help
+```
+
+You can create use cases (commands or queries) by navigating to `./src/Application` and running `dotnet new ca-usecase`. Here are some examples:
+
+To create a new command:
+```bash
+dotnet new ca-usecase --name CreateTodoList --feature-name TodoLists --usecase-type command --return-type int
+```
+
+To create a query:
+```bash
+dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
+```
+
+To learn more, run the following command:
+```bash
+dotnet new ca-usecase --help
+```
+
 ## Build
 
 Run `dotnet build -tl` to build the solution.

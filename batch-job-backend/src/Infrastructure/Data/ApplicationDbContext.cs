@@ -14,7 +14,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<TodoList> TodoLists => Set<TodoList>();
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
-    public DbSet<Job> Job => Set<Job>();
+    public DbSet<BatchJob> Job => Set<BatchJob>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
