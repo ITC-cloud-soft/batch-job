@@ -23,6 +23,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageVersion Include="MySql.Data" Version="8.4.0" />
     <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
@@ -38,6 +39,8 @@
     <PackageVersion Include="Quartz" Version="3.9.0" />
     <PackageVersion Include="Quartz.Extensions.Hosting" Version="3.9.0" />
     <PackageVersion Include="Quartz.Plugins.RecentHistory" Version="1.0.3" />
+    <PackageVersion Include="Quartz.Plugins.TimeZoneConverter" Version="3.9.0" />
+    <PackageVersion Include="Quartz.Serialization.Json" Version="3.9.0" />
     <PackageVersion Include="Respawn" Version="6.1.0" />
     <PackageVersion Include="Testcontainers.MsSql" Version="3.6.0" />
     <PackageVersion Include="Microsoft.Playwright" Version="1.40.0" />

@@ -20,10 +20,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
-      <!-- The SPA Proxy is only used at development time -->
-      <Publish>false</Publish>
-    </PackageReference>
+<!--    <PackageReference Include="Microsoft.AspNetCore.SpaProxy">-->
+<!--      &lt;!&ndash; The SPA Proxy is only used at development time &ndash;&gt;-->
+<!--      <Publish>false</Publish>-->
+<!--    </PackageReference>-->
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
     <PackageReference Include="NSwag.AspNetCore" />
     <PackageReference Include="NSwag.MSBuild">

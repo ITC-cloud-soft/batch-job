@@ -48,20 +48,22 @@ public static class DependencyInjection
 
         services.AddQuartz(q =>
         {
-            // Just use the name of your job that you created in the Jobs folder.
-            var jobKey = new JobKey("SendEmailJob");
-            q.AddJob<SendEmailJob>(opts => opts.WithIdentity(jobKey));
-    
-            q.AddTrigger(opts => opts
-                .ForJob(jobKey)
-                .WithIdentity("SendEmailJob-trigger")
-                //This Cron interval can be described as "run every minute" (when second is zero)
-                .StartNow()
-            );
+            // 配置 Quartz 使用数据库持久化
+            q.UsePersistentStore(options =>
+            {
+                options.UseProperties = true;
+                options.UseMySqlConnector(mysqlOptions =>
+                {
+                    mysqlOptions.ConnectionString = connectionString;
+                    mysqlOptions.TablePrefix = "QRTZ_";
+                });
+                
+                options.UseNewtonsoftJsonSerializer();
+            });
         });
         // 添加 Quartz Hosted Service
         services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
-        
+        Console.WriteLine("123");
         return services;
     }
 }

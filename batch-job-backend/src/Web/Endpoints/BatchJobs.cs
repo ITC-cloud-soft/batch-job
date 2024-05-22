@@ -1,4 +1,4 @@
-using CleanArchitecture.Application.BatchJob.Commands.CreateBatchJob;
+using batch_job_backend.Application.BatchJob.Commands.CreateBatchJob;
 
 namespace batch_job_backend.Web.Endpoints;
 

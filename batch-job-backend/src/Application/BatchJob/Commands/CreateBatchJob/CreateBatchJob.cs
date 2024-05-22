@@ -1,9 +1,11 @@
 ﻿using batch_job_backend.Application.Common.Interfaces;
 using batch_job_backend.Domain.Enums;
+using Quartz;
+using Yaml.Infrastructure.Mappings;
 
-namespace CleanArchitecture.Application.BatchJob.Commands.CreateBatchJob;
+namespace batch_job_backend.Application.BatchJob.Commands.CreateBatchJob;
 
-public record CreateBatchJobCommand : IRequest<int>
+public record CreateBatchJobCommand : IRequest<int>,  IMapFrom<Domain.Entities.BatchJob>
 {
     // バッチ名 (共通)
     public string? JobName { get; set; }
@@ -42,20 +44,34 @@ public class CreateBatchJobCommandValidator : AbstractValidator<CreateBatchJobCo
 {
     public CreateBatchJobCommandValidator()
     {
+        RuleFor(x => x.JobUrl)
+            .NotEmpty().WithMessage("JobUrl is required.");
     }
 }
 
 public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobCommand, int>
 {
     private readonly IApplicationDbContext _context;
+    private readonly IMapper _mapper;
+    private readonly ISchedulerFactory _schedulerFactory;
 
-    public CreateBatchJobCommandHandler(IApplicationDbContext context)
+    
+    public CreateBatchJobCommandHandler(
+        IApplicationDbContext context,
+        ISchedulerFactory schedulerFactory,
+        IMapper imapper
+        )
     {
         _context = context;
+        _schedulerFactory = schedulerFactory;
+        _mapper = imapper;
     }
 
-    public Task<int> Handle(CreateBatchJobCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateBatchJobCommand command, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+
+        var job = _mapper.Map<Domain.Entities.BatchJob>(command);
+        await _context.BatchJobs.AddAsync(job, cancellationToken);
+        return job.Id;
     }
 }

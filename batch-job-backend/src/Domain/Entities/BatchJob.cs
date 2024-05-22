@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace batch_job_backend.Domain.Entities;
 
