@@ -43,11 +43,7 @@ public class ExecuteBatchJobCommandHandler : IRequestHandler<ExecuteBatchJobComm
 
         // Step 1: Retrieve the job from the database
         var job = GetJob(request.JobId);
-        if (job == null)
-        {
-            _logger.LogError("Job not found [{JobId}]", request.JobId);
-            throw new NotFoundException("Job not found for Id [{JobId}]", request.JobId.ToString());
-        }
+        Guard.Against.NotFound(request.JobId, job);
 
         // Step 2: Retrieve the trigger jobs associated with the main job
         var triggerJobList = GetTriggerJobs(request.JobId);
@@ -112,7 +108,4 @@ public class ExecuteBatchJobCommandHandler : IRequestHandler<ExecuteBatchJobComm
         await scheduler.ScheduleJob(jobDetail, trigger, cancellationToken);
         await scheduler.Start(cancellationToken);
     }
-    
-
-    
 }

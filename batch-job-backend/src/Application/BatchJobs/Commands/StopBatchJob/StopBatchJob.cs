@@ -34,11 +34,7 @@ public class StopBatchJobCommandHandler : IRequestHandler<StopBatchJobCommand>
 
         var job = _context.BatchJobs.FirstOrDefault(x => x.Id == request.JobId);
 
-        if (job == null)
-        {
-            _logger.LogError("Job not found [{}]", request.JobId);
-            throw new NotFoundException(request.JobId.ToString(), "Job");
-        }
+        Guard.Against.NotFound(request.JobId, job);
         
         IScheduler scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
         // delete job

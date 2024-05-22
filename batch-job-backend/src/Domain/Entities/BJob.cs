@@ -29,7 +29,7 @@ public class BJob: BaseAuditableEntity
     
     // Trigger トリガーファイル名 (Trigger) => 对应的scheduled job的id
     // 可能有多个Trigger 对一个scheduled job 的情况
-    public int? JobTriggerId { get; set; }
+    public int?  JobTriggerId { get; set; }
     
     // バッチ番号 (Trigger)
     public int? JobNo{ get; set; }

@@ -59,6 +59,99 @@ export class BatchJobsClient {
         return Promise.resolve<BJob>(null as any);
     }
 
+    query(jobType: JobType, listId: number, pageNumber: number, pageSize: number): Promise<PaginatedListOfBatchJobVm> {
+        let url_ = this.baseUrl + "/api/BatchJobs?";
+        if (jobType === undefined || jobType === null)
+            throw new Error("The parameter 'jobType' must be defined and cannot be null.");
+        else
+            url_ += "JobType=" + encodeURIComponent("" + jobType) + "&";
+        if (listId === undefined || listId === null)
+            throw new Error("The parameter 'listId' must be defined and cannot be null.");
+        else
+            url_ += "ListId=" + encodeURIComponent("" + listId) + "&";
+        if (pageNumber === undefined || pageNumber === null)
+            throw new Error("The parameter 'pageNumber' must be defined and cannot be null.");
+        else
+            url_ += "PageNumber=" + encodeURIComponent("" + pageNumber) + "&";
+        if (pageSize === undefined || pageSize === null)
+            throw new Error("The parameter 'pageSize' must be defined and cannot be null.");
+        else
+            url_ += "PageSize=" + encodeURIComponent("" + pageSize) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processQuery(_response);
+        });
+    }
+
+    protected processQuery(response: Response): Promise<PaginatedListOfBatchJobVm> {
+        followIfLoginRedirect(response);
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PaginatedListOfBatchJobVm.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<PaginatedListOfBatchJobVm>(null as any);
+    }
+
+    updateJob(jobId: number, command: UpdateBatchJobCommand): Promise<BJob> {
+        let url_ = this.baseUrl + "/api/BatchJobs/{jobId}";
+        if (jobId === undefined || jobId === null)
+            throw new Error("The parameter 'jobId' must be defined.");
+        url_ = url_.replace("{jobId}", encodeURIComponent("" + jobId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processUpdateJob(_response);
+        });
+    }
+
+    protected processUpdateJob(response: Response): Promise<BJob> {
+        followIfLoginRedirect(response);
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BJob.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<BJob>(null as any);
+    }
+
     executeJob(jobId: number): Promise<void> {
         let url_ = this.baseUrl + "/api/BatchJobs/start/{jobId}";
         if (jobId === undefined || jobId === null)
@@ -67,7 +160,7 @@ export class BatchJobsClient {
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
-            method: "POST",
+            method: "GET",
             headers: {
             }
         };
@@ -101,7 +194,7 @@ export class BatchJobsClient {
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
-            method: "POST",
+            method: "GET",
             headers: {
             }
         };
@@ -641,6 +734,258 @@ export interface ICreateBatchJobCommand {
     cronExpression?: string | undefined;
     scheduleType?: ScheduleType | undefined;
     startWeekDay?: string | undefined;
+    year?: number | undefined;
+    month?: number | undefined;
+    day?: number | undefined;
+    weekDay?: number | undefined;
+    hour?: number | undefined;
+    minute?: number | undefined;
+    second?: number | undefined;
+    jobTriggerId?: number | undefined;
+    jobNo?: number | undefined;
+}
+
+export class UpdateBatchJobCommand implements IUpdateBatchJobCommand {
+    id?: number;
+    jobName?: string;
+    jobGroup?: string;
+    jobType?: JobType;
+    jobUrl?: string | undefined;
+    cronExpression?: string | undefined;
+    scheduleType?: ScheduleType | undefined;
+    year?: number | undefined;
+    month?: number | undefined;
+    day?: number | undefined;
+    weekDay?: number | undefined;
+    hour?: number | undefined;
+    minute?: number | undefined;
+    second?: number | undefined;
+    jobTriggerId?: number | undefined;
+    jobNo?: number | undefined;
+
+    constructor(data?: IUpdateBatchJobCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.jobName = _data["jobName"];
+            this.jobGroup = _data["jobGroup"];
+            this.jobType = _data["jobType"];
+            this.jobUrl = _data["jobUrl"];
+            this.cronExpression = _data["cronExpression"];
+            this.scheduleType = _data["scheduleType"];
+            this.year = _data["year"];
+            this.month = _data["month"];
+            this.day = _data["day"];
+            this.weekDay = _data["weekDay"];
+            this.hour = _data["hour"];
+            this.minute = _data["minute"];
+            this.second = _data["second"];
+            this.jobTriggerId = _data["jobTriggerId"];
+            this.jobNo = _data["jobNo"];
+        }
+    }
+
+    static fromJS(data: any): UpdateBatchJobCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateBatchJobCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["jobName"] = this.jobName;
+        data["jobGroup"] = this.jobGroup;
+        data["jobType"] = this.jobType;
+        data["jobUrl"] = this.jobUrl;
+        data["cronExpression"] = this.cronExpression;
+        data["scheduleType"] = this.scheduleType;
+        data["year"] = this.year;
+        data["month"] = this.month;
+        data["day"] = this.day;
+        data["weekDay"] = this.weekDay;
+        data["hour"] = this.hour;
+        data["minute"] = this.minute;
+        data["second"] = this.second;
+        data["jobTriggerId"] = this.jobTriggerId;
+        data["jobNo"] = this.jobNo;
+        return data;
+    }
+}
+
+export interface IUpdateBatchJobCommand {
+    id?: number;
+    jobName?: string;
+    jobGroup?: string;
+    jobType?: JobType;
+    jobUrl?: string | undefined;
+    cronExpression?: string | undefined;
+    scheduleType?: ScheduleType | undefined;
+    year?: number | undefined;
+    month?: number | undefined;
+    day?: number | undefined;
+    weekDay?: number | undefined;
+    hour?: number | undefined;
+    minute?: number | undefined;
+    second?: number | undefined;
+    jobTriggerId?: number | undefined;
+    jobNo?: number | undefined;
+}
+
+export class PaginatedListOfBatchJobVm implements IPaginatedListOfBatchJobVm {
+    items?: BatchJobVm[];
+    pageNumber?: number;
+    totalPages?: number;
+    totalCount?: number;
+    hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
+
+    constructor(data?: IPaginatedListOfBatchJobVm) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(BatchJobVm.fromJS(item));
+            }
+            this.pageNumber = _data["pageNumber"];
+            this.totalPages = _data["totalPages"];
+            this.totalCount = _data["totalCount"];
+            this.hasPreviousPage = _data["hasPreviousPage"];
+            this.hasNextPage = _data["hasNextPage"];
+        }
+    }
+
+    static fromJS(data: any): PaginatedListOfBatchJobVm {
+        data = typeof data === 'object' ? data : {};
+        let result = new PaginatedListOfBatchJobVm();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        data["pageNumber"] = this.pageNumber;
+        data["totalPages"] = this.totalPages;
+        data["totalCount"] = this.totalCount;
+        data["hasPreviousPage"] = this.hasPreviousPage;
+        data["hasNextPage"] = this.hasNextPage;
+        return data;
+    }
+}
+
+export interface IPaginatedListOfBatchJobVm {
+    items?: BatchJobVm[];
+    pageNumber?: number;
+    totalPages?: number;
+    totalCount?: number;
+    hasPreviousPage?: boolean;
+    hasNextPage?: boolean;
+}
+
+export class BatchJobVm implements IBatchJobVm {
+    jobName?: string;
+    jobGroup?: string;
+    jobType?: JobType;
+    jobUrl?: string | undefined;
+    cronExpression?: string | undefined;
+    scheduleType?: ScheduleType | undefined;
+    year?: number | undefined;
+    month?: number | undefined;
+    day?: number | undefined;
+    weekDay?: number | undefined;
+    hour?: number | undefined;
+    minute?: number | undefined;
+    second?: number | undefined;
+    jobTriggerId?: number | undefined;
+    jobNo?: number | undefined;
+
+    constructor(data?: IBatchJobVm) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jobName = _data["jobName"];
+            this.jobGroup = _data["jobGroup"];
+            this.jobType = _data["jobType"];
+            this.jobUrl = _data["jobUrl"];
+            this.cronExpression = _data["cronExpression"];
+            this.scheduleType = _data["scheduleType"];
+            this.year = _data["year"];
+            this.month = _data["month"];
+            this.day = _data["day"];
+            this.weekDay = _data["weekDay"];
+            this.hour = _data["hour"];
+            this.minute = _data["minute"];
+            this.second = _data["second"];
+            this.jobTriggerId = _data["jobTriggerId"];
+            this.jobNo = _data["jobNo"];
+        }
+    }
+
+    static fromJS(data: any): BatchJobVm {
+        data = typeof data === 'object' ? data : {};
+        let result = new BatchJobVm();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jobName"] = this.jobName;
+        data["jobGroup"] = this.jobGroup;
+        data["jobType"] = this.jobType;
+        data["jobUrl"] = this.jobUrl;
+        data["cronExpression"] = this.cronExpression;
+        data["scheduleType"] = this.scheduleType;
+        data["year"] = this.year;
+        data["month"] = this.month;
+        data["day"] = this.day;
+        data["weekDay"] = this.weekDay;
+        data["hour"] = this.hour;
+        data["minute"] = this.minute;
+        data["second"] = this.second;
+        data["jobTriggerId"] = this.jobTriggerId;
+        data["jobNo"] = this.jobNo;
+        return data;
+    }
+}
+
+export interface IBatchJobVm {
+    jobName?: string;
+    jobGroup?: string;
+    jobType?: JobType;
+    jobUrl?: string | undefined;
+    cronExpression?: string | undefined;
+    scheduleType?: ScheduleType | undefined;
     year?: number | undefined;
     month?: number | undefined;
     day?: number | undefined;
