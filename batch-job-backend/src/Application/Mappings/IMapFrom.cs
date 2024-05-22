@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-namespace Yaml.Infrastructure.Mappings;
+﻿namespace batch_job_backend.Application.Mappings;
 
 public interface IMapFrom<T>
 {

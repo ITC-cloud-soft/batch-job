@@ -1,14 +1,15 @@
 ﻿using batch_job_backend.Application.Common.Interfaces;
+using batch_job_backend.Application.Mappings;
 using batch_job_backend.Domain.Enums;
 using Quartz;
-using Yaml.Infrastructure.Mappings;
 
-namespace batch_job_backend.Application.BatchJob.Commands.CreateBatchJob;
+namespace batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
 
-public record CreateBatchJobCommand : IRequest<int>,  IMapFrom<Domain.Entities.BatchJob>
+public record CreateBatchJobCommand : IRequest<Domain.Entities.BatchJob>,  IMapFrom<Domain.Entities.BatchJob>
 {
     // バッチ名 (共通)
     public string? JobName { get; set; }
+    
     public string? JobGroup { get; set; }
     
     // 定時周期 or Trigger (共通)
@@ -31,30 +32,27 @@ public record CreateBatchJobCommand : IRequest<int>,  IMapFrom<Domain.Entities.B
     public int? Minute { get; set; }
     public int? Second { get; set; }
     
-    
     // Trigger トリガーファイル名 (Trigger)
     public int? JobTriggerId { get; set; }
     
     // バッチ番号 (Trigger)
     public int? JobNo{ get; set; }
-
 }
 
 public class CreateBatchJobCommandValidator : AbstractValidator<CreateBatchJobCommand>
 {
     public CreateBatchJobCommandValidator()
     {
-        RuleFor(x => x.JobUrl)
-            .NotEmpty().WithMessage("JobUrl is required.");
+        // RuleFor(x => x.JobUrl)
+        //     .NotEmpty().WithMessage("JobUrl is required.");
     }
 }
 
-public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobCommand, int>
+public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobCommand, Domain.Entities.BatchJob>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
     private readonly ISchedulerFactory _schedulerFactory;
-
     
     public CreateBatchJobCommandHandler(
         IApplicationDbContext context,
@@ -67,11 +65,11 @@ public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobComman
         _mapper = imapper;
     }
 
-    public async Task<int> Handle(CreateBatchJobCommand command, CancellationToken cancellationToken)
+    public async Task<Domain.Entities.BatchJob> Handle(CreateBatchJobCommand command, CancellationToken cancellationToken)
     {
-
         var job = _mapper.Map<Domain.Entities.BatchJob>(command);
         await _context.BatchJobs.AddAsync(job, cancellationToken);
-        return job.Id;
+        await _context.SaveChangesAsync(cancellationToken);
+        return job;
     }
 }

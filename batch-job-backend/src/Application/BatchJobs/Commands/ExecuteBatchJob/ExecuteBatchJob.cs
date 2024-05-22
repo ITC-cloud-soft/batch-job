@@ -1,11 +1,13 @@
 ﻿using batch_job_backend.Application.Common.Interfaces;
 using batch_job_backend.Infrastructure.Job;
+using Microsoft.Extensions.Logging;
 using Quartz;
 
 namespace batch_job_backend.Application.BatchJob.Commands.ExecuteBatchJob;
 
 public record ExecuteBatchJobCommand : IRequest<int>
 {
+    public int JobId { get; set; }
 }
 
 public class ExecuteBatchJobCommandValidator : AbstractValidator<ExecuteBatchJobCommand>
@@ -19,30 +21,42 @@ public class ExecuteBatchJobCommandHandler : IRequestHandler<ExecuteBatchJobComm
 {
     private readonly IApplicationDbContext _context;
     private readonly ISchedulerFactory _schedulerFactory;
-    
-    public ExecuteBatchJobCommandHandler(IApplicationDbContext context, ISchedulerFactory schedulerFactory)
+    private readonly ILogger _logger;
+    public ExecuteBatchJobCommandHandler(IApplicationDbContext context, ISchedulerFactory schedulerFactory, ILogger<ExecuteBatchJobCommandHandler> logger)
     {
         _context = context;
         _schedulerFactory = schedulerFactory;
+        _logger = logger;
     }
 
     public async Task<int> Handle(ExecuteBatchJobCommand request, CancellationToken cancellationToken)
     {
-        var scheduler = await _schedulerFactory.GetScheduler();
+        _logger.LogInformation("Start executing job [{}]", request.JobId);
+        var job = _context.BatchJobs.FirstOrDefault(x => x.Id == request.JobId);
+
+        if (job == null)
+        {
+            _logger.LogError("Job not found [{}]", request.JobId);
+            throw new NotFoundException("Job not found for Id [{}]", request.JobId.ToString());
+        }
+        
+        var scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
 
         var jobDetail = JobBuilder.Create<CallRemoteInterfaceJob>()
-            .WithIdentity("myJob")
+            .WithIdentity(job.JobName)
             .Build();
 
         var trigger = TriggerBuilder.Create()
-            .WithIdentity("myJobTrigger")
+            .WithIdentity(job.JobName)
             .StartNow()
-            .WithSimpleSchedule(x => x.WithIntervalInSeconds(10).RepeatForever())
+            .WithCronSchedule("2 * * * * *")
             .Build();
 
         await scheduler.ScheduleJob(jobDetail, trigger);
 
         await scheduler.Start();
+        
+        _logger.LogInformation("Job Started [{}]", job.JobName);
         return 1;
     }
 }

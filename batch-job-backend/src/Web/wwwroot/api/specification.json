@@ -30,6 +30,38 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "$ref": "#/components/schemas/BatchJob"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BatchJobs/{jobId}": {
+      "delete": {
+        "tags": [
+          "BatchJobs"
+        ],
+        "operationId": "StopJob",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
                   "type": "integer",
                   "format": "int32"
                 }
@@ -356,6 +388,178 @@
   },
   "components": {
     "schemas": {
+      "BatchJob": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseAuditableEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "jobName": {
+                "type": "string"
+              },
+              "jobGroup": {
+                "type": "string",
+                "nullable": true
+              },
+              "jobType": {
+                "$ref": "#/components/schemas/JobType"
+              },
+              "jobUrl": {
+                "type": "string",
+                "nullable": true
+              },
+              "cronExpression": {
+                "type": "string",
+                "nullable": true
+              },
+              "scheduleType": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ScheduleType"
+                  }
+                ]
+              },
+              "startWeekDay": {
+                "type": "string",
+                "nullable": true
+              },
+              "year": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "month": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "day": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "weekDay": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "hour": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "minute": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "second": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "jobTriggerId": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "jobNo": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "JobType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Scheduled",
+          "Trigger"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "ScheduleType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Year",
+          "Month",
+          "Week",
+          "Day",
+          "Hour",
+          "Minute"
+        ],
+        "enum": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "BaseAuditableEntity": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseEntity"
+          },
+          {
+            "type": "object",
+            "x-abstract": true,
+            "additionalProperties": false,
+            "properties": {
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdBy": {
+                "type": "string",
+                "nullable": true
+              },
+              "lastModified": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "lastModifiedBy": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "BaseEntity": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "domainEvents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BaseEvent"
+            }
+          }
+        }
+      },
+      "BaseEvent": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false
+      },
       "CreateBatchJobCommand": {
         "type": "object",
         "additionalProperties": false,
@@ -437,38 +641,6 @@
             "nullable": true
           }
         }
-      },
-      "JobType": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Scheduled",
-          "Trigger"
-        ],
-        "enum": [
-          0,
-          1
-        ]
-      },
-      "ScheduleType": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Year",
-          "Month",
-          "Week",
-          "Day",
-          "Hour",
-          "Minute"
-        ],
-        "enum": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ]
       },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",

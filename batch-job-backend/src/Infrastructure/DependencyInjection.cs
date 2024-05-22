@@ -57,7 +57,7 @@ public static class DependencyInjection
                     mysqlOptions.ConnectionString = connectionString;
                     mysqlOptions.TablePrefix = "QRTZ_";
                 });
-                
+                options.UseClustering();
                 options.UseNewtonsoftJsonSerializer();
             });
         });

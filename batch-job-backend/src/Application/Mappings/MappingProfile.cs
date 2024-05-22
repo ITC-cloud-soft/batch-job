@@ -1,8 +1,7 @@
 using System.Reflection;
-using AutoMapper;
-using Yaml.Infrastructure.Mappings;
+using batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
 
-namespace batch_job_backend.Domain.Mappings;
+namespace batch_job_backend.Application.Mappings;
 
 public class MappingProfile : Profile
 {
@@ -48,26 +47,6 @@ public class MappingProfile : Profile
                 }
             }
         }
-
-        // // DTO => Entity
-        // CreateMap<YamlAppInfoDto, YamlAppInfo>()
-        //     .ForMember(dest => dest.Tenantid, opt => opt.MapFrom(src => src.KeyVault.TenantId))
-        //     .ForMember(dest => dest.KeyVaultName, opt => opt.MapFrom(src => src.KeyVault.KeyVaultName))
-        //     .ForMember(dest => dest.ManagedId, opt => opt.MapFrom(src => src.KeyVault.ManagedId));
-        //
-        // CreateMap<YamlClusterInfoDto, YamlClusterInfo>();
-        // CreateMap<DomainDto, YamlClusterDomainInfo>();
-        // CreateMap<ConfigMapDto, YamlClusterConfigMapInfo>();
-        // CreateMap<ConfigFileDto, YamlClusterConfigFileInfo>();
-        // CreateMap<DiskInfoDto, YamlClusterDiskInfo>();
-        //
-        // // Entity => DOT
-        // CreateMap<YamlAppInfo, YamlAppInfoDto>();
-        // CreateMap<YamlClusterInfo, YamlClusterInfoDto>();
-        // CreateMap<YamlClusterDomainInfo, DomainDto>();
-        // CreateMap<YamlClusterConfigMapInfo, ConfigMapDto>();
-        // CreateMap<YamlClusterConfigFileInfo, ConfigFileDto>();
-        // CreateMap<YamlKeyVaultInfo, KeyVaultDto>();
-        // CreateMap<YamlClusterDiskInfo, DiskInfoDto>();
+        CreateMap<CreateBatchJobCommand, Domain.Entities.BatchJob>();
     }
 }
