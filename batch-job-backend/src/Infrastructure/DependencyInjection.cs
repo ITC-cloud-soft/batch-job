@@ -63,7 +63,6 @@ public static class DependencyInjection
         });
         // 添加 Quartz Hosted Service
         services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
-        Console.WriteLine("123");
         return services;
     }
 }

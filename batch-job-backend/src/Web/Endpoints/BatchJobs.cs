@@ -10,21 +10,22 @@ public class BatchJobs : EndpointGroupBase
     {
         app.MapGroup(this)
             .MapPost(CreateJob)
-            .MapDelete(StopJob, "{jobId}");
+            .MapPost(ExecuteJob, "start/{jobId}")
+            .MapPost(StopJob, "stop/{jobId}");
     }
 
-    public Task<Domain.Entities.BatchJob> CreateJob(ISender sender, CreateBatchJobCommand command)
+    private Task<Domain.Entities.BatchJob> CreateJob(ISender sender, CreateBatchJobCommand command)
     {
         return sender.Send(command);
     }
     
-    public async Task<int> ExecuteJob(ISender sender, ExecuteBatchJobCommand command)
+    private async Task<int> ExecuteJob(ISender sender,  int jobId )
     {
-        return await sender.Send(command);
+        return await sender.Send(new ExecuteBatchJobCommand {JobId = jobId});
     }
     
-    public async Task<int> StopJob(ISender sender,  int jobId)
+    private async Task StopJob(ISender sender,  int jobId)
     {
-        return await sender.Send(new StopBatchJobCommand(){JobId = jobId});
+         await sender.Send(new StopBatchJobCommand{JobId = jobId});
     }
 }

@@ -43,18 +43,18 @@ public class ExecuteBatchJobCommandHandler : IRequestHandler<ExecuteBatchJobComm
         var scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
 
         var jobDetail = JobBuilder.Create<CallRemoteInterfaceJob>()
-            .WithIdentity(job.JobName)
+            .WithIdentity(job.JobName, job.JobGroup)
             .Build();
 
         var trigger = TriggerBuilder.Create()
-            .WithIdentity(job.JobName)
+            .WithIdentity(job.JobName,  job.JobGroup)
             .StartNow()
-            .WithCronSchedule("2 * * * * *")
+            .WithCronSchedule(job.CronExpression ?? "")
             .Build();
 
-        await scheduler.ScheduleJob(jobDetail, trigger);
+        await scheduler.ScheduleJob(jobDetail, trigger, cancellationToken);
 
-        await scheduler.Start();
+        await scheduler.Start(cancellationToken);
         
         _logger.LogInformation("Job Started [{}]", job.JobName);
         return 1;

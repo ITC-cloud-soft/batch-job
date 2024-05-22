@@ -4,8 +4,8 @@ namespace batch_job_backend.Domain.Entities;
 public class BatchJob: BaseAuditableEntity
 {
     // バッチ名 (共通)
-    public string JobName { get; set; } = "";
-    public string? JobGroup { get; set; }
+    public string JobName { get; set; } = "defaultJobName";
+    public string JobGroup { get; set; } = "defaultGroupName";
     
     // 定時周期 or Trigger (共通)
     public JobType JobType { get; set; }

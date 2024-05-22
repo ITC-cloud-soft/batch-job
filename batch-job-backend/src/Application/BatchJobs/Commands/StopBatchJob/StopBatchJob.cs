@@ -4,7 +4,7 @@ using Quartz;
 
 namespace batch_job_backend.Application.BatchJob.Commands.StopBatchJob;
 
-public record StopBatchJobCommand : IRequest<int>
+public record StopBatchJobCommand : IRequest
 {
     public int JobId { get; set; }
 }
@@ -16,7 +16,7 @@ public class StopBatchJobCommandValidator : AbstractValidator<StopBatchJobComman
     }
 }
 
-public class StopBatchJobCommandHandler : IRequestHandler<StopBatchJobCommand, int>
+public class StopBatchJobCommandHandler : IRequestHandler<StopBatchJobCommand>
 {
     private readonly IApplicationDbContext _context;
     private readonly ISchedulerFactory _schedulerFactory;
@@ -28,15 +28,22 @@ public class StopBatchJobCommandHandler : IRequestHandler<StopBatchJobCommand, i
         _logger = logger;
     }
 
-    public async Task<int> Handle(StopBatchJobCommand request, CancellationToken cancellationToken)
+    public async Task Handle(StopBatchJobCommand request, CancellationToken cancellationToken)
     {  
         _logger.LogInformation("Job is stopping.");
+
+        var job = _context.BatchJobs.FirstOrDefault(x => x.Id == request.JobId);
+
+        if (job == null)
+        {
+            _logger.LogError("Job not found [{}]", request.JobId);
+            throw new NotFoundException(request.JobId.ToString(), "Job");
+        }
         
         IScheduler scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
-        
-        await scheduler.DeleteJob(new JobKey("myJob"), cancellationToken);
-        await scheduler.UnscheduleJob(new TriggerKey("myJobTrigger"), cancellationToken);
-
-        return 1;
+        // delete job
+        await scheduler.DeleteJob(new JobKey(job.JobName, job.JobGroup), cancellationToken);
+        // delete trigger
+        await scheduler.UnscheduleJob(new TriggerKey(job.JobName, job.JobGroup), cancellationToken);
     }
 }

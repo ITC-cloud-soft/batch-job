@@ -52,17 +52,14 @@ public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobComman
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
-    private readonly ISchedulerFactory _schedulerFactory;
     
     public CreateBatchJobCommandHandler(
-        IApplicationDbContext context,
-        ISchedulerFactory schedulerFactory,
-        IMapper imapper
+        IApplicationDbContext context, 
+        IMapper mapper
         )
     {
         _context = context;
-        _schedulerFactory = schedulerFactory;
-        _mapper = imapper;
+        _mapper = mapper;
     }
 
     public async Task<Domain.Entities.BatchJob> Handle(CreateBatchJobCommand command, CancellationToken cancellationToken)
