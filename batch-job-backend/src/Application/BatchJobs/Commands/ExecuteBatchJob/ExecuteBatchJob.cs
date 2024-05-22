@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using batch_job_backend.Application.Common.Interfaces;
+using batch_job_backend.Domain.Entities;
 using batch_job_backend.Infrastructure.Job;
 using Microsoft.Extensions.Logging;
 using Quartz;
@@ -62,14 +63,14 @@ public class ExecuteBatchJobCommandHandler : IRequestHandler<ExecuteBatchJobComm
         _logger.LogInformation("Job Started [{JobName}]", job.JobName);
     }
     
-    private Domain.Entities.BatchJob? GetJob(int jobId)
+    private BJob? GetJob(int jobId)
     {
         return _context.BatchJobs
             .AsNoTracking()
             .FirstOrDefault(x => x.Id == jobId);
     }
 
-    private List<Domain.Entities.BatchJob> GetTriggerJobs(int jobId)
+    private List<BJob> GetTriggerJobs(int jobId)
     {
         return _context.BatchJobs
             .AsNoTracking()
@@ -77,7 +78,7 @@ public class ExecuteBatchJobCommandHandler : IRequestHandler<ExecuteBatchJobComm
             .ToList();
     }
     
-    private JobDataMap CreateJobDataMap(Domain.Entities.BatchJob job, List<Domain.Entities.BatchJob> triggerJobList)
+    private JobDataMap CreateJobDataMap(BJob job, List<BJob> triggerJobList)
     {
         return new JobDataMap
         {

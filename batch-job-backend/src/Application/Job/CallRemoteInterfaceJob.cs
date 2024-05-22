@@ -30,11 +30,11 @@ public class  CallRemoteInterfaceJob : IJob
                 return;
             }
 
-            var job = JsonSerializer.Deserialize<BatchJob>(jobJsonStr);
-            var triggerList = JsonSerializer.Deserialize<List<BatchJob>>(TriggerJsonStr ?? "");
+            var job = JsonSerializer.Deserialize<BJob>(jobJsonStr);
+            var triggerList = JsonSerializer.Deserialize<List<BJob>>(TriggerJsonStr ?? "");
 
             await GetRequest(job?.JobUrl ?? "");
-            foreach (BatchJob trigger in triggerList ?? Enumerable.Empty<BatchJob>())
+            foreach (BJob trigger in triggerList ?? Enumerable.Empty<BJob>())
             {
                 // TODO 返回值处理
                 _logger.LogInformation("Trigger: {TriggerId}", trigger.Id);

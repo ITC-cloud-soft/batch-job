@@ -8,7 +8,7 @@ public interface IApplicationDbContext
 
     DbSet<TodoItem> TodoItems { get; }
 
-    DbSet<Domain.Entities.BatchJob> BatchJobs { get; }
+    DbSet<BJob> BatchJobs { get; }
     
     DbSet<TaskHistory> TaskHistories { get; }
 

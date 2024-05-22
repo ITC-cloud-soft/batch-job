@@ -30,7 +30,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BatchJob"
+                  "$ref": "#/components/schemas/BJob"
                 }
               }
             }
@@ -58,15 +58,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
+            "description": ""
           }
         }
       }
@@ -279,7 +271,7 @@
   },
   "components": {
     "schemas": {
-      "BatchJob": {
+      "BJob": {
         "allOf": [
           {
             "$ref": "#/components/schemas/BaseAuditableEntity"

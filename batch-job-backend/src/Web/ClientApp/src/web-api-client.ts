@@ -20,7 +20,7 @@ export class BatchJobsClient {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
-    createJob(command: CreateBatchJobCommand): Promise<BatchJob> {
+    createJob(command: CreateBatchJobCommand): Promise<BJob> {
         let url_ = this.baseUrl + "/api/BatchJobs";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -40,7 +40,7 @@ export class BatchJobsClient {
         });
     }
 
-    protected processCreateJob(response: Response): Promise<BatchJob> {
+    protected processCreateJob(response: Response): Promise<BJob> {
         followIfLoginRedirect(response);
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
@@ -48,7 +48,7 @@ export class BatchJobsClient {
             return response.text().then((_responseText) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = BatchJob.fromJS(resultData200);
+            result200 = BJob.fromJS(resultData200);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -56,10 +56,10 @@ export class BatchJobsClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<BatchJob>(null as any);
+        return Promise.resolve<BJob>(null as any);
     }
 
-    executeJob(jobId: number): Promise<number> {
+    executeJob(jobId: number): Promise<void> {
         let url_ = this.baseUrl + "/api/BatchJobs/start/{jobId}";
         if (jobId === undefined || jobId === null)
             throw new Error("The parameter 'jobId' must be defined.");
@@ -69,7 +69,6 @@ export class BatchJobsClient {
         let options_: RequestInit = {
             method: "POST",
             headers: {
-                "Accept": "application/json"
             }
         };
 
@@ -78,24 +77,20 @@ export class BatchJobsClient {
         });
     }
 
-    protected processExecuteJob(response: Response): Promise<number> {
+    protected processExecuteJob(response: Response): Promise<void> {
         followIfLoginRedirect(response);
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
-            return result200;
+            return;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<number>(null as any);
+        return Promise.resolve<void>(null as any);
     }
 
     stopJob(jobId: number): Promise<void> {
@@ -430,7 +425,7 @@ export interface IBaseAuditableEntity extends IBaseEntity {
     lastModifiedBy?: string | undefined;
 }
 
-export class BatchJob extends BaseAuditableEntity implements IBatchJob {
+export class BJob extends BaseAuditableEntity implements IBJob {
     jobName?: string;
     jobGroup?: string;
     jobType?: JobType;
@@ -447,7 +442,7 @@ export class BatchJob extends BaseAuditableEntity implements IBatchJob {
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
 
-    constructor(data?: IBatchJob) {
+    constructor(data?: IBJob) {
         super(data);
     }
 
@@ -472,9 +467,9 @@ export class BatchJob extends BaseAuditableEntity implements IBatchJob {
         }
     }
 
-    static override fromJS(data: any): BatchJob {
+    static override fromJS(data: any): BJob {
         data = typeof data === 'object' ? data : {};
-        let result = new BatchJob();
+        let result = new BJob();
         result.init(data);
         return result;
     }
@@ -501,7 +496,7 @@ export class BatchJob extends BaseAuditableEntity implements IBatchJob {
     }
 }
 
-export interface IBatchJob extends IBaseAuditableEntity {
+export interface IBJob extends IBaseAuditableEntity {
     jobName?: string;
     jobGroup?: string;
     jobType?: JobType;

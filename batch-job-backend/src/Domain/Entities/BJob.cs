@@ -1,7 +1,7 @@
 
 namespace batch_job_backend.Domain.Entities;
 
-public class BatchJob: BaseAuditableEntity
+public class BJob: BaseAuditableEntity
 {
     // バッチ名 (共通)
     public string JobName { get; set; } = "defaultJobName";

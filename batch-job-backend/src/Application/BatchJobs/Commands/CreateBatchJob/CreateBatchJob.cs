@@ -1,11 +1,12 @@
 ﻿using batch_job_backend.Application.Common.Interfaces;
 using batch_job_backend.Application.Mappings;
+using batch_job_backend.Domain.Entities;
 using batch_job_backend.Domain.Enums;
 using Quartz;
 
 namespace batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
 
-public record CreateBatchJobCommand : IRequest<Domain.Entities.BatchJob>,  IMapFrom<Domain.Entities.BatchJob>
+public record CreateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
 {
     // バッチ名 (共通)
     public string? JobName { get; set; }
@@ -48,7 +49,7 @@ public class CreateBatchJobCommandValidator : AbstractValidator<CreateBatchJobCo
     }
 }
 
-public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobCommand, Domain.Entities.BatchJob>
+public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobCommand, BJob>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -62,15 +63,15 @@ public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobComman
         _mapper = mapper;
     }
 
-    public async Task<Domain.Entities.BatchJob> Handle(CreateBatchJobCommand command, CancellationToken cancellationToken)
+    public async Task<BJob> Handle(CreateBatchJobCommand command, CancellationToken cancellationToken)
     {
-        var job = _mapper.Map<Domain.Entities.BatchJob>(command);
+        var job = _mapper.Map<BJob>(command);
         await _context.BatchJobs.AddAsync(job, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         return job;
     }
 
-    private string generateCronExpression(Domain.Entities.BatchJob batchJob)
+    private string generateCronExpression(BJob bJob)
     {
         return "";
     } 

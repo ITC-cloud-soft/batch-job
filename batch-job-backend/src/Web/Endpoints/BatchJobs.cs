@@ -15,7 +15,7 @@ public class BatchJobs : EndpointGroupBase
             .MapPost(StopJob, "stop/{jobId}");
     }
 
-    private Task<BatchJob> CreateJob(ISender sender, CreateBatchJobCommand command)
+    private Task<BJob> CreateJob(ISender sender, CreateBatchJobCommand command)
     {
         return sender.Send(command);
     }

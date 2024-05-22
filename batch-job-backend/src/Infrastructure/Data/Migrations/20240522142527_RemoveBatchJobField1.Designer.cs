@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using batch_job_backend.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using batch_job_backend.Infrastructure.Data;
 namespace batch_job_backend.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240522142527_RemoveBatchJobField1")]
+    partial class RemoveBatchJobField1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,7 +161,7 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("batch_job_backend.Domain.Entities.BJob", b =>
+            modelBuilder.Entity("batch_job_backend.Domain.Entities.BatchJob", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

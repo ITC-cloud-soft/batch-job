@@ -1,5 +1,6 @@
 using System.Reflection;
 using batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
+using batch_job_backend.Domain.Entities;
 
 namespace batch_job_backend.Application.Mappings;
 
@@ -47,6 +48,6 @@ public class MappingProfile : Profile
                 }
             }
         }
-        CreateMap<CreateBatchJobCommand, Domain.Entities.BatchJob>();
+        CreateMap<CreateBatchJobCommand, BJob>();
     }
 }

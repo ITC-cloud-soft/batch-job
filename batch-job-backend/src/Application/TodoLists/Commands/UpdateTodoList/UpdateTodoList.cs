@@ -1,4 +1,4 @@
-﻿using batch_job_backend.Application.Common.Interfaces;
+using batch_job_backend.Application.Common.Interfaces;
 
 namespace batch_job_backend.Application.TodoLists.Commands.UpdateTodoList;
 
