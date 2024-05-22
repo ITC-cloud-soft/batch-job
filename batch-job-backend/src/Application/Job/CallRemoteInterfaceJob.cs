@@ -1,3 +1,4 @@
+using System.Text.Json;
 using batch_job_backend.Application.Common.Interfaces;
 using batch_job_backend.Domain.Entities;
 using Microsoft.Extensions.Logging;
@@ -17,22 +18,37 @@ public class  CallRemoteInterfaceJob : IJob
 
     public async Task Execute(IJobExecutionContext context)
     {
-        JobDataMap param = context.JobDetail.JobDataMap;
+        try
+        {
+            JobDataMap param = context.JobDetail.JobDataMap;
 
-        var job = (BatchJob)param.Get(JobConstants.Scheduled);
-        var triggers = (List<BatchJob>)param.Get(JobConstants.TriggerJobs);
-        
-        
-        
-        // string? url = param.ge(JobConstants.JobUrl);
-        //
-        // if (url == null)
-        // {
-        //     return;
-        // }
+            string? jobJsonStr = param.GetString(JobConstants.Scheduled);
+            string? TriggerJsonStr = param.GetString(JobConstants.TriggerJobs);
+            if (string.IsNullOrEmpty(jobJsonStr))
+            {
+                _logger.LogWarning("Job or trigger data is missing.");
+                return;
+            }
 
-        await Console.Out.WriteLineAsync("CallRemoteInterfaceJob is executing.");
+            var job = JsonSerializer.Deserialize<BatchJob>(jobJsonStr);
+            var triggerList = JsonSerializer.Deserialize<List<BatchJob>>(TriggerJsonStr ?? "");
+
+            await GetRequest(job?.JobUrl ?? "");
+            foreach (BatchJob trigger in triggerList ?? Enumerable.Empty<BatchJob>())
+            {
+                // TODO 返回值处理
+                _logger.LogInformation("Trigger: {TriggerId}", trigger.Id);
+            }
+
+            _logger.LogInformation("CallRemoteInterfaceJob is executing.");
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "An error occurred while executing CallRemoteInterfaceJob.");
+            throw;
+        }
     }
+    
     
     private async Task<string> GetRequest(string url)
     {

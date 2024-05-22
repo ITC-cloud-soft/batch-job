@@ -20,13 +20,13 @@ public class BatchJobs : EndpointGroupBase
         return sender.Send(command);
     }
     
-    private async Task<int> ExecuteJob(ISender sender,  int jobId )
+    private async Task ExecuteJob(ISender sender,  int jobId )
     {
-        return await sender.Send(new ExecuteBatchJobCommand {JobId = jobId});
+        await sender.Send(new ExecuteBatchJobCommand {JobId = jobId});
     }
     
     private async Task StopJob(ISender sender,  int jobId)
     {
-         await sender.Send(new StopBatchJobCommand{JobId = jobId});
+        await sender.Send(new StopBatchJobCommand{JobId = jobId});
     }
 }
