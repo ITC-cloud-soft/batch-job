@@ -1,6 +1,7 @@
 using batch_job_backend.Application.BatchJob.Commands.ExecuteBatchJob;
 using batch_job_backend.Application.BatchJob.Commands.StopBatchJob;
 using batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
+using batch_job_backend.Domain.Entities;
 
 namespace batch_job_backend.Web.Endpoints;
 
@@ -14,7 +15,7 @@ public class BatchJobs : EndpointGroupBase
             .MapPost(StopJob, "stop/{jobId}");
     }
 
-    private Task<Domain.Entities.BatchJob> CreateJob(ISender sender, CreateBatchJobCommand command)
+    private Task<BatchJob> CreateJob(ISender sender, CreateBatchJobCommand command)
     {
         return sender.Send(command);
     }

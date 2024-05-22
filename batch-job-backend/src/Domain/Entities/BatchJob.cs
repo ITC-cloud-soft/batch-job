@@ -17,8 +17,7 @@ public class BatchJob: BaseAuditableEntity
     public string? CronExpression { get; set; }
     // バッチ起動日(定時周期)
     public ScheduleType? ScheduleType { get; set; }
-    // バッチ起動日(曜日)  (定時周期)
-    public string? StartWeekDay { get; set; }
+
     public int? Year { get; set; }
     public int? Month { get; set; }
     public int? Day { get; set; }
@@ -28,7 +27,8 @@ public class BatchJob: BaseAuditableEntity
     public int? Second { get; set; }
     
     
-    // Trigger トリガーファイル名 (Trigger)
+    // Trigger トリガーファイル名 (Trigger) => 对应的scheduled job的id
+    // 可能有多个Trigger 对一个scheduled job 的情况
     public int? JobTriggerId { get; set; }
     
     // バッチ番号 (Trigger)

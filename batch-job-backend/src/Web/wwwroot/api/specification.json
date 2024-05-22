@@ -133,10 +133,6 @@
                   }
                 ]
               },
-              "startWeekDay": {
-                "type": "string",
-                "nullable": true
-              },
               "year": {
                 "type": "integer",
                 "format": "int32",

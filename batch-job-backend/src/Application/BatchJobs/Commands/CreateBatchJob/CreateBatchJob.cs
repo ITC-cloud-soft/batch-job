@@ -69,4 +69,9 @@ public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobComman
         await _context.SaveChangesAsync(cancellationToken);
         return job;
     }
+
+    private string generateCronExpression(Domain.Entities.BatchJob batchJob)
+    {
+        return "";
+    } 
 }

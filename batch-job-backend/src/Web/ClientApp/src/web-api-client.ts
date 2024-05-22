@@ -229,7 +229,6 @@ export class BatchJob extends BaseAuditableEntity implements IBatchJob {
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
     scheduleType?: ScheduleType | undefined;
-    startWeekDay?: string | undefined;
     year?: number | undefined;
     month?: number | undefined;
     day?: number | undefined;
@@ -253,7 +252,6 @@ export class BatchJob extends BaseAuditableEntity implements IBatchJob {
             this.jobUrl = _data["jobUrl"];
             this.cronExpression = _data["cronExpression"];
             this.scheduleType = _data["scheduleType"];
-            this.startWeekDay = _data["startWeekDay"];
             this.year = _data["year"];
             this.month = _data["month"];
             this.day = _data["day"];
@@ -281,7 +279,6 @@ export class BatchJob extends BaseAuditableEntity implements IBatchJob {
         data["jobUrl"] = this.jobUrl;
         data["cronExpression"] = this.cronExpression;
         data["scheduleType"] = this.scheduleType;
-        data["startWeekDay"] = this.startWeekDay;
         data["year"] = this.year;
         data["month"] = this.month;
         data["day"] = this.day;
@@ -303,7 +300,6 @@ export interface IBatchJob extends IBaseAuditableEntity {
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
     scheduleType?: ScheduleType | undefined;
-    startWeekDay?: string | undefined;
     year?: number | undefined;
     month?: number | undefined;
     day?: number | undefined;

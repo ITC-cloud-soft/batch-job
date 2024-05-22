@@ -1,8 +1,9 @@
-﻿using batch_job_backend.Application.Common.Interfaces;
+﻿using batch_job_backend.Application.BatchJob.Queries.GetBatchJob;
+using batch_job_backend.Application.Common.Interfaces;
 using batch_job_backend.Application.Common.Models;
 using batch_job_backend.Domain.Enums;
 
-namespace batch_job_backend.Application.BatchJob.Queries.GetBatchJob;
+namespace batch_job_backend.Application.BatchJobs.Queries.GetBatchJob;
 
 public record GetBatchJobWithPaginationQuery : IRequest<PaginatedList<BatchJobVm>>
 {
