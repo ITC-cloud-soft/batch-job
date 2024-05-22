@@ -6,6 +6,39 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/BatchJobs": {
+      "post": {
+        "tags": [
+          "BatchJobs"
+        ],
+        "operationId": "CreateJob",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBatchJobCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -323,6 +356,120 @@
   },
   "components": {
     "schemas": {
+      "CreateBatchJobCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "jobName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobType": {
+            "$ref": "#/components/schemas/JobType"
+          },
+          "jobUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "cronExpression": {
+            "type": "string",
+            "nullable": true
+          },
+          "scheduleType": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleType"
+              }
+            ]
+          },
+          "startWeekDay": {
+            "type": "string",
+            "nullable": true
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "month": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "day": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "weekDay": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "hour": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "minute": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "second": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "jobTriggerId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "jobNo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        }
+      },
+      "JobType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Scheduled",
+          "Trigger"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "ScheduleType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Year",
+          "Month",
+          "Week",
+          "Day",
+          "Hour",
+          "Minute"
+        ],
+        "enum": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
         "additionalProperties": false,

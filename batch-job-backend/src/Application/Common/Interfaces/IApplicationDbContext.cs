@@ -8,5 +8,9 @@ public interface IApplicationDbContext
 
     DbSet<TodoItem> TodoItems { get; }
 
+    DbSet<BatchJob> BatchJobs { get; }
+    
+    DbSet<TaskHistory> TaskHistories { get; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

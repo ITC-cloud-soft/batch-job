@@ -3,6 +3,7 @@ using batch_job_backend.Domain.Constants;
 using batch_job_backend.Infrastructure.Data;
 using batch_job_backend.Infrastructure.Data.Interceptors;
 using batch_job_backend.Infrastructure.Identity;
+using batch_job_backend.Infrastructure.Job;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -45,7 +46,19 @@ public static class DependencyInjection
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
 
-        services.AddQuartz();
+        services.AddQuartz(q =>
+        {
+            // Just use the name of your job that you created in the Jobs folder.
+            var jobKey = new JobKey("SendEmailJob");
+            q.AddJob<SendEmailJob>(opts => opts.WithIdentity(jobKey));
+    
+            q.AddTrigger(opts => opts
+                .ForJob(jobKey)
+                .WithIdentity("SendEmailJob-trigger")
+                //This Cron interval can be described as "run every minute" (when second is zero)
+                .StartNow()
+            );
+        });
         // 添加 Quartz Hosted Service
         services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
         

@@ -10,6 +10,57 @@
 
 import followIfLoginRedirect from './components/api-authorization/followIfLoginRedirect';
 
+export class BatchJobsClient {
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        this.http = http ? http : window as any;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    createJob(command: CreateBatchJobCommand): Promise<number> {
+        let url_ = this.baseUrl + "/api/BatchJobs";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processCreateJob(_response);
+        });
+    }
+
+    protected processCreateJob(response: Response): Promise<number> {
+        followIfLoginRedirect(response);
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = resultData200 !== undefined ? resultData200 : <any>null;
+    
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<number>(null as any);
+    }
+}
+
 export class TodoItemsClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
@@ -427,6 +478,116 @@ export class WeatherForecastsClient {
         }
         return Promise.resolve<WeatherForecast[]>(null as any);
     }
+}
+
+export class CreateBatchJobCommand implements ICreateBatchJobCommand {
+    jobName?: string | undefined;
+    jobGroup?: string | undefined;
+    jobType?: JobType;
+    jobUrl?: string | undefined;
+    cronExpression?: string | undefined;
+    scheduleType?: ScheduleType | undefined;
+    startWeekDay?: string | undefined;
+    year?: number | undefined;
+    month?: number | undefined;
+    day?: number | undefined;
+    weekDay?: number | undefined;
+    hour?: number | undefined;
+    minute?: number | undefined;
+    second?: number | undefined;
+    jobTriggerId?: number | undefined;
+    jobNo?: number | undefined;
+
+    constructor(data?: ICreateBatchJobCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jobName = _data["jobName"];
+            this.jobGroup = _data["jobGroup"];
+            this.jobType = _data["jobType"];
+            this.jobUrl = _data["jobUrl"];
+            this.cronExpression = _data["cronExpression"];
+            this.scheduleType = _data["scheduleType"];
+            this.startWeekDay = _data["startWeekDay"];
+            this.year = _data["year"];
+            this.month = _data["month"];
+            this.day = _data["day"];
+            this.weekDay = _data["weekDay"];
+            this.hour = _data["hour"];
+            this.minute = _data["minute"];
+            this.second = _data["second"];
+            this.jobTriggerId = _data["jobTriggerId"];
+            this.jobNo = _data["jobNo"];
+        }
+    }
+
+    static fromJS(data: any): CreateBatchJobCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateBatchJobCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jobName"] = this.jobName;
+        data["jobGroup"] = this.jobGroup;
+        data["jobType"] = this.jobType;
+        data["jobUrl"] = this.jobUrl;
+        data["cronExpression"] = this.cronExpression;
+        data["scheduleType"] = this.scheduleType;
+        data["startWeekDay"] = this.startWeekDay;
+        data["year"] = this.year;
+        data["month"] = this.month;
+        data["day"] = this.day;
+        data["weekDay"] = this.weekDay;
+        data["hour"] = this.hour;
+        data["minute"] = this.minute;
+        data["second"] = this.second;
+        data["jobTriggerId"] = this.jobTriggerId;
+        data["jobNo"] = this.jobNo;
+        return data;
+    }
+}
+
+export interface ICreateBatchJobCommand {
+    jobName?: string | undefined;
+    jobGroup?: string | undefined;
+    jobType?: JobType;
+    jobUrl?: string | undefined;
+    cronExpression?: string | undefined;
+    scheduleType?: ScheduleType | undefined;
+    startWeekDay?: string | undefined;
+    year?: number | undefined;
+    month?: number | undefined;
+    day?: number | undefined;
+    weekDay?: number | undefined;
+    hour?: number | undefined;
+    minute?: number | undefined;
+    second?: number | undefined;
+    jobTriggerId?: number | undefined;
+    jobNo?: number | undefined;
+}
+
+export enum JobType {
+    Scheduled = 0,
+    Trigger = 1,
+}
+
+export enum ScheduleType {
+    Year = 0,
+    Month = 0,
+    Week = 0,
+    Day = 0,
+    Hour = 0,
+    Minute = 0,
 }
 
 export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {
