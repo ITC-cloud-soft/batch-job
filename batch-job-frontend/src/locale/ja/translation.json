@@ -1,0 +1,46 @@
+{
+    "login": {
+        "loginId": "ログインID",
+        "userName": "ユーザーネーム",
+        "password": "パスワード",
+        "loginButton": "ログイン",
+        "usernameEmpty": "ユーザー名を入力してください。",
+        "pwdEmpty": "パスワードを入力してください。",
+        "passwordError": "パスワードが間違っています",
+        "autoLogin": "自動ログイン",
+        "forgetPassword": "パスワードを忘れた方",
+        "switchToLogin" : "アカウントをお持ちでない",
+        "othersLoginWay": "その他のログイン方法："
+    },
+    "home": {
+        "mainPage": "メインページ",
+        "creditCardManage": "クレジットカード管理",
+        "logout": "ログアウト",
+        "more": "もっと見る",
+        "download": "ダウンロード",
+        "language": "言語",
+        "needToRegister": "操作を続行するにはログインしてください。"
+    },
+    "workDetail": {
+        "download": "ダウンロード",
+        "paymentAmount": "支払い額/月",
+        "pageViews": "ページビュー",
+        "comments": "コメント",
+        "replies": "返信",
+        "reply": "返信",
+        "addComment": "コメントを追加",
+        "jsonView": "JSON プレビュー",
+        "mainPage": "Main Page"
+    },
+    "registerPage": {
+        "login": "既にアカウントをお持ちですか？ ログイン",
+        "register": "ユーザー登録",
+        "subTitle": "これはサブタイトルです",
+        "inputUsername": "ユーザー名を入力してください",
+        "inputEmail": "メールアドレスを入力してください",
+        "company": "組織",
+        "inputCompany": "組織名を入力してください",
+        "confirmPassword": "パスワードを確認してください"
+    },
+    "noResponse": "サーバーからの応答がありません."
+}

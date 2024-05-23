@@ -1,0 +1,113 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+data:
+  VITE_BASE_URL: https://cloud-store-backend.thomaszou2077.com
+  VITE_USE_TOKEN_AUTHORIZATION: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  default.conf: |
+    server {
+        listen 80;
+        server_name localhost;
+
+        location / {
+            root   /usr/share/nginx/html;
+            index  index.html index.htm;
+            try_files $uri $uri/ /index.html;
+        }
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+            root   /usr/share/nginx/html;
+        }
+    }
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-store-frontend-deployment
+  labels:
+    app: cloud-store-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloud-store-frontend
+  template:
+    metadata:
+      labels:
+        app: cloud-store-frontend
+    spec:
+      containers:
+        - name: cloud-store-frontend
+          image: thomaszy2077/cloud-store-frontend:1.0.3
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: VITE_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: VITE_BASE_URL
+            - name: VITE_USE_TOKEN_AUTHORIZATION
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: VITE_USE_TOKEN_AUTHORIZATION
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+            items:
+              - key: default.conf
+                path: default.conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-store-frontend-service
+spec:
+  selector:
+    app: cloud-store-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cloud-store-frontend-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: cloud-store-frontend.thomaszou2077.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cloud-store-frontend-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - cloud-store-frontend.thomaszou2077.com
+      secretName: cloud-store-tls
+
