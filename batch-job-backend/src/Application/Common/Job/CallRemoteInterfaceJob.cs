@@ -23,7 +23,7 @@ public class  CallRemoteInterfaceJob : IJob
             JobDataMap param = context.JobDetail.JobDataMap;
 
             string? jobJsonStr = param.GetString(JobConstants.Scheduled);
-            string? TriggerJsonStr = param.GetString(JobConstants.TriggerJobs);
+            string? triggerJsonStr = param.GetString(JobConstants.TriggerJobs);
             if (string.IsNullOrEmpty(jobJsonStr))
             {
                 _logger.LogWarning("Job or trigger data is missing.");
@@ -31,13 +31,16 @@ public class  CallRemoteInterfaceJob : IJob
             }
 
             var job = JsonSerializer.Deserialize<BJob>(jobJsonStr);
-            var triggerList = JsonSerializer.Deserialize<List<BJob>>(TriggerJsonStr ?? "");
+            var triggerList = JsonSerializer.Deserialize<List<BJob>>(triggerJsonStr ?? "");
 
-            await GetRequest(job?.JobUrl ?? "");
+            var response = await GetRequest(job?.JobUrl ?? "");
+            Console.WriteLine(response);
             foreach (BJob trigger in triggerList ?? Enumerable.Empty<BJob>())
             {
                 // TODO 返回值处理
                 _logger.LogInformation("Trigger: {TriggerId}", trigger.Id);
+                var response2 = await GetRequest(job?.JobUrl ?? "");
+                Console.WriteLine(response2);
             }
 
             _logger.LogInformation("CallRemoteInterfaceJob is executing.");

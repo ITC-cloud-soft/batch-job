@@ -14,11 +14,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<TodoList> TodoLists => Set<TodoList>();
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
     public DbSet<BJob> BatchJobs => Set<BJob>();
-    public DbSet<TaskHistory> TaskHistories => Set<TaskHistory>();
+    public DbSet<TaskHistory> TaskHistories  => Set<TaskHistory>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
-    
 }

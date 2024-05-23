@@ -629,6 +629,7 @@ export enum TaskJobStatus {
     Failed = 4,
     Deleted = 5,
     Awaiting = 6,
+    Stop = 6,
 }
 
 export abstract class BaseEvent implements IBaseEvent {

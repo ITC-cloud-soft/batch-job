@@ -3,7 +3,6 @@ using batch_job_backend.Domain.Constants;
 using batch_job_backend.Infrastructure.Data;
 using batch_job_backend.Infrastructure.Data.Interceptors;
 using batch_job_backend.Infrastructure.Identity;
-using batch_job_backend.Infrastructure.Job;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;

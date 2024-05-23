@@ -492,7 +492,8 @@
           "Succeeded",
           "Failed",
           "Deleted",
-          "Awaiting"
+          "Awaiting",
+          "Stop"
         ],
         "enum": [
           0,
@@ -501,6 +502,7 @@
           3,
           4,
           5,
+          6,
           6
         ]
       },

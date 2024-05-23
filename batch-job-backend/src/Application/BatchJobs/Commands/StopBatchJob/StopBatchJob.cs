@@ -1,4 +1,5 @@
 ﻿using batch_job_backend.Application.Common.Interfaces;
+using batch_job_backend.Domain.Enums;
 using Microsoft.Extensions.Logging;
 using Quartz;
 
@@ -37,9 +38,12 @@ public class StopBatchJobCommandHandler : IRequestHandler<StopBatchJobCommand>
         Guard.Against.NotFound(request.JobId, job);
         
         IScheduler scheduler = await _schedulerFactory.GetScheduler(cancellationToken);
-        // delete job
+        // 删除 job
         await scheduler.DeleteJob(new JobKey(job.JobName, job.JobGroup), cancellationToken);
-        // delete trigger
+        // 删除 trigger
         await scheduler.UnscheduleJob(new TriggerKey(job.JobName, job.JobGroup), cancellationToken);
+        // 更新 Job 状态
+        job.Status = TaskJobStatus.Stop;
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

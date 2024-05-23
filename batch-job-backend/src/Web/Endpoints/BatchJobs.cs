@@ -18,7 +18,7 @@ public class BatchJobs : EndpointGroupBase
             .MapPut(UpdateJob, "{jobId}")
             .MapGet(Query)
             .MapGet(ExecuteJob, "start/{jobId}")
-            .MapGet(StopJob, "stop/{jobId}");
+            .MapDelete(StopJob, "stop/{jobId}");
 
     }
 
