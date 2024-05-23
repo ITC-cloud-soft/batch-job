@@ -219,6 +219,9 @@ namespace batch_job_backend.Infrastructure.Data.Migrations
                     b.Property<int?>("Second")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<int?>("WeekDay")
                         .HasColumnType("int");
 

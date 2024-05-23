@@ -2,7 +2,6 @@
 using batch_job_backend.Application.Mappings;
 using batch_job_backend.Domain.Entities;
 using batch_job_backend.Domain.Enums;
-using Quartz;
 
 namespace batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
 
@@ -23,8 +22,7 @@ public record CreateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
     public string? CronExpression { get; set; }
     // バッチ起動日(定時周期)
     public ScheduleType? ScheduleType { get; set; }
-    // バッチ起動日(曜日)  (定時周期)
-    public string? StartWeekDay { get; set; }
+
     public int? Year { get; set; }
     public int? Month { get; set; }
     public int? Day { get; set; }
@@ -38,6 +36,8 @@ public record CreateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
     
     // バッチ番号 (Trigger)
     public int? JobNo{ get; set; }
+    
+    
 }
 
 public class CreateBatchJobCommandValidator : AbstractValidator<CreateBatchJobCommand>

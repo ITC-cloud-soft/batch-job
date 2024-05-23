@@ -1,6 +1,6 @@
-namespace batch_job_backend.Domain.Entities;
+namespace batch_job_backend.Domain.Enums;
 
-public enum TaskStatus
+public enum TaskJobStatus
 {
     Enqueued = 0,
     Scheduled = 1,

@@ -59,16 +59,12 @@ export class BatchJobsClient {
         return Promise.resolve<BJob>(null as any);
     }
 
-    query(jobType: JobType, listId: number, pageNumber: number, pageSize: number): Promise<PaginatedListOfBatchJobVm> {
+    query(jobType: JobType, pageNumber: number, pageSize: number): Promise<PaginatedListOfBatchJobVm> {
         let url_ = this.baseUrl + "/api/BatchJobs?";
         if (jobType === undefined || jobType === null)
             throw new Error("The parameter 'jobType' must be defined and cannot be null.");
         else
             url_ += "JobType=" + encodeURIComponent("" + jobType) + "&";
-        if (listId === undefined || listId === null)
-            throw new Error("The parameter 'listId' must be defined and cannot be null.");
-        else
-            url_ += "ListId=" + encodeURIComponent("" + listId) + "&";
         if (pageNumber === undefined || pageNumber === null)
             throw new Error("The parameter 'pageNumber' must be defined and cannot be null.");
         else
@@ -534,6 +530,7 @@ export class BJob extends BaseAuditableEntity implements IBJob {
     second?: number | undefined;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
+    status?: TaskJobStatus;
 
     constructor(data?: IBJob) {
         super(data);
@@ -557,6 +554,7 @@ export class BJob extends BaseAuditableEntity implements IBJob {
             this.second = _data["second"];
             this.jobTriggerId = _data["jobTriggerId"];
             this.jobNo = _data["jobNo"];
+            this.status = _data["status"];
         }
     }
 
@@ -584,6 +582,7 @@ export class BJob extends BaseAuditableEntity implements IBJob {
         data["second"] = this.second;
         data["jobTriggerId"] = this.jobTriggerId;
         data["jobNo"] = this.jobNo;
+        data["status"] = this.status;
         super.toJSON(data);
         return data;
     }
@@ -605,6 +604,7 @@ export interface IBJob extends IBaseAuditableEntity {
     second?: number | undefined;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
+    status?: TaskJobStatus;
 }
 
 export enum JobType {
@@ -619,6 +619,16 @@ export enum ScheduleType {
     Day = 0,
     Hour = 0,
     Minute = 0,
+}
+
+export enum TaskJobStatus {
+    Enqueued = 0,
+    Scheduled = 1,
+    Processing = 2,
+    Succeeded = 3,
+    Failed = 4,
+    Deleted = 5,
+    Awaiting = 6,
 }
 
 export abstract class BaseEvent implements IBaseEvent {
@@ -656,7 +666,6 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
     scheduleType?: ScheduleType | undefined;
-    startWeekDay?: string | undefined;
     year?: number | undefined;
     month?: number | undefined;
     day?: number | undefined;
@@ -684,7 +693,6 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
             this.jobUrl = _data["jobUrl"];
             this.cronExpression = _data["cronExpression"];
             this.scheduleType = _data["scheduleType"];
-            this.startWeekDay = _data["startWeekDay"];
             this.year = _data["year"];
             this.month = _data["month"];
             this.day = _data["day"];
@@ -712,7 +720,6 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
         data["jobUrl"] = this.jobUrl;
         data["cronExpression"] = this.cronExpression;
         data["scheduleType"] = this.scheduleType;
-        data["startWeekDay"] = this.startWeekDay;
         data["year"] = this.year;
         data["month"] = this.month;
         data["day"] = this.day;
@@ -733,7 +740,6 @@ export interface ICreateBatchJobCommand {
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
     scheduleType?: ScheduleType | undefined;
-    startWeekDay?: string | undefined;
     year?: number | undefined;
     month?: number | undefined;
     day?: number | undefined;
