@@ -190,7 +190,7 @@ export class BatchJobsClient {
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
-            method: "GET",
+            method: "DELETE",
             headers: {
             }
         };
@@ -520,14 +520,14 @@ export class BJob extends BaseAuditableEntity implements IBJob {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
-    scheduleType?: ScheduleType | undefined;
-    year?: number | undefined;
-    month?: number | undefined;
-    day?: number | undefined;
-    weekDay?: number | undefined;
-    hour?: number | undefined;
-    minute?: number | undefined;
-    second?: number | undefined;
+    scheduleType?: ScheduleType;
+    year?: string | undefined;
+    month?: string | undefined;
+    day?: string | undefined;
+    weekDay?: string | undefined;
+    hour?: string | undefined;
+    minute?: string | undefined;
+    second?: string | undefined;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
     status?: TaskJobStatus;
@@ -594,14 +594,14 @@ export interface IBJob extends IBaseAuditableEntity {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
-    scheduleType?: ScheduleType | undefined;
-    year?: number | undefined;
-    month?: number | undefined;
-    day?: number | undefined;
-    weekDay?: number | undefined;
-    hour?: number | undefined;
-    minute?: number | undefined;
-    second?: number | undefined;
+    scheduleType?: ScheduleType;
+    year?: string | undefined;
+    month?: string | undefined;
+    day?: string | undefined;
+    weekDay?: string | undefined;
+    hour?: string | undefined;
+    minute?: string | undefined;
+    second?: string | undefined;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
     status?: TaskJobStatus;
@@ -613,12 +613,13 @@ export enum JobType {
 }
 
 export enum ScheduleType {
-    Year = 0,
-    Month = 0,
-    Week = 0,
-    Day = 0,
-    Hour = 0,
-    Minute = 0,
+    No = 0,
+    Year = 1,
+    Month = 2,
+    Week = 3,
+    Day = 4,
+    Hour = 5,
+    Minute = 6,
 }
 
 export enum TaskJobStatus {
@@ -629,7 +630,10 @@ export enum TaskJobStatus {
     Failed = 4,
     Deleted = 5,
     Awaiting = 6,
-    Stop = 6,
+    Stop = 7,
+    Paused = 8,
+    Canceled = 9,
+    Rescheduled = 10,
 }
 
 export abstract class BaseEvent implements IBaseEvent {
@@ -913,21 +917,27 @@ export interface IPaginatedListOfBatchJobVm {
 }
 
 export class BatchJobVm implements IBatchJobVm {
+    id?: number;
     jobName?: string;
     jobGroup?: string;
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
+    cronExpressionStr?: string | undefined;
     scheduleType?: ScheduleType | undefined;
-    year?: number | undefined;
-    month?: number | undefined;
-    day?: number | undefined;
-    weekDay?: number | undefined;
-    hour?: number | undefined;
-    minute?: number | undefined;
-    second?: number | undefined;
+    scheduleTypeStr?: string | undefined;
+    year?: string | undefined;
+    month?: string | undefined;
+    day?: string | undefined;
+    weekDay?: string | undefined;
+    hour?: string | undefined;
+    minute?: string | undefined;
+    second?: string | undefined;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
+    status?: TaskJobStatus;
+    taskJobStatusDes?: string;
+    taskJobStatusColor?: string;
 
     constructor(data?: IBatchJobVm) {
         if (data) {
@@ -940,12 +950,15 @@ export class BatchJobVm implements IBatchJobVm {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.jobName = _data["jobName"];
             this.jobGroup = _data["jobGroup"];
             this.jobType = _data["jobType"];
             this.jobUrl = _data["jobUrl"];
             this.cronExpression = _data["cronExpression"];
+            this.cronExpressionStr = _data["cronExpressionStr"];
             this.scheduleType = _data["scheduleType"];
+            this.scheduleTypeStr = _data["scheduleTypeStr"];
             this.year = _data["year"];
             this.month = _data["month"];
             this.day = _data["day"];
@@ -955,6 +968,9 @@ export class BatchJobVm implements IBatchJobVm {
             this.second = _data["second"];
             this.jobTriggerId = _data["jobTriggerId"];
             this.jobNo = _data["jobNo"];
+            this.status = _data["status"];
+            this.taskJobStatusDes = _data["taskJobStatusDes"];
+            this.taskJobStatusColor = _data["taskJobStatusColor"];
         }
     }
 
@@ -967,12 +983,15 @@ export class BatchJobVm implements IBatchJobVm {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["jobName"] = this.jobName;
         data["jobGroup"] = this.jobGroup;
         data["jobType"] = this.jobType;
         data["jobUrl"] = this.jobUrl;
         data["cronExpression"] = this.cronExpression;
+        data["cronExpressionStr"] = this.cronExpressionStr;
         data["scheduleType"] = this.scheduleType;
+        data["scheduleTypeStr"] = this.scheduleTypeStr;
         data["year"] = this.year;
         data["month"] = this.month;
         data["day"] = this.day;
@@ -982,26 +1001,35 @@ export class BatchJobVm implements IBatchJobVm {
         data["second"] = this.second;
         data["jobTriggerId"] = this.jobTriggerId;
         data["jobNo"] = this.jobNo;
+        data["status"] = this.status;
+        data["taskJobStatusDes"] = this.taskJobStatusDes;
+        data["taskJobStatusColor"] = this.taskJobStatusColor;
         return data;
     }
 }
 
 export interface IBatchJobVm {
+    id?: number;
     jobName?: string;
     jobGroup?: string;
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
+    cronExpressionStr?: string | undefined;
     scheduleType?: ScheduleType | undefined;
-    year?: number | undefined;
-    month?: number | undefined;
-    day?: number | undefined;
-    weekDay?: number | undefined;
-    hour?: number | undefined;
-    minute?: number | undefined;
-    second?: number | undefined;
+    scheduleTypeStr?: string | undefined;
+    year?: string | undefined;
+    month?: string | undefined;
+    day?: string | undefined;
+    weekDay?: string | undefined;
+    hour?: string | undefined;
+    minute?: string | undefined;
+    second?: string | undefined;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
+    status?: TaskJobStatus;
+    taskJobStatusDes?: string;
+    taskJobStatusColor?: string;
 }
 
 export class PaginatedListOfTodoItemBriefDto implements IPaginatedListOfTodoItemBriefDto {

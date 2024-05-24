@@ -6,6 +6,7 @@ import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
 import ServerErrorPage from './pages/ServerErrorPage.tsx';
+import BatchList from './pages/BatchList.tsx';
 
 const routes = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const routes = createBrowserRouter([
     {
         path: '*',
         element: <NotFoundPage />,
+    },
+    {
+        path: '/batchList',
+        element: <BatchList />,
     },
     // 可以在这里添加更多顶级路由
 ]);

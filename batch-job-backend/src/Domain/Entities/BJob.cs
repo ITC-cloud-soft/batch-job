@@ -16,15 +16,15 @@ public class BJob: BaseAuditableEntity
     // 定時周期时间
     public string? CronExpression { get; set; }
     // バッチ起動日(定時周期)
-    public ScheduleType? ScheduleType { get; set; }
+    public ScheduleType ScheduleType { get; set; } = ScheduleType.No;
 
-    public int? Year { get; set; }
-    public int? Month { get; set; }
-    public int? Day { get; set; }
-    public int? WeekDay { get; set; }
-    public int? Hour { get; set; }
-    public int? Minute { get; set; }
-    public int? Second { get; set; }
+    public string? Year { get; set; }
+    public string? Month { get; set; }
+    public string? Day { get; set; }
+    public string? WeekDay { get; set; }
+    public string? Hour { get; set; }
+    public string? Minute { get; set; }
+    public string? Second { get; set; }
     
     
     // Trigger トリガーファイル名 (Trigger) => 对应的scheduled job的id

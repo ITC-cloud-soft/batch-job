@@ -9,8 +9,22 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddWebServices(this IServiceCollection services)
+    public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)
     {
+        // 1.CROS
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowSpecificOrigin", builder =>
+            {
+                Console.WriteLine(configuration["FrontendHost"]);
+                Console.WriteLine("configuration---------");
+                builder.WithOrigins(configuration["FrontendHost"] ?? "*")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+
+            });
+        });
+        
         services.AddDatabaseDeveloperPageExceptionFilter();
 
         services.AddScoped<IUser, CurrentUser>();

@@ -3,6 +3,8 @@ using batch_job_backend.Application.BatchJob.Commands.UpdateBatchJob;
 using batch_job_backend.Application.BatchJob.Queries.GetBatchJob;
 using batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
 using batch_job_backend.Domain.Entities;
+using batch_job_backend.Domain.Enums;
+using Quartz.Logging;
 
 namespace batch_job_backend.Application.Mappings;
 
@@ -52,6 +54,10 @@ public class MappingProfile : Profile
         }
         CreateMap<CreateBatchJobCommand, BJob>();
         CreateMap<UpdateBatchJobCommand, BJob>();
-        CreateMap<BJob, BatchJobVm>();
+        CreateMap<BJob, BatchJobVm>()
+            .ForMember(dest => dest.TaskJobStatusDes, opt => opt.MapFrom(src => src.Status.GetShortDescription()))
+            .ForMember(dest => dest.TaskJobStatusColor, opt => opt.MapFrom(src => src.Status.GetColor()))
+            .ForMember(dest => dest.ScheduleTypeStr, opt => opt.MapFrom(src => src.ScheduleType.GetDescription()));
+        
     }
 }

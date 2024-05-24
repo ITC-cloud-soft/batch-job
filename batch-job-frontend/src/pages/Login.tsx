@@ -135,9 +135,7 @@ const Login = () => {
                     minWidth: 280,
                     maxWidth: '75vw',
                 }}
-                logo={
-                    <img alt="logo" src={featureWorkImg} />
-                }
+                logo={<img alt="logo" src={featureWorkImg} />}
                 title="Cloud Store"
                 subTitle={'Yaml は世界一番好き.....'}
                 initialValues={{

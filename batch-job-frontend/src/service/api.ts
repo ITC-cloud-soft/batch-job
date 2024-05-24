@@ -6,6 +6,9 @@ import {
     WorkInfoWithPaginationQueryParam,
     WorkInfoWithPagination,
     CommentItem,
+    JobType,
+    JobPaginationQueryParam,
+    BJobWithPagination,
 } from '../props/DataStructure.ts';
 import request from '../utils/request.tsx';
 import { toURLParam } from '../utils/util.ts';
@@ -86,4 +89,25 @@ export async function viewTemplateFile(id: number): Promise<string> {
     );
     console.log(response);
     return response;
+}
+
+/**
+ * Batch Task Area
+ */
+export async function GetJobList(jobType: JobType) {
+    const param: JobPaginationQueryParam = {
+        jobType,
+        pageNumber: 1,
+        pageSize: 100,
+    };
+    const queryParams = toURLParam(param).toString();
+    return request.get<never, BJobWithPagination>(
+        `api/BatchJobs?${queryParams}`,
+    );
+}
+/**
+ * Batch Task Area
+ */
+export async function ExecuteBatchJob(jobType: JobType) {
+    return request.get<never>(`api/JobLists/${jobType}`);
 }

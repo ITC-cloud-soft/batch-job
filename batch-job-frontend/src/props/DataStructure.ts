@@ -122,3 +122,73 @@ export interface Organization {
     orgName: string;
     mainPage: string;
 }
+
+export interface BJobWithPagination {
+    pageNumber: number;
+    totalPages: number;
+    totalCount: number;
+    pageSize: number;
+    hasPreviousPage: boolean;
+    hasNextPage: true;
+    items: BJob[];
+}
+
+export interface BJob extends BaseAuditableEntity {
+    jobName: string;
+    key: number;
+    jobGroup: string;
+    jobType: JobType;
+    jobUrl?: string;
+    cronExpression?: string;
+    scheduleType?: ScheduleType;
+    scheduleTypeStr?: ScheduleType;
+    year?: number;
+    month?: number;
+    day?: number;
+    weekDay?: number;
+    hour?: number;
+    minute?: number;
+    second?: number;
+    jobTriggerId?: number;
+    jobNo?: number;
+    status: TaskJobStatus;
+    taskJobStatusDes: string;
+    taskJobStatusColor: string;
+}
+
+interface BaseAuditableEntity {
+    id: number;
+    createdDate: string;
+    modifiedDate: string;
+}
+
+export interface JobPaginationQueryParam {
+    jobType: JobType;
+    pageNumber: number;
+    pageSize: number;
+}
+
+export enum ScheduleType {
+    Year = 0,
+    Month = 1,
+    Week = 2,
+    Day = 3,
+    Hour = 4,
+    Minute = 5,
+}
+
+export enum JobType {
+    Scheduled = 0,
+    Trigger = 1,
+}
+
+export enum TaskJobStatus {
+    Enqueued = 0,
+    Scheduled = 1,
+    Processing = 2,
+    Succeeded = 3,
+    Failed = 4,
+    Deleted = 5,
+    Awaiting = 6,
+    Stop = 7, // Assuming 'Stop' should have a different value from 'Awaiting'
+}
