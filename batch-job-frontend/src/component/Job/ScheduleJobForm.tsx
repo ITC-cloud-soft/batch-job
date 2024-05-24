@@ -1,19 +1,86 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
-import { Form, Input, Select } from 'antd';
-import { ScheduleType } from '../../props/DataStructure.ts';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Flex, Form, Input, Select } from 'antd';
+import {
+    BJob,
+    ScheduleType,
+    ScheduleTypeDes,
+} from '../../props/DataStructure.ts';
 
 const Wrapper = styled.div`
     height: 85vh;
 `;
+// interface MinuteSelectProps {
+//     defaultValue?: string;
+//     onChange: (value: number) => void;
+//     suffix: string;
+// }
+// 生成 0 到 59 的分钟选项
+// const MinuteSelectComponent: React.FC<MinuteSelectProps> = ({
+//     defaultValue,
+//     onChange,
+//     suffix,
+// }) => {
+//     const minuteOptions = Array.from({ length: 60 }, (_, i) => `${i}${suffix}`);
+//
+//     return (
+//         <Select
+//             defaultValue={defaultValue}
+//             onChange={(v) => onChange(Number.parseInt(v))}
+//         >
+//             {minuteOptions.map((value, index) => (
+//                 <Select.Option key={value} value={index}>
+//                     {value}
+//                 </Select.Option>
+//             ))}
+//         </Select>
+//     );
+// };
 
 const ScheduleJobFormComponent = () => {
-    useEffect(() => {}, []);
+    useEffect(() => {
+        setJob({
+            createdDate: '',
+            cronExpression: '',
+            day: 0,
+            hour: 0,
+            id: 1,
+            jobGroup: '',
+            jobNo: 1,
+            jobTriggerId: 0,
+            jobType: 1,
+            jobUrl: '',
+            key: 0,
+            minute: 0,
+            modifiedDate: '',
+            month: 0,
+            scheduleType: undefined,
+            scheduleTypeStr: undefined,
+            second: 0,
+            status: 1,
+            taskJobStatusColor: '',
+            taskJobStatusDes: '',
+            weekDay: 0,
+            year: 0,
+            jobName: '123',
+        });
+    }, []);
 
+    const [job, setJob] = useState<BJob>();
     const mustInputMessage = 'Please input!';
+    const minuteOptions = Array.from({ length: 60 }, (_, i) => `${i}分`);
+    const sumbit = (job: BJob) => {
+        console.log(job);
+    };
+
     return (
         <Wrapper>
-            <Form layout="vertical" style={{ maxWidth: 400, margin: 20 }}>
+            <Form
+                layout="vertical"
+                style={{ maxWidth: 400, margin: 20 }}
+                onFinish={sumbit}
+                initialValues={job}
+            >
                 <Form.Item
                     label="バッチ名"
                     name="jobName"
@@ -21,28 +88,96 @@ const ScheduleJobFormComponent = () => {
                 >
                     <Input />
                 </Form.Item>
-                <Form.Item label="scheduleType" name="定時周期：">
-                    <Select>
-                        <Select.Option value={ScheduleType.Year}>
-                            年次処理
-                        </Select.Option>
-                        <Select.Option value={ScheduleType.Month}>
-                            月次処理
-                        </Select.Option>
-                        <Select.Option value={ScheduleType.Week}>
-                            週次処理
-                        </Select.Option>
-                        <Select.Option value={ScheduleType.Day}>
-                            日次処理
-                        </Select.Option>
-                        <Select.Option value={ScheduleType.Hour}>
-                            時間隔処理
-                        </Select.Option>
-                        <Select.Option value={ScheduleType.Minute}>
-                            分間隔処理
-                        </Select.Option>
+                <Form.Item label="定時周期：" name="scheduleType">
+                    <Select defaultValue={job?.scheduleType}>
+                        {Object.entries(ScheduleTypeDes).map(([key, value]) => (
+                            <Select.Option key={key} value={key}>
+                                {value.description}
+                            </Select.Option>
+                        ))}
                     </Select>
                 </Form.Item>
+                <Flex vertical={false} gap={20}>
+                    <Form.Item
+                        label="分"
+                        name="minute"
+                        style={{ minWidth: 80, maxWidth: 100 }}
+                    >
+                        <Select defaultValue={job?.minute}>
+                            {minuteOptions.map((value, index) => (
+                                <Select.Option key={value} value={index}>
+                                    {value}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+
+                    <Form.Item
+                        label="時"
+                        name="hour"
+                        style={{ minWidth: 80, maxWidth: 100 }}
+                    >
+                        <Select defaultValue={job?.minute}>
+                            {Object.entries(ScheduleTypeDes).map(
+                                ([key, value]) => (
+                                    <Select.Option key={key} value={key}>
+                                        {value.description}
+                                    </Select.Option>
+                                ),
+                            )}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
+                        label="時"
+                        name="hour"
+                        style={{ minWidth: 80, maxWidth: 100 }}
+                    >
+                        <Select defaultValue={job?.hour}>
+                            {Object.entries(ScheduleTypeDes).map(
+                                ([key, value]) => (
+                                    <Select.Option key={key} value={key}>
+                                        {value.description}
+                                    </Select.Option>
+                                ),
+                            )}
+                        </Select>
+                    </Form.Item>
+
+                    <Form.Item
+                        label="日"
+                        name="day"
+                        style={{ minWidth: 80, maxWidth: 100 }}
+                    >
+                        <Select defaultValue={job?.day}>
+                            {Object.entries(ScheduleTypeDes).map(
+                                ([key, value]) => (
+                                    <Select.Option key={key} value={key}>
+                                        {value.description}
+                                    </Select.Option>
+                                ),
+                            )}
+                        </Select>
+                    </Form.Item>
+
+                    <Form.Item
+                        label={'月'}
+                        name="day"
+                        style={{ minWidth: 80, maxWidth: 100 }}
+                    >
+                        <Select>
+                            {Object.entries(ScheduleTypeDes).map(
+                                ([key, value]) => (
+                                    <Select.Option key={key} value={key}>
+                                        {value.description}
+                                    </Select.Option>
+                                ),
+                            )}
+                        </Select>
+                    </Form.Item>
+                </Flex>
+                <Button type="primary" htmlType="submit">
+                    Submit
+                </Button>
             </Form>
         </Wrapper>
     );
