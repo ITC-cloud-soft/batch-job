@@ -42,9 +42,5 @@ public class BatchJobVm
     public TaskJobStatus Status { get; set; }
     public string TaskJobStatusDes { get; set; } = "default";
     public string TaskJobStatusColor { get; set; } = "default";
-
-    public void generateCornExpressString()
-    {
-        
-    }
+  
 }

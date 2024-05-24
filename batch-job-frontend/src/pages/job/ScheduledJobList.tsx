@@ -1,18 +1,14 @@
 import styled from 'styled-components';
 import { Space, Table, TableProps, Tag } from 'antd';
 import { useEffect, useState } from 'react';
-import {
-    BJob,
-    JobType,
-    TaskJobStatusDescriptions,
-} from '../props/DataStructure.ts';
-import { GetJobList } from '../service/api.ts';
+import { BJob, JobType } from '../../props/DataStructure.ts';
+import { GetJobList } from '../../service/api.ts';
 
 const Wrapper = styled.div`
     height: 85vh;
 `;
 
-const BatchList = () => {
+const ScheduledJobList = () => {
     const [jobList, setJobList] = useState<BJob[]>([]);
     useEffect(() => {
         GetJobList(JobType.Scheduled).then((data) => {
@@ -22,6 +18,10 @@ const BatchList = () => {
     }, []);
 
     const executeJob = (jobId: number) => {
+        console.log(jobId);
+    };
+
+    const editJob = (jobId: number) => {
         console.log(jobId);
     };
 
@@ -41,8 +41,8 @@ const BatchList = () => {
         },
         {
             title: '実行設定',
-            dataIndex: 'scheduleType',
-            key: 'scheduleType',
+            dataIndex: 'cronExpressionStr',
+            key: 'cronExpressionStr',
         },
         {
             title: 'バッチURL',
@@ -74,7 +74,9 @@ const BatchList = () => {
                             <a href="#" onClick={() => executeJob(id)}>
                                 起動
                             </a>
-                            <a>編集</a>
+                            <a href="#" onClick={() => editJob(id)}>
+                                編集
+                            </a>
                         </Space>
                     </>
                 );
@@ -89,4 +91,4 @@ const BatchList = () => {
     );
 };
 
-export default BatchList;
+export default ScheduledJobList;

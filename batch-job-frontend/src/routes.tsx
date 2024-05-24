@@ -6,7 +6,8 @@ import Login from './pages/Login.tsx';
 import Register from './pages/Register.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
 import ServerErrorPage from './pages/ServerErrorPage.tsx';
-import BatchList from './pages/BatchList.tsx';
+import ScheduledJobList from './pages/job/ScheduledJobList.tsx';
+import ScheduleJobFormComponent from './component/Job/ScheduleJobForm.tsx';
 
 const routes = createBrowserRouter([
     {
@@ -45,7 +46,11 @@ const routes = createBrowserRouter([
     },
     {
         path: '/batchList',
-        element: <BatchList />,
+        element: <ScheduledJobList />,
+    },
+    {
+        path: '/job/edit',
+        element: <ScheduleJobFormComponent />,
     },
     // 可以在这里添加更多顶级路由
 ]);

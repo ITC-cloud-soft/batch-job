@@ -169,13 +169,42 @@ export interface JobPaginationQueryParam {
 }
 
 export enum ScheduleType {
-    Year = 0,
-    Month = 1,
-    Week = 2,
-    Day = 3,
-    Hour = 4,
-    Minute = 5,
+    Year = 1,
+    Month = 2,
+    Week = 3,
+    Day = 4,
+    Hour = 5,
+    Minute = 6,
 }
+// {key: description}
+export const ScheduleTypeDes: {
+    [key in ScheduleType]: { description: string };
+} = {
+    [ScheduleType.Year]: { description: '年次処理' },
+    [ScheduleType.Month]: { description: '月次処理' },
+    [ScheduleType.Week]: { description: '週次処理' },
+    [ScheduleType.Day]: { description: '日次処理' },
+    [ScheduleType.Hour]: { description: '時間隔処理' },
+    [ScheduleType.Minute]: { description: '分間隔処理' },
+};
+
+/**
+ *  [Description("Default")]
+ *     No = 0,
+ *
+ *     [Description("年次処理")]
+ *     Year = 1,
+ *     [Description("月次処理")]
+ *     Month = 2,
+ *     [Description("週次処理")]
+ *     Week = 3,
+ *     [Description("日次処理")]
+ *     Day = 4,
+ *     [Description("時間隔処理")]
+ *     Hour = 5,
+ *     [Description("分間隔処理")]
+ *     Minute = 6,
+ */
 
 export enum JobType {
     Scheduled = 0,
