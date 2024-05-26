@@ -1,11 +1,7 @@
 import styled from 'styled-components';
-import React, { useEffect, useState } from 'react';
-import { Button, Col, Flex, Form, Input, Select } from 'antd';
-import {
-    BJob,
-    ScheduleType,
-    ScheduleTypeDes,
-} from '../../props/DataStructure.ts';
+import { useEffect, useState } from 'react';
+import { Button, Flex, Form, Input, Select } from 'antd';
+import { BJob, ScheduleTypeDes } from '../../props/DataStructure.ts';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -38,44 +34,51 @@ const Wrapper = styled.div`
 // };
 
 const ScheduleJobFormComponent = () => {
-    useEffect(() => {
-        setJob({
-            createdDate: '',
-            cronExpression: '',
-            day: 0,
-            hour: 0,
-            id: 1,
-            jobGroup: '',
-            jobNo: 1,
-            jobTriggerId: 0,
-            jobType: 1,
-            jobUrl: '',
-            key: 0,
-            minute: 0,
-            modifiedDate: '',
-            month: 0,
-            scheduleType: undefined,
-            scheduleTypeStr: undefined,
-            second: 0,
-            status: 1,
-            taskJobStatusColor: '',
-            taskJobStatusDes: '',
-            weekDay: 0,
-            year: 0,
-            jobName: '123',
-        });
-    }, []);
-
     const [job, setJob] = useState<BJob>();
     const mustInputMessage = 'Please input!';
     const minuteOptions = Array.from({ length: 60 }, (_, i) => `${i}分`);
-    const sumbit = (job: BJob) => {
+    const sumbit = (s: BJob) => {
+        console.log(s);
         console.log(job);
     };
+    const [form] = Form.useForm();
+    useEffect(() => {
+        // 模拟异步数据加载
+        setTimeout(() => {
+            const initialJob: BJob = {
+                createdDate: '',
+                cronExpression: '',
+                day: 0,
+                hour: 0,
+                id: 1,
+                jobGroup: '',
+                jobNo: 1,
+                jobTriggerId: 0,
+                jobType: 1,
+                jobUrl: '',
+                key: 0,
+                minute: 0,
+                modifiedDate: '',
+                month: 0,
+                scheduleType: undefined,
+                scheduleTypeStr: undefined,
+                second: 0,
+                status: 1,
+                taskJobStatusColor: '',
+                taskJobStatusDes: '',
+                weekDay: 0,
+                year: 0,
+                jobName: '123',
+            };
+            setJob(initialJob);
+            form.setFieldsValue(initialJob);
+        }, 1000); // 模拟延迟加载
+    }, []);
 
     return (
         <Wrapper>
             <Form
+                form={form}
                 layout="vertical"
                 style={{ maxWidth: 400, margin: 20 }}
                 onFinish={sumbit}
@@ -89,7 +92,7 @@ const ScheduleJobFormComponent = () => {
                     <Input />
                 </Form.Item>
                 <Form.Item label="定時周期：" name="scheduleType">
-                    <Select defaultValue={job?.scheduleType}>
+                    <Select>
                         {Object.entries(ScheduleTypeDes).map(([key, value]) => (
                             <Select.Option key={key} value={key}>
                                 {value.description}
@@ -103,7 +106,7 @@ const ScheduleJobFormComponent = () => {
                         name="minute"
                         style={{ minWidth: 80, maxWidth: 100 }}
                     >
-                        <Select defaultValue={job?.minute}>
+                        <Select>
                             {minuteOptions.map((value, index) => (
                                 <Select.Option key={value} value={index}>
                                     {value}
@@ -117,7 +120,7 @@ const ScheduleJobFormComponent = () => {
                         name="hour"
                         style={{ minWidth: 80, maxWidth: 100 }}
                     >
-                        <Select defaultValue={job?.minute}>
+                        <Select>
                             {Object.entries(ScheduleTypeDes).map(
                                 ([key, value]) => (
                                     <Select.Option key={key} value={key}>
@@ -132,7 +135,7 @@ const ScheduleJobFormComponent = () => {
                         name="hour"
                         style={{ minWidth: 80, maxWidth: 100 }}
                     >
-                        <Select defaultValue={job?.hour}>
+                        <Select>
                             {Object.entries(ScheduleTypeDes).map(
                                 ([key, value]) => (
                                     <Select.Option key={key} value={key}>
@@ -148,7 +151,7 @@ const ScheduleJobFormComponent = () => {
                         name="day"
                         style={{ minWidth: 80, maxWidth: 100 }}
                     >
-                        <Select defaultValue={job?.day}>
+                        <Select>
                             {Object.entries(ScheduleTypeDes).map(
                                 ([key, value]) => (
                                     <Select.Option key={key} value={key}>
