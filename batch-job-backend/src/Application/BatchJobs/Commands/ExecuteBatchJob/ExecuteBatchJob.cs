@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Quartz;
 
 
-namespace batch_job_backend.Application.BatchJob.Commands.ExecuteBatchJob;
+namespace batch_job_backend.Application.BatchJobs.Commands.ExecuteBatchJob;
 
 public record ExecuteBatchJobCommand : IRequest
 {

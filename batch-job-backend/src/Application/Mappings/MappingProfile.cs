@@ -1,10 +1,9 @@
 using System.Reflection;
-using batch_job_backend.Application.BatchJob.Commands.UpdateBatchJob;
-using batch_job_backend.Application.BatchJob.Queries.GetBatchJob;
+using batch_job_backend.Application.BatchJobs.Commands.UpdateBatchJob;
+using batch_job_backend.Application.BatchJobs.Queries.GetBatchJob;
 using batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
 using batch_job_backend.Domain.Entities;
 using batch_job_backend.Domain.Enums;
-using Quartz.Logging;
 
 namespace batch_job_backend.Application.Mappings;
 

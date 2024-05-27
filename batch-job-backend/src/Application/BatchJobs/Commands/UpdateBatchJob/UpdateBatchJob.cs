@@ -1,10 +1,11 @@
-﻿using batch_job_backend.Application.BatchJob.Commands.ExecuteBatchJob;
+﻿using batch_job_backend.Application.BatchJobs.Commands.ExecuteBatchJob;
+using batch_job_backend.Application.BatchJobs.Commands.ExecuteBatchJob;
 using batch_job_backend.Application.Common.Interfaces;
 using batch_job_backend.Application.Mappings;
 using batch_job_backend.Domain.Entities;
 using batch_job_backend.Domain.Enums;
 
-namespace batch_job_backend.Application.BatchJob.Commands.UpdateBatchJob;
+namespace batch_job_backend.Application.BatchJobs.Commands.UpdateBatchJob;
 
 public record UpdateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
 {

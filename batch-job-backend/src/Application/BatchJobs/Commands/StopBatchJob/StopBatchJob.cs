@@ -3,7 +3,7 @@ using batch_job_backend.Domain.Enums;
 using Microsoft.Extensions.Logging;
 using Quartz;
 
-namespace batch_job_backend.Application.BatchJob.Commands.StopBatchJob;
+namespace batch_job_backend.Application.BatchJobs.Commands.StopBatchJob;
 
 public record StopBatchJobCommand : IRequest
 {
