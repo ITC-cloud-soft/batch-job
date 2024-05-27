@@ -140,8 +140,8 @@ export interface BJob extends BaseAuditableEntity {
     jobType: JobType;
     jobUrl?: string;
     cronExpression?: string;
-    scheduleType?: ScheduleType;
-    scheduleTypeStr?: ScheduleType;
+    scheduleType: ScheduleType;
+    scheduleTypeStr?: string;
     year?: number;
     month?: number;
     day?: number;
@@ -188,24 +188,6 @@ export const ScheduleTypeDes: {
     [ScheduleType.Minute]: { description: '分間隔処理' },
 };
 
-/**
- *  [Description("Default")]
- *     No = 0,
- *
- *     [Description("年次処理")]
- *     Year = 1,
- *     [Description("月次処理")]
- *     Month = 2,
- *     [Description("週次処理")]
- *     Week = 3,
- *     [Description("日次処理")]
- *     Day = 4,
- *     [Description("時間隔処理")]
- *     Hour = 5,
- *     [Description("分間隔処理")]
- *     Minute = 6,
- */
-
 export enum JobType {
     Scheduled = 0,
     Trigger = 1,
@@ -220,4 +202,8 @@ export enum TaskJobStatus {
     Deleted = 5,
     Awaiting = 6,
     Stop = 7, // Assuming 'Stop' should have a different value from 'Awaiting'
+}
+
+export interface HmProps {
+    job?: BJob;
 }

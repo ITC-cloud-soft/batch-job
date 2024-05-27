@@ -1,8 +1,10 @@
 import { Flex, Form, Select } from 'antd';
-import { ScheduleTypeDes } from '../../props/DataStructure.ts';
+import { HmProps } from '../../props/DataStructure.ts';
+import React from 'react';
 
-const HourMinComponent = () => {
+const HourMinComponent: React.FC<HmProps> = () => {
     const minuteOptions = Array.from({ length: 60 }, (_, i) => `${i}分`);
+    const hourOptions = Array.from({ length: 23 }, (_, i) => `${i}時`);
 
     return (
         <Flex gap={20}>
@@ -26,9 +28,9 @@ const HourMinComponent = () => {
                 style={{ minWidth: 80, maxWidth: 100 }}
             >
                 <Select>
-                    {Object.entries(ScheduleTypeDes).map(([key, value]) => (
-                        <Select.Option key={key} value={key}>
-                            {value.description}
+                    {hourOptions.map((value, index) => (
+                        <Select.Option key={value} value={index}>
+                            {value}
                         </Select.Option>
                     ))}
                 </Select>
