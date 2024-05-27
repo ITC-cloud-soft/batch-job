@@ -1,9 +1,8 @@
-using batch_job_backend.Application.BatchJob.Commands.ExecuteBatchJob;
-using batch_job_backend.Application.BatchJob.Commands.StopBatchJob;
-using batch_job_backend.Application.BatchJob.Commands.UpdateBatchJob;
-using batch_job_backend.Application.BatchJob.Queries.GetBatchJob;
-using batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
+using batch_job_backend.Application.BatchJobs.Commands.ExecuteBatchJob;
+using batch_job_backend.Application.BatchJobs.Commands.StopBatchJob;
+using batch_job_backend.Application.BatchJobs.Commands.UpdateBatchJob;
 using batch_job_backend.Application.BatchJobs.Queries.GetBatchJob;
+using batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
 using batch_job_backend.Application.Common.Models;
 using batch_job_backend.Domain.Entities;
 
