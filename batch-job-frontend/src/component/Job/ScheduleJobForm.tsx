@@ -50,7 +50,7 @@ const ScheduleJobFormComponent = () => {
                 year: 0,
                 jobName: '123',
                 BatchLaunchMonthDay: '1',
-                BatchLaunchWeedDay: '1',
+                BatchLaunchWeekDay: '1',
                 LoopStep: 1,
                 WorkHourStart: 1,
                 WorkHourEnd: 2,
@@ -59,6 +59,8 @@ const ScheduleJobFormComponent = () => {
             form.setFieldsValue(initialJob);
         }, 1000); // 模拟延迟加载
     }, []);
+
+    console.log('job:', job);
 
     return (
         <Wrapper>
@@ -158,13 +160,13 @@ const ScheduleJobFormComponent = () => {
 
                 {job?.scheduleType == ScheduleType.Hour && (
                     <>
-                        <PeriodComponent />
+                        <PeriodComponent job={job} setJob={setJob} />
                     </>
                 )}
 
                 {job?.scheduleType == ScheduleType.Minute && (
                     <>
-                        <PeriodComponent />
+                        <PeriodComponent job={job} setJob={setJob} />
                     </>
                 )}
 

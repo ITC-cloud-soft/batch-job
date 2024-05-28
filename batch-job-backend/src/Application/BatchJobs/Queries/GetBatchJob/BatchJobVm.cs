@@ -31,6 +31,18 @@ public class BatchJobVm
     public string? Minute { get; set; }
     public string? Second { get; set; }
     
+     
+    // バッチ起動日 1-31
+    public string? BatchLaunchMonthDay { get; set; }
+    // バッチ起動日(曜日) 1-7 
+    public string? BatchLaunchWeedDay { get; set; }
+    
+    // 間隔値
+    public int LoopStep { get; set; }
+    
+    // 稼働時間帯
+    public int WorkHourStart { get; set; }
+    public int WorkHourEnd { get; set; }
     
     // Trigger トリガーファイル名 (Trigger) => 对应的scheduled job的id
     // 可能有多个Trigger 对一个scheduled job 的情况

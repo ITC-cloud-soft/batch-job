@@ -10,7 +10,7 @@ const WeekDayComponent = () => {
         return dayOfWeekFormatter.format(date);
     });
     return (
-        <Flex gap={20} vertical={false}>
+        <Flex flex-direction:column gap={20} vertical={false}>
             <Form.Item
                 label="曜日："
                 name="minute"
