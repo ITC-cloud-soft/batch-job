@@ -9,6 +9,7 @@ import {
 import HourMinComponent from './HourMinComponent.tsx';
 import MonthDayComponent from './MonthDayComponent.tsx';
 import WeekDayComponent from './WeekDayComponent.tsx';
+import PeriodComponent from './PeriodComponent.tsx';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -24,6 +25,8 @@ const ScheduleJobFormComponent = () => {
         // 模拟异步数据加载
         setTimeout(() => {
             const initialJob: BJob = {
+                startType: 1,
+                scheduleType: 5,
                 createdDate: '',
                 cronExpression: '',
                 day: 0,
@@ -38,7 +41,6 @@ const ScheduleJobFormComponent = () => {
                 minute: 2,
                 modifiedDate: '',
                 month: 0,
-                scheduleType: ScheduleType.Year,
                 scheduleTypeStr: '年次処理',
                 second: 0,
                 status: 1,
@@ -47,6 +49,11 @@ const ScheduleJobFormComponent = () => {
                 weekDay: 0,
                 year: 0,
                 jobName: '123',
+                BatchLaunchMonthDay: '1',
+                BatchLaunchWeedDay: '1',
+                LoopStep: 1,
+                WorkHourStart: 1,
+                WorkHourEnd: 2,
             };
             setJob(initialJob);
             form.setFieldsValue(initialJob);
@@ -147,6 +154,18 @@ const ScheduleJobFormComponent = () => {
                     <Flex vertical={false} gap={20}>
                         <HourMinComponent job={job} />
                     </Flex>
+                )}
+
+                {job?.scheduleType == ScheduleType.Hour && (
+                    <>
+                        <PeriodComponent />
+                    </>
+                )}
+
+                {job?.scheduleType == ScheduleType.Minute && (
+                    <>
+                        <PeriodComponent />
+                    </>
                 )}
 
                 <Button type="primary" htmlType="submit">

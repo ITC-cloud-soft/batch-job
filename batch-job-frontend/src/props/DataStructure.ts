@@ -154,6 +154,12 @@ export interface BJob extends BaseAuditableEntity {
     status: TaskJobStatus;
     taskJobStatusDes: string;
     taskJobStatusColor: string;
+    BatchLaunchMonthDay: string;
+    BatchLaunchWeedDay: string;
+    LoopStep: number;
+    WorkHourStart: number;
+    WorkHourEnd: number;
+    startType: StartType; // バッチ起動日 1 or バッチ起動日(曜日) 2radio
 }
 
 interface BaseAuditableEntity {
@@ -166,6 +172,15 @@ export interface JobPaginationQueryParam {
     jobType: JobType;
     pageNumber: number;
     pageSize: number;
+}
+
+export enum StartType {
+    Year = 1, // バッチ起動日
+    Month = 2, // バッチ起動日(曜日)
+    Week = 3,
+    Day = 4,
+    Hour = 5,
+    Minute = 6,
 }
 
 export enum ScheduleType {

@@ -4,7 +4,7 @@ import React from 'react';
 
 const HourMinComponent: React.FC<HmProps> = () => {
     const minuteOptions = Array.from({ length: 60 }, (_, i) => `${i}分`);
-    const hourOptions = Array.from({ length: 23 }, (_, i) => `${i}時`);
+    const hourOptions = Array.from({ length: 24 }, (_, i) => `${i}時`);
 
     return (
         <Flex gap={20}>
