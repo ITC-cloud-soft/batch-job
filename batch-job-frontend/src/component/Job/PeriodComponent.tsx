@@ -11,7 +11,6 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
         date.setDate(date.getDate() - date.getDay() + i);
         return dayOfWeekFormatter.format(date);
     });
-    console.log(daysOfWeek);
     return (
         <Flex vertical>
             <Flex gap={20}>
@@ -29,7 +28,7 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
             </Flex>
             <Flex gap={20}>
                 {job?.startType == StartType.Day && (
-                    <Form.Item name={'BatchLaunchMonthDay'}>
+                    <Form.Item name={'batchLaunchMonthDay'}>
                         <Checkbox.Group>
                             <Row>
                                 {Array.from({ length: 31 }, (_, i) => (
@@ -44,7 +43,7 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
                     </Form.Item>
                 )}
                 {job?.startType == StartType.Week && (
-                    <Form.Item name={'BatchLaunchWeekDay'}>
+                    <Form.Item name={'batchLaunchWeekDay'}>
                         <Checkbox.Group>
                             <Row>
                                 {daysOfWeek.map((value, i) => (

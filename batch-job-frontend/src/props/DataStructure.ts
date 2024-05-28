@@ -154,11 +154,11 @@ export interface BJob extends BaseAuditableEntity {
     status: TaskJobStatus;
     taskJobStatusDes: string;
     taskJobStatusColor: string;
-    BatchLaunchMonthDay: string;
-    BatchLaunchWeekDay: string;
-    LoopStep: number;
-    WorkHourStart: number;
-    WorkHourEnd: number;
+    batchLaunchMonthDay: number[];
+    batchLaunchWeekDay: number[];
+    loopStep: number;
+    workHourStart: number;
+    workHourEnd: number;
     startType: StartType; // バッチ起動日 1 or バッチ起動日(曜日) 2radio
 }
 

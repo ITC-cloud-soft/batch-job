@@ -5,7 +5,7 @@ import { Checkbox, Col, Flex, Form, Row } from 'antd';
 const MonthDayComponent: React.FC<HmProps> = () => {
     return (
         <Flex vertical={false} gap={20}>
-            <Form.Item>
+            <Form.Item name={'batchLaunchMonthDay'}>
                 <Checkbox.Group>
                     <Row>
                         {Array.from({ length: 31 }, (_, i) => (

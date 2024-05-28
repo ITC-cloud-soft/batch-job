@@ -26,10 +26,10 @@ const ScheduleJobFormComponent = () => {
         setTimeout(() => {
             const initialJob: BJob = {
                 startType: 1,
-                scheduleType: 5,
+                scheduleType: 6,
                 createdDate: '',
                 cronExpression: '',
-                day: 0,
+                day: 1,
                 hour: 3,
                 id: 1,
                 jobGroup: '',
@@ -40,7 +40,7 @@ const ScheduleJobFormComponent = () => {
                 key: 0,
                 minute: 2,
                 modifiedDate: '',
-                month: 0,
+                month: 1,
                 scheduleTypeStr: '年次処理',
                 second: 0,
                 status: 1,
@@ -49,11 +49,11 @@ const ScheduleJobFormComponent = () => {
                 weekDay: 0,
                 year: 0,
                 jobName: '123',
-                BatchLaunchMonthDay: '1',
-                BatchLaunchWeekDay: '1',
-                LoopStep: 1,
-                WorkHourStart: 1,
-                WorkHourEnd: 2,
+                batchLaunchMonthDay: [1, 2, 3],
+                batchLaunchWeekDay: [1, 2, 3],
+                loopStep: 1,
+                workHourStart: 1,
+                workHourEnd: 2,
             };
             setJob(initialJob);
             form.setFieldsValue(initialJob);
@@ -109,29 +109,25 @@ const ScheduleJobFormComponent = () => {
                             style={{ minWidth: 80, maxWidth: 100 }}
                         >
                             <Select>
-                                {Object.entries(ScheduleTypeDes).map(
-                                    ([key, value]) => (
-                                        <Select.Option key={key} value={key}>
-                                            {value.description}
-                                        </Select.Option>
-                                    ),
-                                )}
+                                {Array.from({ length: 31 }, (_, i) => (
+                                    <Select.Option key={i + 1} value={i + 1}>
+                                        {i + 1}日
+                                    </Select.Option>
+                                ))}
                             </Select>
                         </Form.Item>
 
                         <Form.Item
                             label={'月'}
-                            name="day"
+                            name="month"
                             style={{ minWidth: 80, maxWidth: 100 }}
                         >
                             <Select>
-                                {Object.entries(ScheduleTypeDes).map(
-                                    ([key, value]) => (
-                                        <Select.Option key={key} value={key}>
-                                            {value.description}
-                                        </Select.Option>
-                                    ),
-                                )}
+                                {Array.from({ length: 12 }, (_, i) => (
+                                    <Select.Option key={i + 1} value={i + 1}>
+                                        {i + 1}月
+                                    </Select.Option>
+                                ))}
                             </Select>
                         </Form.Item>
                     </Flex>
@@ -160,18 +156,58 @@ const ScheduleJobFormComponent = () => {
 
                 {job?.scheduleType == ScheduleType.Hour && (
                     <>
+                        <Form.Item
+                            name="loopStep"
+                            label={'間隔値：'}
+                            style={{ minWidth: 80, maxWidth: 100 }}
+                        >
+                            <Input />
+                        </Form.Item>
                         <PeriodComponent job={job} setJob={setJob} />
                     </>
                 )}
 
                 {job?.scheduleType == ScheduleType.Minute && (
                     <>
+                        <Flex>
+                            <Form.Item
+                                name="loopStep"
+                                label={'間隔値：'}
+                                style={{ minWidth: 80, maxWidth: 100 }}
+                            >
+                                <Input />
+                            </Form.Item>
+                        </Flex>
+
+                        <Flex>
+                            <Form.Item label={'稼働時間帯：'}>
+                                <Form.Item
+                                    name="workHourStart"
+                                    style={{
+                                        display: 'inline-block',
+                                        width: 'calc(50% - 28px)',
+                                    }}
+                                >
+                                    <Input />
+                                </Form.Item>
+                                <Form.Item
+                                    name="workHourEnd"
+                                    style={{
+                                        display: 'inline-block',
+                                        width: 'calc(50% - 28px)',
+                                        margin: '0 8px',
+                                    }}
+                                >
+                                    <Input />
+                                </Form.Item>
+                            </Form.Item>
+                        </Flex>
                         <PeriodComponent job={job} setJob={setJob} />
                     </>
                 )}
 
                 <Button type="primary" htmlType="submit">
-                    Submit
+                    登録
                 </Button>
             </Form>
         </Wrapper>
