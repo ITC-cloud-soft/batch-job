@@ -831,6 +831,26 @@
             "type": "string",
             "nullable": true
           },
+          "batchLaunchMonthDay": {
+            "type": "string",
+            "nullable": true
+          },
+          "batchLaunchWeedDay": {
+            "type": "string",
+            "nullable": true
+          },
+          "loopStep": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "workHourStart": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "workHourEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
           "jobTriggerId": {
             "type": "integer",
             "format": "int32",

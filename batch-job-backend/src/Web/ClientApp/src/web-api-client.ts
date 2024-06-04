@@ -953,6 +953,11 @@ export class BatchJobVm implements IBatchJobVm {
     hour?: string | undefined;
     minute?: string | undefined;
     second?: string | undefined;
+    batchLaunchMonthDay?: string | undefined;
+    batchLaunchWeedDay?: string | undefined;
+    loopStep?: number;
+    workHourStart?: number;
+    workHourEnd?: number;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
     status?: TaskJobStatus;
@@ -986,6 +991,11 @@ export class BatchJobVm implements IBatchJobVm {
             this.hour = _data["hour"];
             this.minute = _data["minute"];
             this.second = _data["second"];
+            this.batchLaunchMonthDay = _data["batchLaunchMonthDay"];
+            this.batchLaunchWeedDay = _data["batchLaunchWeedDay"];
+            this.loopStep = _data["loopStep"];
+            this.workHourStart = _data["workHourStart"];
+            this.workHourEnd = _data["workHourEnd"];
             this.jobTriggerId = _data["jobTriggerId"];
             this.jobNo = _data["jobNo"];
             this.status = _data["status"];
@@ -1019,6 +1029,11 @@ export class BatchJobVm implements IBatchJobVm {
         data["hour"] = this.hour;
         data["minute"] = this.minute;
         data["second"] = this.second;
+        data["batchLaunchMonthDay"] = this.batchLaunchMonthDay;
+        data["batchLaunchWeedDay"] = this.batchLaunchWeedDay;
+        data["loopStep"] = this.loopStep;
+        data["workHourStart"] = this.workHourStart;
+        data["workHourEnd"] = this.workHourEnd;
         data["jobTriggerId"] = this.jobTriggerId;
         data["jobNo"] = this.jobNo;
         data["status"] = this.status;
@@ -1045,6 +1060,11 @@ export interface IBatchJobVm {
     hour?: string | undefined;
     minute?: string | undefined;
     second?: string | undefined;
+    batchLaunchMonthDay?: string | undefined;
+    batchLaunchWeedDay?: string | undefined;
+    loopStep?: number;
+    workHourStart?: number;
+    workHourEnd?: number;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
     status?: TaskJobStatus;

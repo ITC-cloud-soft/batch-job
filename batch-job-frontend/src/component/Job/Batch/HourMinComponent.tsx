@@ -1,5 +1,5 @@
 import { Flex, Form, Select } from 'antd';
-import { HmProps } from '../../props/DataStructure.ts';
+import { HmProps } from '../../../props/DataStructure.ts';
 import React from 'react';
 
 const HourMinComponent: React.FC<HmProps> = () => {
@@ -8,11 +8,7 @@ const HourMinComponent: React.FC<HmProps> = () => {
 
     return (
         <Flex gap={20}>
-            <Form.Item
-                label="分"
-                name="minute"
-                style={{ minWidth: 80, maxWidth: 100 }}
-            >
+            <Form.Item label="分" name="minute">
                 <Select>
                     {minuteOptions.map((value, index) => (
                         <Select.Option key={value} value={index}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { HmProps } from '../../props/DataStructure.ts';
+import { HmProps } from '../../../props/DataStructure.ts';
 import { Checkbox, Col, Flex, Form, Row } from 'antd';
 
 const MonthDayComponent: React.FC<HmProps> = () => {

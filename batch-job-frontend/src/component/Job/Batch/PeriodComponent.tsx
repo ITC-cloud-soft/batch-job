@@ -1,5 +1,5 @@
 import React from 'react';
-import { HmProps, StartType } from '../../props/DataStructure.ts';
+import { HmProps, StartType } from '../../../props/DataStructure.ts';
 import { Checkbox, Col, Flex, Form, Radio, Row } from 'antd';
 
 const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {

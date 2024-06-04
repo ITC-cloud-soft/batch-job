@@ -1,37 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
-import AppLayout from './component/AppLayout/AppLayout.tsx';
-import WorkPage from './pages/WorkPage.tsx';
-import WorkDetailPage from './pages/WorkDetailPage.tsx';
-import Login from './pages/Login.tsx';
-import Register from './pages/Register.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
 import ServerErrorPage from './pages/ServerErrorPage.tsx';
 import ScheduledJobList from './pages/job/ScheduledJobList.tsx';
-import ScheduleJobFormComponent from './component/Job/ScheduleJobForm.tsx';
+import ScheduleJobFormComponent from './component/Job/Batch/ScheduleJobFormComponent.tsx';
+import AddTriggerJob from './pages/job/AddTriggerJob.tsx';
+import TriggerListPage from './pages/job/TriggerListPage.tsx';
 
 const routes = createBrowserRouter([
-    {
-        path: '/',
-        element: <AppLayout />,
-        children: [
-            {
-                index: true,
-                element: <WorkPage />,
-            },
-            {
-                path: '/work/:id',
-                element: <WorkDetailPage />,
-            },
-        ],
-    },
-    {
-        path: '/login',
-        element: <Login />,
-    },
-    {
-        path: '/register',
-        element: <Register />,
-    },
     {
         path: '/404',
         element: <NotFoundPage />,
@@ -45,12 +20,20 @@ const routes = createBrowserRouter([
         element: <NotFoundPage />,
     },
     {
-        path: '/batchList',
+        path: '/scheduled',
         element: <ScheduledJobList />,
     },
     {
-        path: '/job/edit',
+        path: '/trigger',
+        element: <TriggerListPage />,
+    },
+    {
+        path: '/scheduled/add',
         element: <ScheduleJobFormComponent />,
+    },
+    {
+        path: '/trigger/add',
+        element: <AddTriggerJob />,
     },
     // 可以在这里添加更多顶级路由
 ]);

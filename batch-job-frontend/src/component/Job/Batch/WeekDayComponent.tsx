@@ -9,13 +9,10 @@ const WeekDayComponent = () => {
         date.setDate(date.getDate() - date.getDay() + i);
         return dayOfWeekFormatter.format(date);
     });
+
     return (
-        <Flex flex-direction:column gap={20} vertical={false}>
-            <Form.Item
-                label="曜日："
-                name="minute"
-                style={{ minWidth: 80, maxWidth: 100 }}
-            >
+        <Flex gap={20} vertical={false}>
+            <Form.Item label="曜日：" name="weekDay">
                 <Select>
                     {daysOfWeek.map((value, index) => (
                         <Select.Option key={value} value={index}>

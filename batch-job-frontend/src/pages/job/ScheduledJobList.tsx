@@ -1,8 +1,13 @@
 import styled from 'styled-components';
-import { Space, Table, TableProps, Tag } from 'antd';
+import { Modal, Space, Table, TableProps, Tag } from 'antd';
 import { useEffect, useState } from 'react';
-import { BJob, JobType } from '../../props/DataStructure.ts';
-import { GetJobList } from '../../service/api.ts';
+import { BJob, JobType, TaskJobStatus } from '../../props/DataStructure.ts';
+import {
+    ExecuteScheduledJob,
+    GetJobList,
+    StopScheduledJob,
+} from '../../service/api.ts';
+import ScheduleJobFormComponent from '../../component/Job/Batch/ScheduleJobFormComponent.tsx';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -10,6 +15,8 @@ const Wrapper = styled.div`
 
 const ScheduledJobList = () => {
     const [jobList, setJobList] = useState<BJob[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     useEffect(() => {
         GetJobList(JobType.Scheduled).then((data) => {
             const jobList = data.items.map((job) => ({ ...job, key: job.id }));
@@ -18,11 +25,50 @@ const ScheduledJobList = () => {
     }, []);
 
     const executeJob = (jobId: number) => {
+        ExecuteScheduledJob(jobId).then((res) => {
+            const list = jobList.map((e) =>
+                e.id == jobId
+                    ? {
+                          ...e,
+                          status: TaskJobStatus.Processing,
+                          taskJobStatusColor: 'green',
+                          taskJobStatusDes: 'processing',
+                      }
+                    : e,
+            );
+            console.log(list);
+            setJobList(list);
+        });
+    };
+
+    const stopJob = (jobId: number) => {
         console.log(jobId);
+        StopScheduledJob(jobId).then((res) => {
+            const list = jobList.map((e) =>
+                e.id === jobId
+                    ? {
+                          ...e,
+                          status: TaskJobStatus.Stop,
+                          taskJobStatusColor: 'black',
+                          taskJobStatusDes: 'stopped',
+                      }
+                    : e,
+            );
+            console.log(list);
+            setJobList(list);
+        });
     };
 
     const editJob = (jobId: number) => {
-        console.log(jobId);
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
     };
 
     const columns: TableProps<BJob>['columns'] = [
@@ -66,13 +112,14 @@ const ScheduledJobList = () => {
             dataIndex: 'id',
             key: 'id',
             render: (_, { id }) => {
-                console.log(id, 'x');
-                console.log(_, 'x');
                 return (
                     <>
                         <Space size={10}>
                             <a href="#" onClick={() => executeJob(id)}>
                                 起動
+                            </a>
+                            <a href="#" onClick={() => stopJob(id)}>
+                                停止
                             </a>
                             <a href="#" onClick={() => editJob(id)}>
                                 編集
@@ -87,6 +134,15 @@ const ScheduledJobList = () => {
     return (
         <Wrapper>
             <Table dataSource={jobList} columns={columns}></Table>
+            <Modal
+                style={{ minHeight: '500px' }}
+                title="編集"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <ScheduleJobFormComponent />
+            </Modal>
         </Wrapper>
     );
 };

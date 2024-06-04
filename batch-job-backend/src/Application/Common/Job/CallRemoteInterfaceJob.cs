@@ -26,7 +26,7 @@ public class  CallRemoteInterfaceJob : IJob
             string? triggerJsonStr = param.GetString(JobConstants.TriggerJobs);
             if (string.IsNullOrEmpty(jobJsonStr))
             {
-                _logger.LogWarning("Job or trigger data is missing.");
+                _logger.LogWarning("Job or trigger data is missing");
                 return;
             }
 

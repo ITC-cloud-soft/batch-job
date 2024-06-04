@@ -18,7 +18,7 @@ public enum TaskJobStatus
     Deleted = 5,
     [JobStatus("Awaiting", "The job is awaiting further actions or conditions.", "purple")]
     Awaiting = 6,
-    [JobStatus("Stop", "The job has been stopped.", "black")]
+    [JobStatus("Stopped", "The job has been stopped.", "black")]
     Stop = 7,
     [JobStatus("Paused", "The job is paused and can be resumed later.", "yellow")]
     Paused = 8,

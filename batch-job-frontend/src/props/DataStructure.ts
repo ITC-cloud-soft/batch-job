@@ -145,7 +145,7 @@ export interface BJob extends BaseAuditableEntity {
     year?: number;
     month?: number;
     day?: number;
-    weekDay?: number;
+    weekDay?: string;
     hour?: number;
     minute?: number;
     second?: number;
@@ -154,8 +154,8 @@ export interface BJob extends BaseAuditableEntity {
     status: TaskJobStatus;
     taskJobStatusDes: string;
     taskJobStatusColor: string;
-    batchLaunchMonthDay: number[];
-    batchLaunchWeekDay: number[];
+    batchLaunchMonthDay: number[]; // バッチ起動日
+    batchLaunchWeekDay: number[]; // バッチ起動日(曜日)
     loopStep: number;
     workHourStart: number;
     workHourEnd: number;
@@ -218,4 +218,23 @@ export enum TaskJobStatus {
 export interface HmProps {
     job?: BJob;
     setJob?: (job: BJob) => void;
+}
+
+/**
+ * SUN：星期日
+ * MON：星期一
+ * TUE：星期二
+ * WED：星期三
+ * THU：星期四
+ * FRI：星期五
+ * SAT：星期六
+ */
+export enum WeekDayEnum {
+    SUN = 'SUN',
+    MON = 'MON',
+    TUE = 'TUE',
+    WED = 'WED',
+    THU = 'THU',
+    FRI = 'FRI',
+    SAT = 'SAT',
 }
