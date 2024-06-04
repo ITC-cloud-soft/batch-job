@@ -107,26 +107,18 @@ export async function GetJobList(jobType: JobType) {
     );
 }
 
-export async function ExecuteScheduledJob(jobId: number) {
+export async function ExecuteJob(jobId: number) {
     return request.get<never>(`api/BatchJobs/start/${jobId}`);
 }
 
-export async function StopScheduledJob(jobId: number) {
+export async function StopJob(jobId: number) {
     return request.delete<never>(`api/BatchJobs/stop/${jobId}`);
 }
 
-export async function SaveScheduledJob(job: BJob) {
-    return request.post<never, Blob>(`api/JobLists/`, job);
+export async function SaveJob(job: BJob) {
+    return request.post<never, Blob>(`api/BatchJobs/`, job);
 }
 
-export async function UpdateScheduledJob(job: BJob) {
-    return request.post<never, Blob>(`api/JobLists/`, job);
-}
-
-export async function SaveTriggerJob(jobType: JobType) {
-    return request.get<never>(`api/JobLists/${jobType}`);
-}
-
-export async function UpdateTriggerJob(jobType: JobType) {
-    return request.get<never>(`api/JobLists/${jobType}`);
+export async function UpdateJob(job: BJob) {
+    return request.put<never, Blob>(`api/BatchJobs/${job.id}`, job);
 }

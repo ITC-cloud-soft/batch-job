@@ -21,7 +21,7 @@ public record CreateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
     // 定時周期时间
     public string? CronExpression { get; set; }
     // バッチ起動日(定時周期)
-    public ScheduleType? ScheduleType { get; set; }
+    public int? ScheduleType { get; set; }
 
     public int? Year { get; set; }
     public int? Month { get; set; }
@@ -31,13 +31,25 @@ public record CreateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
     public int? Minute { get; set; }
     public int? Second { get; set; }
     
+    // バッチ起動日 1-31
+    public int[] BatchLaunchMonthDay { get; set; } = { };
+    // バッチ起動日(曜日) 1-7 
+    public int[] BatchLaunchWeedDay { get; set; } = { };
+    
+    // 間隔値
+    public int LoopStep { get; set; }
+    
+    // 稼働時間帯
+    public int WorkHourStart { get; set; }
+    public int WorkHourEnd { get; set; }
+    
     // Trigger トリガーファイル名 (Trigger)
     public int? JobTriggerId { get; set; }
     
     // バッチ番号 (Trigger)
     public int? JobNo{ get; set; }
     
-    
+    public int? Status { get; set; }
 }
 
 public class CreateBatchJobCommandValidator : AbstractValidator<CreateBatchJobCommand>
@@ -65,6 +77,7 @@ public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobComman
 
     public async Task<BJob> Handle(CreateBatchJobCommand command, CancellationToken cancellationToken)
     {
+        command.JobGroup = command.JobName;
         var job = _mapper.Map<BJob>(command);
         await _context.BatchJobs.AddAsync(job, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);

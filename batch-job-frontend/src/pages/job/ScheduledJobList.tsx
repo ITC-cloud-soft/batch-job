@@ -2,11 +2,7 @@ import styled from 'styled-components';
 import { Modal, Space, Table, TableProps, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { BJob, JobType, TaskJobStatus } from '../../props/DataStructure.ts';
-import {
-    ExecuteScheduledJob,
-    GetJobList,
-    StopScheduledJob,
-} from '../../service/api.ts';
+import { ExecuteJob, GetJobList, StopJob } from '../../service/api.ts';
 import ScheduleJobFormComponent from '../../component/Job/Batch/ScheduleJobFormComponent.tsx';
 
 const Wrapper = styled.div`
@@ -26,7 +22,7 @@ const ScheduledJobList = () => {
     }, []);
 
     const executeJob = (jobId: number) => {
-        ExecuteScheduledJob(jobId).then(() => {
+        ExecuteJob(jobId).then(() => {
             const list = jobList.map((e) =>
                 e.id == jobId
                     ? {
@@ -44,7 +40,7 @@ const ScheduledJobList = () => {
 
     const stopJob = (jobId: number) => {
         console.log(jobId);
-        StopScheduledJob(jobId).then(() => {
+        StopJob(jobId).then(() => {
             const list = jobList.map((e) =>
                 e.id === jobId
                     ? {

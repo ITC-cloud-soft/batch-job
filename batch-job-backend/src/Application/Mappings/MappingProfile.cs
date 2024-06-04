@@ -51,8 +51,15 @@ public class MappingProfile : Profile
                 }
             }
         }
-        CreateMap<CreateBatchJobCommand, BJob>();
-        CreateMap<UpdateBatchJobCommand, BJob>();
+
+        CreateMap<CreateBatchJobCommand, BJob>()
+            .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchMonthDay)))
+            .ForMember(dest => dest.BatchLaunchWeedDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchWeedDay)));
+
+        CreateMap<UpdateBatchJobCommand, BJob>()
+            .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchMonthDay)))
+            .ForMember(dest => dest.BatchLaunchWeedDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchWeedDay)));
+
         CreateMap<BJob, BatchJobVm>()
             .ForMember(dest => dest.TaskJobStatusDes, opt => opt.MapFrom(src => src.Status.GetShortDescription()))
             .ForMember(dest => dest.TaskJobStatusColor, opt => opt.MapFrom(src => src.Status.GetColor()))

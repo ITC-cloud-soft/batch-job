@@ -6,7 +6,6 @@ public enum ScheduleType
 {
     [Description("Default")]
     No = 0,
-    
     [Description("年次処理")]
     Year = 1,
     [Description("月次処理")]

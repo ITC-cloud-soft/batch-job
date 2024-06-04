@@ -6,12 +6,13 @@ import {
     ScheduleProps,
     ScheduleType,
     ScheduleTypeDes,
+    TaskJobStatus,
 } from '../../../props/DataStructure.ts';
 import HourMinComponent from './HourMinComponent.tsx';
 import MonthDayComponent from './MonthDayComponent.tsx';
 import WeekDayComponent from './WeekDayComponent.tsx';
 import PeriodComponent from './PeriodComponent.tsx';
-import { SaveScheduledJob, UpdateScheduledJob } from '../../../service/api.ts';
+import { SaveJob, UpdateJob } from '../../../service/api.ts';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -28,20 +29,20 @@ const ScheduleJobFormComponent: React.FC<ScheduleProps> = ({
     const sumbit = (bJob: BJob) => {
         console.log(bJob);
         if (jobParam) {
-            console.log('update job');
-            UpdateScheduledJob(bJob).then((r) => {
+            UpdateJob({ ...jobParam, ...bJob }).then((r) => {
                 console.log(r);
                 closeModal();
             });
         } else {
-            console.log('save job');
-            SaveScheduledJob(bJob).then((r) => {
+            bJob.status = TaskJobStatus.Stop;
+            SaveJob(bJob).then((r) => {
                 console.log(r);
             });
         }
     };
     useEffect(() => {
         if (jobParam) {
+            console.log('effect', jobParam);
             setJob(jobParam);
             form.setFieldsValue(jobParam);
         }

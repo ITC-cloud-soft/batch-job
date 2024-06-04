@@ -35,6 +35,16 @@ public record UpdateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
     public int? JobTriggerId { get; set; }
     public int? JobNo{ get; set; }
 
+    // バッチ起動日 1-31
+    public int[] BatchLaunchMonthDay { get; set; } = { };
+    // バッチ起動日(曜日) 1-7 
+    public int[] BatchLaunchWeedDay { get; set; } = { };
+    
+    // 間隔値
+    public int LoopStep { get; set; }
+    
+    // 稼働時間帯
+    public int WorkHourStart { get; set; }
 }
 
 public class UpdateBatchJobCommandValidator : AbstractValidator<UpdateBatchJobCommand>

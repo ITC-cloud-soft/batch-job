@@ -140,7 +140,7 @@ export interface BJob extends BaseAuditableEntity {
     jobType: JobType;
     jobUrl?: string;
     cronExpression?: string;
-    scheduleType: ScheduleType;
+    scheduleType: number;
     scheduleTypeStr?: string;
     year?: number;
     month?: number;
