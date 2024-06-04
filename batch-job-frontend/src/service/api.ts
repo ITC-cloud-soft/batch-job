@@ -9,6 +9,7 @@ import {
     JobType,
     JobPaginationQueryParam,
     BJobWithPagination,
+    BJob,
 } from '../props/DataStructure.ts';
 import request from '../utils/request.tsx';
 import { toURLParam } from '../utils/util.ts';
@@ -114,12 +115,12 @@ export async function StopScheduledJob(jobId: number) {
     return request.delete<never>(`api/BatchJobs/stop/${jobId}`);
 }
 
-export async function SaveScheduledJob(jobType: JobType) {
-    return request.get<never>(`api/JobLists/${jobType}`);
+export async function SaveScheduledJob(job: BJob) {
+    return request.post<never, Blob>(`api/JobLists/`, job);
 }
 
-export async function UpdateScheduledJob(jobType: JobType) {
-    return request.get<never>(`api/JobLists/${jobType}`);
+export async function UpdateScheduledJob(job: BJob) {
+    return request.post<never, Blob>(`api/JobLists/`, job);
 }
 
 export async function SaveTriggerJob(jobType: JobType) {

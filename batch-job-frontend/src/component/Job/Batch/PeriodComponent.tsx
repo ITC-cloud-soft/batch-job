@@ -13,7 +13,7 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
     });
     return (
         <Flex vertical>
-            <Flex gap={20}>
+            <Flex>
                 <Form.Item name={'startType'}>
                     <Radio.Group
                         onChange={(e) =>
@@ -26,7 +26,7 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
                     </Radio.Group>
                 </Form.Item>
             </Flex>
-            <Flex gap={20}>
+            <Flex>
                 {job?.startType == StartType.Day && (
                     <Form.Item name={'batchLaunchMonthDay'}>
                         <Checkbox.Group>

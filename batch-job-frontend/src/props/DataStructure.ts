@@ -219,6 +219,10 @@ export interface HmProps {
     job?: BJob;
     setJob?: (job: BJob) => void;
 }
+export interface ScheduleProps {
+    jobParam?: BJob;
+    closeModal: () => void;
+}
 
 /**
  * SUN：星期日

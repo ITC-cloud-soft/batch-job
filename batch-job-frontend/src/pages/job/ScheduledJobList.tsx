@@ -15,6 +15,7 @@ const Wrapper = styled.div`
 
 const ScheduledJobList = () => {
     const [jobList, setJobList] = useState<BJob[]>([]);
+    const [job, setJob] = useState<BJob>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
@@ -25,7 +26,7 @@ const ScheduledJobList = () => {
     }, []);
 
     const executeJob = (jobId: number) => {
-        ExecuteScheduledJob(jobId).then((res) => {
+        ExecuteScheduledJob(jobId).then(() => {
             const list = jobList.map((e) =>
                 e.id == jobId
                     ? {
@@ -43,7 +44,7 @@ const ScheduledJobList = () => {
 
     const stopJob = (jobId: number) => {
         console.log(jobId);
-        StopScheduledJob(jobId).then((res) => {
+        StopScheduledJob(jobId).then(() => {
             const list = jobList.map((e) =>
                 e.id === jobId
                     ? {
@@ -61,9 +62,12 @@ const ScheduledJobList = () => {
 
     const editJob = (jobId: number) => {
         setIsModalOpen(true);
+        const find = jobList.find((e) => e.id == jobId);
+        setJob(find!);
     };
 
     const handleOk = () => {
+        // update job
         setIsModalOpen(false);
     };
 
@@ -135,13 +139,18 @@ const ScheduledJobList = () => {
         <Wrapper>
             <Table dataSource={jobList} columns={columns}></Table>
             <Modal
-                style={{ minHeight: '500px' }}
-                title="編集"
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
+                style={{ minHeight: 'auto' }}
+                title="編集"
+                footer={''}
+                destroyOnClose
             >
-                <ScheduleJobFormComponent />
+                <ScheduleJobFormComponent
+                    jobParam={jobList[0]}
+                    closeModal={handleCancel}
+                />
             </Modal>
         </Wrapper>
     );

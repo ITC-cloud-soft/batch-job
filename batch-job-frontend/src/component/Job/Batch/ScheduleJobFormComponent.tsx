@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Flex, Form, Input, Select } from 'antd';
 import {
     BJob,
+    ScheduleProps,
     ScheduleType,
     ScheduleTypeDes,
 } from '../../../props/DataStructure.ts';
@@ -10,55 +11,40 @@ import HourMinComponent from './HourMinComponent.tsx';
 import MonthDayComponent from './MonthDayComponent.tsx';
 import WeekDayComponent from './WeekDayComponent.tsx';
 import PeriodComponent from './PeriodComponent.tsx';
+import { SaveScheduledJob, UpdateScheduledJob } from '../../../service/api.ts';
 
 const Wrapper = styled.div`
     height: 85vh;
 `;
 
-const ScheduleJobFormComponent = () => {
+const ScheduleJobFormComponent: React.FC<ScheduleProps> = ({
+    jobParam,
+    closeModal,
+}) => {
     const [job, setJob] = useState<BJob>();
     const mustInputMessage = 'Please input!';
-    const sumbit = (s: BJob) => {
-        console.log(s);
-    };
     const [form] = Form.useForm();
+
+    const sumbit = (bJob: BJob) => {
+        console.log(bJob);
+        if (jobParam) {
+            console.log('update job');
+            UpdateScheduledJob(bJob).then((r) => {
+                console.log(r);
+                closeModal();
+            });
+        } else {
+            console.log('save job');
+            SaveScheduledJob(bJob).then((r) => {
+                console.log(r);
+            });
+        }
+    };
     useEffect(() => {
-        // 模拟异步数据加载
-        setTimeout(() => {
-            const initialJob: BJob = {
-                startType: 1,
-                scheduleType: ScheduleType.Year,
-                createdDate: '',
-                cronExpression: '',
-                day: 1,
-                hour: 3,
-                id: 1,
-                jobGroup: '',
-                jobNo: 1,
-                jobTriggerId: 0,
-                jobType: 1,
-                jobUrl: '',
-                key: 0,
-                minute: 2,
-                modifiedDate: '',
-                month: 1,
-                scheduleTypeStr: '年次処理',
-                second: 0,
-                status: 1,
-                taskJobStatusColor: '',
-                taskJobStatusDes: '',
-                weekDay: '0',
-                year: 0,
-                jobName: '123',
-                batchLaunchMonthDay: [1, 2, 3],
-                batchLaunchWeekDay: [1, 2, 3],
-                loopStep: 1,
-                workHourStart: 1,
-                workHourEnd: 2,
-            };
-            setJob(initialJob);
-            form.setFieldsValue(initialJob);
-        }, 1000); // 模拟延迟加载
+        if (jobParam) {
+            setJob(jobParam);
+            form.setFieldsValue(jobParam);
+        }
     }, []);
 
     console.log('job:', job);
@@ -67,9 +53,10 @@ const ScheduleJobFormComponent = () => {
         <Wrapper>
             <Flex justify="center" style={{ minHeight: '500px' }}>
                 <Form
+                    preserve={false}
                     form={form}
                     layout="vertical"
-                    style={{ maxWidth: 400, margin: 20 }}
+                    style={{ width: 400, margin: 20 }}
                     onFinish={sumbit}
                     initialValues={job}
                 >
@@ -200,8 +187,12 @@ const ScheduleJobFormComponent = () => {
                         </>
                     )}
 
-                    <Button type="primary" htmlType="submit">
-                        登録
+                    <Button
+                        style={{ float: 'right' }}
+                        type="primary"
+                        htmlType="submit"
+                    >
+                        保存
                     </Button>
                 </Form>
             </Flex>
