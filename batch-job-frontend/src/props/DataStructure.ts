@@ -140,15 +140,15 @@ export interface BJob extends BaseAuditableEntity {
     jobType: JobType;
     jobUrl?: string;
     cronExpression?: string;
-    scheduleType: number;
+    scheduleType: ScheduleType;
     scheduleTypeStr?: string;
-    year?: number;
-    month?: number;
-    day?: number;
+    year?: string;
+    month?: string;
+    day?: string;
     weekDay?: string;
-    hour?: number;
-    minute?: number;
-    second?: number;
+    hour?: string;
+    minute?: string;
+    second?: string;
     jobTriggerId?: number;
     jobNo?: number;
     status: TaskJobStatus;
@@ -180,12 +180,12 @@ export enum StartType {
 }
 
 export enum ScheduleType {
-    Year = 1,
-    Month = 2,
-    Week = 3,
-    Day = 4,
-    Hour = 5,
-    Minute = 6,
+    Year = '1',
+    Month = '2',
+    Week = '3',
+    Day = '4',
+    Hour = '5',
+    Minute = '6',
 }
 // {key: description}
 export const ScheduleTypeDes: {
@@ -222,23 +222,4 @@ export interface HmProps {
 export interface ScheduleProps {
     jobParam?: BJob;
     closeModal: () => void;
-}
-
-/**
- * SUN：星期日
- * MON：星期一
- * TUE：星期二
- * WED：星期三
- * THU：星期四
- * FRI：星期五
- * SAT：星期六
- */
-export enum WeekDayEnum {
-    SUN = 'SUN',
-    MON = 'MON',
-    TUE = 'TUE',
-    WED = 'WED',
-    THU = 'THU',
-    FRI = 'FRI',
-    SAT = 'SAT',
 }

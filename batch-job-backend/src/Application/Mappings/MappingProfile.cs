@@ -65,7 +65,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.BatchLaunchWeekDay, opt => opt.MapFrom(src => MapBatchLaunchDay(src.BatchLaunchWeedDay)))
             .ForMember(dest => dest.TaskJobStatusDes, opt => opt.MapFrom(src => src.Status.GetShortDescription()))
             .ForMember(dest => dest.TaskJobStatusColor, opt => opt.MapFrom(src => src.Status.GetColor()))
-            .ForMember(dest => dest.ScheduleTypeStr, opt => opt.MapFrom(src => src.ScheduleType.GetDescription()));
+            .ForMember(dest => dest.ScheduleTypeStr, opt => opt.MapFrom(src => ScheduleType.GetDescription(src.ScheduleType)));
         
     }
     

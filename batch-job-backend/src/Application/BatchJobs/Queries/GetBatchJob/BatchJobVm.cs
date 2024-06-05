@@ -20,7 +20,7 @@ public class BatchJobVm
     public string? CronExpressionStr { get; set; }
     
     // バッチ起動日(定時周期)
-    public ScheduleType? ScheduleType { get; set; }
+    public string? ScheduleType { get; set; }
     public string? ScheduleTypeStr { get; set; }
 
     public string? Year { get; set; }

@@ -48,8 +48,18 @@ const ScheduleJobFormComponent: React.FC<ScheduleProps> = ({
         }
     }, [jobParam, form]);
 
-    console.log('job:', job);
+    const scheduleTypeOptions = Object.entries(ScheduleTypeDes).map(
+        ([key, value]) => ({ value: key, label: value.description }),
+    );
 
+    const daySelectOptios = Array.from({ length: 31 }, (_, i) => ({
+        value: `${i + 1}`,
+        label: `${i + 1}日`,
+    }));
+    const monthSelectOptios = Array.from({ length: 12 }, (_, i) => ({
+        value: `${i + 1}`,
+        label: `${i + 1}月`,
+    }));
     return (
         <Wrapper>
             <Flex justify="center" style={{ minHeight: '500px' }}>
@@ -82,43 +92,18 @@ const ScheduleJobFormComponent: React.FC<ScheduleProps> = ({
                                 console.log(value);
                                 setJob({ ...job!, scheduleType: value });
                             }}
-                        >
-                            {Object.entries(ScheduleTypeDes).map(
-                                ([key, value]) => (
-                                    <Select.Option key={key} value={key}>
-                                        {value.description}
-                                    </Select.Option>
-                                ),
-                            )}
-                        </Select>
+                            options={scheduleTypeOptions}
+                        />
                     </Form.Item>
                     {job?.scheduleType == ScheduleType.Year && (
                         <Flex vertical={false} gap={20}>
                             <HourMinComponent job={job} />
                             <Form.Item label="日" name="day">
-                                <Select>
-                                    {Array.from({ length: 31 }, (_, i) => (
-                                        <Select.Option
-                                            key={i + 1}
-                                            value={i + 1}
-                                        >
-                                            {i + 1}日
-                                        </Select.Option>
-                                    ))}
-                                </Select>
+                                <Select options={daySelectOptios} />
                             </Form.Item>
 
                             <Form.Item label={'月'} name="month">
-                                <Select>
-                                    {Array.from({ length: 12 }, (_, i) => (
-                                        <Select.Option
-                                            key={i + 1}
-                                            value={i + 1}
-                                        >
-                                            {i + 1}月
-                                        </Select.Option>
-                                    ))}
-                                </Select>
+                                <Select options={monthSelectOptios} />
                             </Form.Item>
                         </Flex>
                     )}

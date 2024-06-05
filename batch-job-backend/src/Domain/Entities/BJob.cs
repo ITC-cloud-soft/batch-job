@@ -17,7 +17,7 @@ public class BJob: BaseAuditableEntity
     public string? CronExpression { get; set; }
     
     // バッチ起動日(定時周期)
-    public ScheduleType ScheduleType { get; set; } = ScheduleType.No;
+    public string ScheduleType { get; set; } = "0";
 
     public string? Year { get; set; }
     public string? Month { get; set; }

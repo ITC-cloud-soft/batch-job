@@ -520,7 +520,7 @@ export class BJob extends BaseAuditableEntity implements IBJob {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
-    scheduleType?: ScheduleType;
+    scheduleType?: string;
     year?: string | undefined;
     month?: string | undefined;
     day?: string | undefined;
@@ -612,7 +612,7 @@ export interface IBJob extends IBaseAuditableEntity {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
-    scheduleType?: ScheduleType;
+    scheduleType?: string;
     year?: string | undefined;
     month?: string | undefined;
     day?: string | undefined;
@@ -634,16 +634,6 @@ export interface IBJob extends IBaseAuditableEntity {
 export enum JobType {
     Scheduled = 0,
     Trigger = 1,
-}
-
-export enum ScheduleType {
-    No = 0,
-    Year = 1,
-    Month = 2,
-    Week = 3,
-    Day = 4,
-    Hour = 5,
-    Minute = 6,
 }
 
 export enum TaskJobStatus {
@@ -831,7 +821,7 @@ export class UpdateBatchJobCommand implements IUpdateBatchJobCommand {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
-    scheduleType?: ScheduleType | undefined;
+    scheduleType?: string | undefined;
     year?: number | undefined;
     month?: number | undefined;
     day?: number | undefined;
@@ -936,7 +926,7 @@ export interface IUpdateBatchJobCommand {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
-    scheduleType?: ScheduleType | undefined;
+    scheduleType?: string | undefined;
     year?: number | undefined;
     month?: number | undefined;
     day?: number | undefined;
@@ -1024,7 +1014,7 @@ export class BatchJobVm implements IBatchJobVm {
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
     cronExpressionStr?: string | undefined;
-    scheduleType?: ScheduleType | undefined;
+    scheduleType?: string | undefined;
     scheduleTypeStr?: string | undefined;
     year?: string | undefined;
     month?: string | undefined;
@@ -1150,7 +1140,7 @@ export interface IBatchJobVm {
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
     cronExpressionStr?: string | undefined;
-    scheduleType?: ScheduleType | undefined;
+    scheduleType?: string | undefined;
     scheduleTypeStr?: string | undefined;
     year?: string | undefined;
     month?: string | undefined;

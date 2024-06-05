@@ -58,8 +58,7 @@ const ScheduledJobList = () => {
 
     const editJob = (jobId: number) => {
         setIsModalOpen(true);
-        const find = jobList.find((e) => e.id == jobId);
-        setJob(find!);
+        setJob(jobList.find((e) => e.id == jobId)!);
     };
 
     const handleOk = () => {
@@ -144,7 +143,7 @@ const ScheduledJobList = () => {
                 destroyOnClose
             >
                 <ScheduleJobFormComponent
-                    jobParam={jobList[0]}
+                    jobParam={job}
                     closeModal={handleCancel}
                 />
             </Modal>

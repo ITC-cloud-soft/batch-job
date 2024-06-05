@@ -22,7 +22,7 @@ public record UpdateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
     // 定時周期时间
     public string? CronExpression { get; set; }
     // バッチ起動日(定時周期)
-    public ScheduleType? ScheduleType { get; set; }
+    public string? ScheduleType { get; set; }
 
     public int? Year { get; set; }
     public int? Month { get; set; }

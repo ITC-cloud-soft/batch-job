@@ -11,7 +11,7 @@ const HourMinComponent: React.FC<HmProps> = () => {
             <Form.Item label="分" name="minute">
                 <Select>
                     {minuteOptions.map((value, index) => (
-                        <Select.Option key={value} value={index}>
+                        <Select.Option key={value} value={`${index}`}>
                             {value}
                         </Select.Option>
                     ))}
@@ -21,7 +21,7 @@ const HourMinComponent: React.FC<HmProps> = () => {
             <Form.Item label="時" name="hour" style={{ minWidth: 80 }}>
                 <Select>
                     {hourOptions.map((value, index) => (
-                        <Select.Option key={value} value={index}>
+                        <Select.Option key={value} value={`${index}`}>
                             {value}
                         </Select.Option>
                     ))}

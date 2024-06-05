@@ -391,7 +391,7 @@
                 "nullable": true
               },
               "scheduleType": {
-                "$ref": "#/components/schemas/ScheduleType"
+                "type": "string"
               },
               "year": {
                 "type": "string",
@@ -473,28 +473,6 @@
         "enum": [
           0,
           1
-        ]
-      },
-      "ScheduleType": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "No",
-          "Year",
-          "Month",
-          "Week",
-          "Day",
-          "Hour",
-          "Minute"
-        ],
-        "enum": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6
         ]
       },
       "TaskJobStatus": {
@@ -714,12 +692,8 @@
             "nullable": true
           },
           "scheduleType": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/ScheduleType"
-              }
-            ]
+            "type": "string",
+            "nullable": true
           },
           "year": {
             "type": "integer",
@@ -850,12 +824,8 @@
             "nullable": true
           },
           "scheduleType": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/ScheduleType"
-              }
-            ]
+            "type": "string",
+            "nullable": true
           },
           "scheduleTypeStr": {
             "type": "string",
