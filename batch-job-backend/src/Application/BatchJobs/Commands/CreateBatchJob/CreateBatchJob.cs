@@ -86,8 +86,13 @@ public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobComman
         return job;
     }
 
-    private string generateCronExpression(BJob bJob)
+    private string generateCronExpression(CreateBatchJobCommand job)
     {
+        // var cronExpression = "";
+        // if (job.ScheduleType == ScheduleType.Year)
+        // {
+        //     cronExpression = "year"
+        // }
         return "";
     } 
 }

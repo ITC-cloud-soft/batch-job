@@ -1,3 +1,4 @@
+using batch_job_backend.Infrastructure;
 using batch_job_backend.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);

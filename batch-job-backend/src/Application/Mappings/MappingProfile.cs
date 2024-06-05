@@ -58,7 +58,7 @@ public class MappingProfile : Profile
 
         CreateMap<UpdateBatchJobCommand, BJob>()
             .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchMonthDay)))
-            .ForMember(dest => dest.BatchLaunchWeedDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchWeedDay)));
+            .ForMember(dest => dest.BatchLaunchWeedDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchWeekDay)));
 
         CreateMap<BJob, BatchJobVm>()
             .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => MapBatchLaunchDay(src.BatchLaunchMonthDay)))

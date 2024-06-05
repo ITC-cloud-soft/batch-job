@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
 const ScheduledJobList = () => {
     const [jobList, setJobList] = useState<BJob[]>([]);
-    const [job, setJob] = useState<BJob>([]);
+    const [job, setJob] = useState<BJob>();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {

@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace batch_job_backend.Infrastructure;
 
 public static class DependencyInjection
 {
