@@ -54,16 +54,23 @@ public class MappingProfile : Profile
 
         CreateMap<CreateBatchJobCommand, BJob>()
             .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchMonthDay)))
-            .ForMember(dest => dest.BatchLaunchWeedDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchWeedDay)));
+            .ForMember(dest => dest.BatchLaunchWeedDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchWeekDay)));
 
         CreateMap<UpdateBatchJobCommand, BJob>()
             .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchMonthDay)))
             .ForMember(dest => dest.BatchLaunchWeedDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchWeedDay)));
 
         CreateMap<BJob, BatchJobVm>()
+            .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => MapBatchLaunchDay(src.BatchLaunchMonthDay)))
+            .ForMember(dest => dest.BatchLaunchWeekDay, opt => opt.MapFrom(src => MapBatchLaunchDay(src.BatchLaunchWeedDay)))
             .ForMember(dest => dest.TaskJobStatusDes, opt => opt.MapFrom(src => src.Status.GetShortDescription()))
             .ForMember(dest => dest.TaskJobStatusColor, opt => opt.MapFrom(src => src.Status.GetColor()))
             .ForMember(dest => dest.ScheduleTypeStr, opt => opt.MapFrom(src => src.ScheduleType.GetDescription()));
         
+    }
+    
+    private static string[] MapBatchLaunchDay(string? MapBatchLaunchDay)
+    {
+        return string.IsNullOrEmpty(MapBatchLaunchDay) ? new string[] { } : MapBatchLaunchDay.Split(",");
     }
 }

@@ -45,6 +45,9 @@ public class BJob: BaseAuditableEntity
     
     // バッチ番号 (Trigger)
     public int? JobNo{ get; set; }
+
+    // バッチ起動类型
+    public int? StartType{ get; set; }
     
     public TaskJobStatus Status { get; set; }
     

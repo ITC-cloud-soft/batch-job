@@ -32,9 +32,9 @@ public record CreateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
     public int? Second { get; set; }
     
     // バッチ起動日 1-31
-    public int[] BatchLaunchMonthDay { get; set; } = { };
+    public string[] BatchLaunchMonthDay { get; set; } = { };
     // バッチ起動日(曜日) 1-7 
-    public int[] BatchLaunchWeedDay { get; set; } = { };
+    public string[] BatchLaunchWeekDay { get; set; } = { };
     
     // 間隔値
     public int LoopStep { get; set; }
@@ -50,6 +50,8 @@ public record CreateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
     public int? JobNo{ get; set; }
     
     public int? Status { get; set; }
+    // バッチ起動类型
+    public int? StartType { get; set; }
 }
 
 public class CreateBatchJobCommandValidator : AbstractValidator<CreateBatchJobCommand>

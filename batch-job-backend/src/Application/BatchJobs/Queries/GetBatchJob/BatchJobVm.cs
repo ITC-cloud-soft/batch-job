@@ -33,9 +33,9 @@ public class BatchJobVm
     
      
     // バッチ起動日 1-31
-    public string? BatchLaunchMonthDay { get; set; }
+    public string[]? BatchLaunchMonthDay { get; set; }
     // バッチ起動日(曜日) 1-7 
-    public string? BatchLaunchWeedDay { get; set; }
+    public string[]? BatchLaunchWeekDay { get; set; }
     
     // 間隔値
     public int LoopStep { get; set; }
@@ -50,6 +50,8 @@ public class BatchJobVm
     
     // バッチ番号 (Trigger)
     public int? JobNo{ get; set; }
+    // バッチ起動类型
+    public int? StartType { get; set; }
     
     public TaskJobStatus Status { get; set; }
     public string TaskJobStatusDes { get; set; } = "default";
