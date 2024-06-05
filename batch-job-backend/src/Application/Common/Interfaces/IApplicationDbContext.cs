@@ -1,8 +1,10 @@
 ﻿using batch_job_backend.Domain.Entities;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace batch_job_backend.Application.Common.Interfaces;
 
-public interface IApplicationDbContext
+public interface IApplicationDbContext 
 {
     DbSet<TodoList> TodoLists { get; }
 
@@ -13,4 +15,8 @@ public interface IApplicationDbContext
     DbSet<TaskHistory> TaskHistories { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+
+    Task<IDbContextTransaction> BeginTransactionAsync(
+        CancellationToken cancellationToken = default(CancellationToken));
+
 }

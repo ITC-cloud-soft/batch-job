@@ -675,10 +675,12 @@
             "format": "int32"
           },
           "jobName": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "jobGroup": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "jobType": {
             "$ref": "#/components/schemas/JobType"
@@ -692,7 +694,8 @@
             "nullable": true
           },
           "scheduleType": {
-            "type": "string",
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "year": {
@@ -730,6 +733,30 @@
             "format": "int32",
             "nullable": true
           },
+          "batchLaunchMonthDay": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "batchLaunchWeekDay": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "loopStep": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "workHourStart": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "workHourEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
           "jobTriggerId": {
             "type": "integer",
             "format": "int32",
@@ -740,27 +767,15 @@
             "format": "int32",
             "nullable": true
           },
-          "batchLaunchMonthDay": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          "batchLaunchWeedDay": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          "loopStep": {
+          "status": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
-          "workHourStart": {
+          "startType": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           }
         }
       },

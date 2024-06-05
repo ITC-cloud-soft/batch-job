@@ -15,7 +15,7 @@ const WeekDayComponent = () => {
             <Form.Item label="曜日：" name="weekDay">
                 <Select>
                     {daysOfWeek.map((value, index) => (
-                        <Select.Option key={value} value={index}>
+                        <Select.Option key={value} value={`${index}`}>
                             {value}
                         </Select.Option>
                     ))}

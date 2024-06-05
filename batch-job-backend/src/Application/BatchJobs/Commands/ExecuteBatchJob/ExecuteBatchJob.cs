@@ -53,7 +53,6 @@ public class ExecuteBatchJobCommandHandler : IRequestHandler<ExecuteBatchJobComm
         var jobKey = new JobKey(job.JobName, job.JobGroup);
         var triggerKey = new TriggerKey(job.JobName, job.JobGroup);
         var jobDataMap = CreateJobDataMap(job, triggerJobList);
-
    
         // Step 4: Schedule the job with Quartz.NET
         await ScheduleJob(jobKey, triggerKey, jobDataMap, job.CronExpression ?? "", cancellationToken);

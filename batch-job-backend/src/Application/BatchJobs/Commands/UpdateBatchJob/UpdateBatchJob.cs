@@ -83,35 +83,38 @@ public class UpdateBatchJobCommandHandler : IRequestHandler<UpdateBatchJobComman
     {
         // validate if the job exists
         var job = await _context.BatchJobs
-            .AsNoTracking()
             .FirstOrDefaultAsync(x=> x.Id == request.Id, cancellationToken);
        
         Guard.Against.NotFound(request.Id, job);
-        using var transaction = await _context.DataBase.BeginTransaction();
+        await using var transaction = await _context.BeginTransactionAsync(cancellationToken);
+        try
+        {
+            // Stop quartz job
+            await _sender.Send(new StopBatchJobCommand { JobId = request.Id });
         
-            try
-            {
-                // Stop quartz job
-                await _sender.Send(new StopBatchJobCommand { JobId = request.Id });
-            
-                // Delete the job
-                _context.BatchJobs.Remove(job);
-                await _context.SaveChangesAsync(cancellationToken);
-            
-                // Create new job
-                var entity = _mapper.Map<BJob>(request);
-                await _context.BatchJobs.AddAsync(entity, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-                
-                await transaction.CommitAsync(cancellationToken);
-                return entity;
-            }
-            catch (Exception ex)
-            {
-                await transaction.RollbackAsync(cancellationToken);
-                _logger.LogError(ex, "Error updating batch job with id {JobId}", request.Id);
-                throw;
-            }
+            // Delete the job
+            _context.BatchJobs.Remove(job);
+            await _context.SaveChangesAsync(cancellationToken);
         
+            // Create new job
+            var entity = _mapper.Map<BJob>(request);
+            await _context.BatchJobs.AddAsync(entity, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+            
+            // TODO Execute the job
+            // await _sender.Send(new ExecuteBatchJobCommand() { JobId = entity.Id });
+            
+            // commit
+            await transaction.CommitAsync(cancellationToken);
+            return entity;
+        }
+        catch (Exception ex)
+        {
+            // Execute the job
+            await _sender.Send(new ExecuteBatchJobCommand() { JobId = request.Id });
+            await transaction.RollbackAsync(cancellationToken);
+            _logger.LogError(ex, "Error updating batch job with id {JobId}", request.Id);
+            throw;
+        }
     }
 }

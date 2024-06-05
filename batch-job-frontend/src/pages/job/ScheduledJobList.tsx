@@ -68,6 +68,10 @@ const ScheduledJobList = () => {
 
     const handleCancel = () => {
         setIsModalOpen(false);
+        GetJobList(JobType.Scheduled).then((data) => {
+            const jobList = data.items.map((job) => ({ ...job, key: job.id }));
+            setJobList(jobList);
+        });
     };
 
     const columns: TableProps<BJob>['columns'] = [
