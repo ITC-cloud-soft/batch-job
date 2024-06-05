@@ -581,8 +581,7 @@
             "nullable": true
           },
           "scheduleType": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
             "nullable": true
           },
           "year": {

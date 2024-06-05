@@ -1,40 +1,68 @@
-namespace Microsoft.Extensions.DependencyInjection.Common.Util;
+using batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
+using batch_job_backend.Domain.Enums;
+
+namespace batch_job_backend.Application.Common.Util;
 
 public class CronExpressionParser
 {
-    public string ConvertToDescription(string cronExpression)
+    // 1 Seconds: 0
+    // 2 Minutes: *
+    // 3 Hours: *
+    // 4 Day-of-Month: *
+    // 5 Month: *
+    // 6 Day-of-Week: ?
+    // 7 Year: *
+    public static string GenerateCronExpression(CreateBatchJobCommand job)
     {
-        // Cron expression format: "second minute hour day month weekday"
-        var parts = cronExpression.Split(' ');
-        if (parts.Length != 6)
+        var cronExpression = "";
+        var batchLaunchMonthDay = string.Join(",", job.BatchLaunchMonthDay);
+        switch (job.ScheduleType)
         {
-            throw new ArgumentException("Invalid Cron expression format.");
+            case ScheduleType.Year: cronExpression = $"0 {job.Minute} {job.Hour} {job.Day} {job.Month} ? *"; break;
+            case ScheduleType.Month: cronExpression = $"0 {job.Minute} {job.Hour} {batchLaunchMonthDay} * ? *"; break;
+            case ScheduleType.Week: cronExpression = $"0 {job.Minute} {job.Hour} ? * {job.WeekDay + 1} *"; break;
+            case ScheduleType.Day: cronExpression = $"0 {job.Minute} {job.Hour} * * ? *"; break;
+            case ScheduleType.Hour: cronExpression = GenHourLoopCronExpression(job); break;
+            case ScheduleType.Minute: cronExpression = GenMinLoopCronExpression(job); break;
+        }
+        Console.WriteLine(cronExpression);
+        return cronExpression;
+    }
+
+    private static string GenMinLoopCronExpression(CreateBatchJobCommand job)
+    {
+        
+        // バッチ起動日  
+        if (job.StartType == 1)
+        {
+            var day = string.Join(",", job.BatchLaunchMonthDay);
+            return $"0 0/{job.LoopStep} {job.WorkHourStart}-{job.WorkHourEnd} {day} * ? * ";
+        }
+        // バッチ起動曜日
+        if (job.StartType == 2)
+        {
+            var weekDay = string.Join(",", job.BatchLaunchWeekDay);
+            return $"0 0/{job.LoopStep} {job.WorkHourStart}-{job.WorkHourEnd} ? * {weekDay} * ";
         }
 
-        string second = parts[0];
-        string minute = parts[1];
-        string hour = parts[2];
-        string day = parts[3];
-        string month = parts[4];
-        string weekday = parts[5];
-
-        return "";
+        throw new InvalidOperationException("Invalid job start type");
     }
-    
-   
-    
-    // 转换为Cron表达式
-    public string ToCronExpression(string? secondC, string minuteC, string hourC, string dayC, string monthC, string weekdayC, string yearC )
+    private static string GenHourLoopCronExpression(CreateBatchJobCommand job)
     {
-        // 使用 "*" 表示任何值
-        string year = !string.IsNullOrEmpty(yearC) ?  yearC: "*";
-        string month = !string.IsNullOrEmpty(monthC) ? monthC : "*";
-        string day = !string.IsNullOrEmpty(dayC)  ? dayC : "*";
-        string weekDay = !string.IsNullOrEmpty(weekdayC)  ? weekdayC : "*";
-        string hour = !string.IsNullOrEmpty(hourC)  ? hourC : "*";
-        string minute = !string.IsNullOrEmpty(minuteC) ? minuteC : "*";
-        string second = !string.IsNullOrEmpty(minuteC) ? minuteC : "*"; // 默认为0秒
+        
+        // バッチ起動日  
+        if (job.StartType == 1)
+        {
+            var day = string.Join(",", job.BatchLaunchMonthDay);
+            return $"0 0 0/{job.LoopStep} {day} * ? * ";
+        }
+        // バッチ起動曜日
+        if (job.StartType == 2)
+        {
+            var weekDay = string.Join(",", job.BatchLaunchWeekDay);
+            return $"0 0 0/{job.LoopStep} ? * {weekDay} * ";
+        }
 
-        return $"{second} {minute} {hour} {day} {month} {weekDay}";
+        throw new InvalidOperationException("Invalid job start type");
     }
 }

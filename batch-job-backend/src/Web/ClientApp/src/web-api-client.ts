@@ -684,7 +684,7 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
-    scheduleType?: number | undefined;
+    scheduleType?: string | undefined;
     year?: number | undefined;
     month?: number | undefined;
     day?: number | undefined;
@@ -795,7 +795,7 @@ export interface ICreateBatchJobCommand {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
-    scheduleType?: number | undefined;
+    scheduleType?: string | undefined;
     year?: number | undefined;
     month?: number | undefined;
     day?: number | undefined;

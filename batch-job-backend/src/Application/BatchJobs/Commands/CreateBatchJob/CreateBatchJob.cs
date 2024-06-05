@@ -1,4 +1,5 @@
 ﻿using batch_job_backend.Application.Common.Interfaces;
+using batch_job_backend.Application.Common.Util;
 using batch_job_backend.Application.Mappings;
 using batch_job_backend.Domain.Entities;
 using batch_job_backend.Domain.Enums;
@@ -21,7 +22,7 @@ public record CreateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
     // 定時周期时间
     public string? CronExpression { get; set; }
     // バッチ起動日(定時周期)
-    public int? ScheduleType { get; set; }
+    public string? ScheduleType { get; set; }
 
     public int? Year { get; set; }
     public int? Month { get; set; }
@@ -80,19 +81,13 @@ public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobComman
     public async Task<BJob> Handle(CreateBatchJobCommand command, CancellationToken cancellationToken)
     {
         command.JobGroup = command.JobName;
+        command.CronExpression = CronExpressionParser.GenerateCronExpression(command);
+        
         var job = _mapper.Map<BJob>(command);
         await _context.BatchJobs.AddAsync(job, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         return job;
     }
 
-    private string generateCronExpression(CreateBatchJobCommand job)
-    {
-        // var cronExpression = "";
-        // if (job.ScheduleType == ScheduleType.Year)
-        // {
-        //     cronExpression = "year"
-        // }
-        return "";
-    } 
+
 }

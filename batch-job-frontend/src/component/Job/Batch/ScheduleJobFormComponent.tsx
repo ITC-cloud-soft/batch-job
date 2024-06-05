@@ -64,7 +64,6 @@ const ScheduleJobFormComponent: React.FC<ScheduleProps> = ({
         <Wrapper>
             <Flex justify="center" style={{ minHeight: '500px' }}>
                 <Form
-                    preserve={false}
                     form={form}
                     layout="vertical"
                     style={{ width: 400, margin: 20 }}
