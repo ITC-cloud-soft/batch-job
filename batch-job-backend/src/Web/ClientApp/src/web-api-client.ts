@@ -535,6 +535,7 @@ export class BJob extends BaseAuditableEntity implements IBJob {
     workHourEnd?: number;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
+    startType?: number | undefined;
     status?: TaskJobStatus;
 
     constructor(data?: IBJob) {
@@ -564,6 +565,7 @@ export class BJob extends BaseAuditableEntity implements IBJob {
             this.workHourEnd = _data["workHourEnd"];
             this.jobTriggerId = _data["jobTriggerId"];
             this.jobNo = _data["jobNo"];
+            this.startType = _data["startType"];
             this.status = _data["status"];
         }
     }
@@ -597,6 +599,7 @@ export class BJob extends BaseAuditableEntity implements IBJob {
         data["workHourEnd"] = this.workHourEnd;
         data["jobTriggerId"] = this.jobTriggerId;
         data["jobNo"] = this.jobNo;
+        data["startType"] = this.startType;
         data["status"] = this.status;
         super.toJSON(data);
         return data;
@@ -624,6 +627,7 @@ export interface IBJob extends IBaseAuditableEntity {
     workHourEnd?: number;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
+    startType?: number | undefined;
     status?: TaskJobStatus;
 }
 
@@ -698,14 +702,15 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
     hour?: number | undefined;
     minute?: number | undefined;
     second?: number | undefined;
-    batchLaunchMonthDay?: number[];
-    batchLaunchWeedDay?: number[];
+    batchLaunchMonthDay?: string[];
+    batchLaunchWeekDay?: string[];
     loopStep?: number;
     workHourStart?: number;
     workHourEnd?: number;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
     status?: number | undefined;
+    startType?: number | undefined;
 
     constructor(data?: ICreateBatchJobCommand) {
         if (data) {
@@ -736,10 +741,10 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
                 for (let item of _data["batchLaunchMonthDay"])
                     this.batchLaunchMonthDay!.push(item);
             }
-            if (Array.isArray(_data["batchLaunchWeedDay"])) {
-                this.batchLaunchWeedDay = [] as any;
-                for (let item of _data["batchLaunchWeedDay"])
-                    this.batchLaunchWeedDay!.push(item);
+            if (Array.isArray(_data["batchLaunchWeekDay"])) {
+                this.batchLaunchWeekDay = [] as any;
+                for (let item of _data["batchLaunchWeekDay"])
+                    this.batchLaunchWeekDay!.push(item);
             }
             this.loopStep = _data["loopStep"];
             this.workHourStart = _data["workHourStart"];
@@ -747,6 +752,7 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
             this.jobTriggerId = _data["jobTriggerId"];
             this.jobNo = _data["jobNo"];
             this.status = _data["status"];
+            this.startType = _data["startType"];
         }
     }
 
@@ -777,10 +783,10 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
             for (let item of this.batchLaunchMonthDay)
                 data["batchLaunchMonthDay"].push(item);
         }
-        if (Array.isArray(this.batchLaunchWeedDay)) {
-            data["batchLaunchWeedDay"] = [];
-            for (let item of this.batchLaunchWeedDay)
-                data["batchLaunchWeedDay"].push(item);
+        if (Array.isArray(this.batchLaunchWeekDay)) {
+            data["batchLaunchWeekDay"] = [];
+            for (let item of this.batchLaunchWeekDay)
+                data["batchLaunchWeekDay"].push(item);
         }
         data["loopStep"] = this.loopStep;
         data["workHourStart"] = this.workHourStart;
@@ -788,6 +794,7 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
         data["jobTriggerId"] = this.jobTriggerId;
         data["jobNo"] = this.jobNo;
         data["status"] = this.status;
+        data["startType"] = this.startType;
         return data;
     }
 }
@@ -806,14 +813,15 @@ export interface ICreateBatchJobCommand {
     hour?: number | undefined;
     minute?: number | undefined;
     second?: number | undefined;
-    batchLaunchMonthDay?: number[];
-    batchLaunchWeedDay?: number[];
+    batchLaunchMonthDay?: string[];
+    batchLaunchWeekDay?: string[];
     loopStep?: number;
     workHourStart?: number;
     workHourEnd?: number;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
     status?: number | undefined;
+    startType?: number | undefined;
 }
 
 export class UpdateBatchJobCommand implements IUpdateBatchJobCommand {
@@ -1025,13 +1033,14 @@ export class BatchJobVm implements IBatchJobVm {
     hour?: string | undefined;
     minute?: string | undefined;
     second?: string | undefined;
-    batchLaunchMonthDay?: string | undefined;
-    batchLaunchWeedDay?: string | undefined;
+    batchLaunchMonthDay?: string[] | undefined;
+    batchLaunchWeekDay?: string[] | undefined;
     loopStep?: number;
     workHourStart?: number;
     workHourEnd?: number;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
+    startType?: number | undefined;
     status?: TaskJobStatus;
     taskJobStatusDes?: string;
     taskJobStatusColor?: string;
@@ -1063,13 +1072,22 @@ export class BatchJobVm implements IBatchJobVm {
             this.hour = _data["hour"];
             this.minute = _data["minute"];
             this.second = _data["second"];
-            this.batchLaunchMonthDay = _data["batchLaunchMonthDay"];
-            this.batchLaunchWeedDay = _data["batchLaunchWeedDay"];
+            if (Array.isArray(_data["batchLaunchMonthDay"])) {
+                this.batchLaunchMonthDay = [] as any;
+                for (let item of _data["batchLaunchMonthDay"])
+                    this.batchLaunchMonthDay!.push(item);
+            }
+            if (Array.isArray(_data["batchLaunchWeekDay"])) {
+                this.batchLaunchWeekDay = [] as any;
+                for (let item of _data["batchLaunchWeekDay"])
+                    this.batchLaunchWeekDay!.push(item);
+            }
             this.loopStep = _data["loopStep"];
             this.workHourStart = _data["workHourStart"];
             this.workHourEnd = _data["workHourEnd"];
             this.jobTriggerId = _data["jobTriggerId"];
             this.jobNo = _data["jobNo"];
+            this.startType = _data["startType"];
             this.status = _data["status"];
             this.taskJobStatusDes = _data["taskJobStatusDes"];
             this.taskJobStatusColor = _data["taskJobStatusColor"];
@@ -1101,13 +1119,22 @@ export class BatchJobVm implements IBatchJobVm {
         data["hour"] = this.hour;
         data["minute"] = this.minute;
         data["second"] = this.second;
-        data["batchLaunchMonthDay"] = this.batchLaunchMonthDay;
-        data["batchLaunchWeedDay"] = this.batchLaunchWeedDay;
+        if (Array.isArray(this.batchLaunchMonthDay)) {
+            data["batchLaunchMonthDay"] = [];
+            for (let item of this.batchLaunchMonthDay)
+                data["batchLaunchMonthDay"].push(item);
+        }
+        if (Array.isArray(this.batchLaunchWeekDay)) {
+            data["batchLaunchWeekDay"] = [];
+            for (let item of this.batchLaunchWeekDay)
+                data["batchLaunchWeekDay"].push(item);
+        }
         data["loopStep"] = this.loopStep;
         data["workHourStart"] = this.workHourStart;
         data["workHourEnd"] = this.workHourEnd;
         data["jobTriggerId"] = this.jobTriggerId;
         data["jobNo"] = this.jobNo;
+        data["startType"] = this.startType;
         data["status"] = this.status;
         data["taskJobStatusDes"] = this.taskJobStatusDes;
         data["taskJobStatusColor"] = this.taskJobStatusColor;
@@ -1132,13 +1159,14 @@ export interface IBatchJobVm {
     hour?: string | undefined;
     minute?: string | undefined;
     second?: string | undefined;
-    batchLaunchMonthDay?: string | undefined;
-    batchLaunchWeedDay?: string | undefined;
+    batchLaunchMonthDay?: string[] | undefined;
+    batchLaunchWeekDay?: string[] | undefined;
     loopStep?: number;
     workHourStart?: number;
     workHourEnd?: number;
     jobTriggerId?: number | undefined;
     jobNo?: number | undefined;
+    startType?: number | undefined;
     status?: TaskJobStatus;
     taskJobStatusDes?: string;
     taskJobStatusColor?: string;

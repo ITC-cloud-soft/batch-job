@@ -10,7 +10,9 @@ const MonthDayComponent: React.FC<HmProps> = () => {
                     <Row>
                         {Array.from({ length: 31 }, (_, i) => (
                             <Col span={6} key={i}>
-                                <Checkbox value={i + 1}>{i + 1}日</Checkbox>
+                                <Checkbox value={`${i + 1}`}>
+                                    {i + 1}日
+                                </Checkbox>
                             </Col>
                         ))}
                     </Row>

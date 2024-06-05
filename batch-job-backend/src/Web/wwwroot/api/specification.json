@@ -451,6 +451,11 @@
                 "format": "int32",
                 "nullable": true
               },
+              "startType": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
               "status": {
                 "$ref": "#/components/schemas/TaskJobStatus"
               }
@@ -640,15 +645,13 @@
           "batchLaunchMonthDay": {
             "type": "array",
             "items": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           },
-          "batchLaunchWeedDay": {
+          "batchLaunchWeekDay": {
             "type": "array",
             "items": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           },
           "loopStep": {
@@ -674,6 +677,11 @@
             "nullable": true
           },
           "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "startType": {
             "type": "integer",
             "format": "int32",
             "nullable": true
@@ -882,12 +890,18 @@
             "nullable": true
           },
           "batchLaunchMonthDay": {
-            "type": "string",
-            "nullable": true
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
           },
-          "batchLaunchWeedDay": {
-            "type": "string",
-            "nullable": true
+          "batchLaunchWeekDay": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
           },
           "loopStep": {
             "type": "integer",
@@ -907,6 +921,11 @@
             "nullable": true
           },
           "jobNo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "startType": {
             "type": "integer",
             "format": "int32",
             "nullable": true

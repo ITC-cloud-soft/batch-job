@@ -46,7 +46,7 @@ const ScheduleJobFormComponent: React.FC<ScheduleProps> = ({
             setJob(jobParam);
             form.setFieldsValue(jobParam);
         }
-    }, []);
+    }, [jobParam, form]);
 
     console.log('job:', job);
 

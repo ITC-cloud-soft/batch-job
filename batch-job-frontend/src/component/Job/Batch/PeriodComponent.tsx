@@ -33,7 +33,7 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
                             <Row>
                                 {Array.from({ length: 31 }, (_, i) => (
                                     <Col span={6} key={i}>
-                                        <Checkbox value={i + 1}>
+                                        <Checkbox value={`${i + 1}`}>
                                             {i + 1}日
                                         </Checkbox>
                                     </Col>
@@ -48,7 +48,9 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
                             <Row>
                                 {daysOfWeek.map((value, i) => (
                                     <Col span={6} key={i}>
-                                        <Checkbox value={i}>{value}</Checkbox>
+                                        <Checkbox value={`${i}`}>
+                                            {value}
+                                        </Checkbox>
                                     </Col>
                                 ))}
                             </Row>
