@@ -41,7 +41,7 @@ public class CronExpressionParser
         // バッチ起動曜日
         if (job.StartType == 2)
         {
-            var weekDay = string.Join(",", job.BatchLaunchWeekDay);
+            var weekDay = string.Join(",", job.BatchLaunchWeekDay.Select(x => int.Parse(x) + 1).ToList());
             return $"0 0/{job.LoopStep} {job.WorkHourStart}-{job.WorkHourEnd} ? * {weekDay} * ";
         }
 
@@ -59,7 +59,7 @@ public class CronExpressionParser
         // バッチ起動曜日
         if (job.StartType == 2)
         {
-            var weekDay = string.Join(",", job.BatchLaunchWeekDay);
+            var weekDay = string.Join(",", job.BatchLaunchWeekDay.Select(x => int.Parse(x) + 1).ToList());
             return $"0 0 0/{job.LoopStep} ? * {weekDay} * ";
         }
 

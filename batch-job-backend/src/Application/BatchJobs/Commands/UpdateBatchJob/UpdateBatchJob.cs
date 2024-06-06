@@ -1,6 +1,7 @@
 ﻿using batch_job_backend.Application.BatchJobs.Commands.ExecuteBatchJob;
 using batch_job_backend.Application.BatchJobs.Commands.StopBatchJob;
 using batch_job_backend.Application.Common.Interfaces;
+using batch_job_backend.Application.Common.Util;
 using batch_job_backend.Application.Mappings;
 using batch_job_backend.Domain.Entities;
 using batch_job_backend.Domain.Enums;

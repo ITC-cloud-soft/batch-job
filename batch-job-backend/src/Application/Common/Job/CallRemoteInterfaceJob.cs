@@ -20,6 +20,7 @@ public class  CallRemoteInterfaceJob : IJob
     {
         try
         {
+            _logger.LogInformation("Job {} Start", context.JobDetail.Description);
             JobDataMap param = context.JobDetail.JobDataMap;
 
             string? jobJsonStr = param.GetString(JobConstants.Scheduled);
