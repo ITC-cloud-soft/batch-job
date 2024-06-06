@@ -8,7 +8,11 @@ const AddTriggerJob = () => {
                 <h2>トリガーJOB設定</h2>
             </Flex>
             <Flex>
-                <TriggerForm ifAdd={false} />
+                <TriggerForm
+                    closeModal={function (): void {
+                        throw new Error('Function not implemented.');
+                    }}
+                />
             </Flex>
         </Flex>
     );

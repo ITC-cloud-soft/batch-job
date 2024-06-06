@@ -22,7 +22,7 @@ public class  CallRemoteInterfaceJob : IJob
     {
         try
         {
-            _logger.LogInformation("Job {Description} Start", context.JobDetail.Description);
+            _logger.LogInformation("Job CallRemoteInterfaceJob Start");
             
             // get scheduled job from job parameters
             JobDataMap param = context.JobDetail.JobDataMap;
@@ -54,7 +54,7 @@ public class  CallRemoteInterfaceJob : IJob
             foreach (BJob trigger in triggerList )
             {
                 _logger.LogInformation("Execute trigger job: {TriggerId}", trigger.Id);
-                var triggerResponse = await GetRequest(job.JobUrl!);
+                var triggerResponse = await GetRequest(trigger.JobUrl!);
                 LogResponse(triggerResponse);
             }
 
@@ -106,7 +106,6 @@ public class  CallRemoteInterfaceJob : IJob
     
     private void LogResponse(string response)
     {
-        Console.WriteLine(response);
         _logger.LogInformation("Response: {Response}", response);
     }
 }

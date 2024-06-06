@@ -59,7 +59,7 @@ export class BatchJobsClient {
         return Promise.resolve<BJob>(null as any);
     }
 
-    query(jobType: JobType, pageNumber: number, pageSize: number): Promise<PaginatedListOfBatchJobVm> {
+    queryByPage(jobType: JobType, pageNumber: number, pageSize: number): Promise<PaginatedListOfBatchJobVm> {
         let url_ = this.baseUrl + "/api/BatchJobs?";
         if (jobType === undefined || jobType === null)
             throw new Error("The parameter 'jobType' must be defined and cannot be null.");
@@ -83,11 +83,11 @@ export class BatchJobsClient {
         };
 
         return this.http.fetch(url_, options_).then((_response: Response) => {
-            return this.processQuery(_response);
+            return this.processQueryByPage(_response);
         });
     }
 
-    protected processQuery(response: Response): Promise<PaginatedListOfBatchJobVm> {
+    protected processQueryByPage(response: Response): Promise<PaginatedListOfBatchJobVm> {
         followIfLoginRedirect(response);
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
@@ -146,6 +146,44 @@ export class BatchJobsClient {
             });
         }
         return Promise.resolve<BJob>(null as any);
+    }
+
+    query(jobId: number): Promise<BatchJobVm> {
+        let url_ = this.baseUrl + "/api/BatchJobs/{jobId}";
+        if (jobId === undefined || jobId === null)
+            throw new Error("The parameter 'jobId' must be defined.");
+        url_ = url_.replace("{jobId}", encodeURIComponent("" + jobId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processQuery(_response);
+        });
+    }
+
+    protected processQuery(response: Response): Promise<BatchJobVm> {
+        followIfLoginRedirect(response);
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = BatchJobVm.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<BatchJobVm>(null as any);
     }
 
     executeJob(jobId: number): Promise<void> {

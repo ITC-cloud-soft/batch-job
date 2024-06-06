@@ -15,7 +15,8 @@ public class BatchJobs : EndpointGroupBase
         app.MapGroup(this)
             .MapPost(CreateJob)
             .MapPut(UpdateJob, "{jobId}")
-            .MapGet(Query)
+            .MapGet(QueryByPage)
+            .MapGet(Query, "{jobId}")
             .MapGet(ExecuteJob, "start/{jobId}")
             .MapDelete(StopJob, "stop/{jobId}");
 
@@ -45,9 +46,12 @@ public class BatchJobs : EndpointGroupBase
         return await sender.Send(command);
     }
     
-    private async Task<PaginatedList<BatchJobVm>> Query(ISender sender, [AsParameters] GetBatchJobWithPaginationQuery query)
+    private async Task<PaginatedList<BatchJobVm>> QueryByPage(ISender sender, [AsParameters] BatchJobWithPaginationQuery query)
     {
         return await sender.Send(query);
     }
-
+    private async Task<BatchJobVm> Query(ISender sender, int jobId)
+    {
+        return await sender.Send(new BatchJobQuery(){Id = jobId});
+    }
 }

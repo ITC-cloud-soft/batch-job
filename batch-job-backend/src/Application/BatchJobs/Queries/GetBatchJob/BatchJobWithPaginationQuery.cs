@@ -5,21 +5,21 @@ using batch_job_backend.Domain.Enums;
 
 namespace batch_job_backend.Application.BatchJobs.Queries.GetBatchJob;
 
-public record GetBatchJobWithPaginationQuery : IRequest<PaginatedList<BatchJobVm>>
+public record BatchJobWithPaginationQuery : IRequest<PaginatedList<BatchJobVm>>
 {
     public JobType JobType { get; set; }
     public int PageNumber { get; init; } = 1;
     public int PageSize { get; init; } = 10;
 }
 
-public class GetBatchJobQueryValidator : AbstractValidator<GetBatchJobWithPaginationQuery>
+public class GetBatchJobQueryValidator : AbstractValidator<BatchJobWithPaginationQuery>
 {
     public GetBatchJobQueryValidator()
     {
     }
 }
 
-public class GetBatchJobQueryHandler : IRequestHandler<GetBatchJobWithPaginationQuery, PaginatedList<BatchJobVm>>
+public class GetBatchJobQueryHandler : IRequestHandler<BatchJobWithPaginationQuery, PaginatedList<BatchJobVm>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ public class GetBatchJobQueryHandler : IRequestHandler<GetBatchJobWithPagination
         _mapper = mapper;
     }
 
-    public async Task<PaginatedList<BatchJobVm>> Handle(GetBatchJobWithPaginationQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<BatchJobVm>> Handle(BatchJobWithPaginationQuery request, CancellationToken cancellationToken)
     {
         var batchJobVms = await _context.BatchJobs
             .AsNoTracking()

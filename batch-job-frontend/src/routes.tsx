@@ -5,6 +5,7 @@ import ScheduledJobList from './pages/job/ScheduledJobList.tsx';
 import ScheduleJobFormComponent from './component/Job/Batch/ScheduleJobFormComponent.tsx';
 import AddTriggerJob from './pages/job/AddTriggerJob.tsx';
 import TriggerList from './pages/job/TriggerList.tsx';
+import ResultPage from './pages/job/ResultPage.tsx';
 
 const routes = createBrowserRouter([
     {
@@ -41,7 +42,10 @@ const routes = createBrowserRouter([
         path: '/trigger/add',
         element: <AddTriggerJob />,
     },
-    // 可以在这里添加更多顶级路由
+    {
+        path: '/success/:id/type/:type',
+        element: <ResultPage />,
+    },
 ]);
 
 export default routes;

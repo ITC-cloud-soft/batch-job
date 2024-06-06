@@ -1,14 +1,17 @@
 import { BJob, JobProps, JobType } from '../../../props/DataStructure.ts';
-import { Button, Form, Input, Space, Tooltip } from 'antd';
+import { Button, Flex, Form, Input, Select, Space, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'antd/es/form/Form';
-import { SaveJob, UpdateJob } from '../../../service/api.ts';
+import { GetJobList, SaveJob, UpdateJob } from '../../../service/api.ts';
+import { useNavigate } from 'react-router-dom';
 
 const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
     const [form] = useForm();
     const mustInputMessage = 'Please input!';
     const [job, setJob] = useState<BJob>();
-    const submit = (param: BJob) => {
+    const [scJobList, setScJobList] = useState<BJob[]>();
+    const navigate = useNavigate();
+    const submit = async (param: BJob) => {
         if (jobParam) {
             UpdateJob({ ...jobParam, ...param }).then((r) => {
                 console.log(r);
@@ -17,8 +20,9 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
         } else {
             param = { ...param, jobType: JobType.Trigger };
             SaveJob(param)
-                .then((r) => {
-                    console.log(r);
+                .then((res) => {
+                    console.log(res);
+                    navigate(`/success/${res.id}/type/${res.jobType}`);
                 })
                 .catch((e) => {
                     console.log(e);
@@ -31,8 +35,11 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
             setJob(jobParam);
             form.setFieldsValue(jobParam);
         }
+        GetJobList(JobType.Scheduled).then((res) => {
+            setScJobList(res.items);
+        });
     }, [form, jobParam]);
-
+    const options = scJobList?.map((e) => ({ value: e.id, label: e.jobName }));
     return (
         <Form
             form={form}
@@ -70,11 +77,8 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
                         noStyle
                         rules={[{ required: true, message: mustInputMessage }]}
                     >
-                        <Input style={{ width: 300 }} />
+                        <Select style={{ width: 300 }} options={options} />
                     </Form.Item>
-                    <Tooltip title="Useful information">
-                        <a>※TODO</a>
-                    </Tooltip>
                 </Space>
             </Form.Item>
 
@@ -92,12 +96,11 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
                     </Tooltip>
                 </Space>
             </Form.Item>
-            <Space size={'large'}>
+            <Flex justify={'center'}>
                 <Button type="primary" htmlType="submit">
                     保存
                 </Button>
-                <Button type="default">戻る</Button>
-            </Space>
+            </Flex>
         </Form>
     );
 };

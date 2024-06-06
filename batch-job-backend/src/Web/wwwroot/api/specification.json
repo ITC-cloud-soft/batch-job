@@ -41,7 +41,7 @@
         "tags": [
           "BatchJobs"
         ],
-        "operationId": "Query",
+        "operationId": "QueryByPage",
         "parameters": [
           {
             "name": "JobType",
@@ -124,6 +124,36 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BJob"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "BatchJobs"
+        ],
+        "operationId": "Query",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchJobVm"
                 }
               }
             }

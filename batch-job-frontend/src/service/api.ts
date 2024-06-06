@@ -107,6 +107,10 @@ export async function GetJobList(jobType: JobType) {
     );
 }
 
+export async function GetJob(id: string) {
+    return request.get<never, BJob>(`api/BatchJobs/${id}`);
+}
+
 export async function ExecuteJob(jobId: number) {
     return request.get<never>(`api/BatchJobs/start/${jobId}`);
 }
@@ -116,9 +120,9 @@ export async function StopJob(jobId: number) {
 }
 
 export async function SaveJob(job: BJob) {
-    return request.post<never, Blob>(`api/BatchJobs/`, job);
+    return request.post<never, BJob>(`api/BatchJobs/`, job);
 }
 
 export async function UpdateJob(job: BJob) {
-    return request.put<never, Blob>(`api/BatchJobs/${job.id}`, job);
+    return request.put<never, BJob>(`api/BatchJobs/${job.id}`, job);
 }

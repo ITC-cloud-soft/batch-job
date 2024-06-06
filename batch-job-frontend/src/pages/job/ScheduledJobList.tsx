@@ -141,10 +141,11 @@ const ScheduledJobList = () => {
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
-                style={{ minHeight: 'auto' }}
                 title="編集"
                 footer={''}
                 destroyOnClose
+                style={{ maxHeight: '80vh', overflowY: 'auto' }} // 设置最大高度，并启用滚动
+                bodyStyle={{ maxHeight: '60vh', overflowY: 'auto' }} // 设置内容区域最大高度，并启用滚动
             >
                 <ScheduleJobFormComponent
                     jobParam={job}
