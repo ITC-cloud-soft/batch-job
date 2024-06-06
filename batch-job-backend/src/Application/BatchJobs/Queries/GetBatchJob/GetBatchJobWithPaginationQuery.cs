@@ -1,5 +1,4 @@
-﻿using batch_job_backend.Application.BatchJobs.Queries.GetBatchJob;
-using batch_job_backend.Application.Common.Interfaces;
+﻿using batch_job_backend.Application.Common.Interfaces;
 using batch_job_backend.Application.Common.Mappings;
 using batch_job_backend.Application.Common.Models;
 using batch_job_backend.Domain.Enums;

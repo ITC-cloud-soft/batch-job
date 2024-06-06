@@ -4,51 +4,65 @@ using batch_job_backend.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using Quartz;
 
-namespace batch_job_backend.Infrastructure.Job;
+namespace batch_job_backend.Application.Common.Job;
 
 public class  CallRemoteInterfaceJob : IJob
 {
     private readonly ILogger<CallRemoteInterfaceJob> _logger;
+    private readonly IApplicationDbContext _context;
 
 
-    public CallRemoteInterfaceJob(ILogger<CallRemoteInterfaceJob> logger)
+    public CallRemoteInterfaceJob(ILogger<CallRemoteInterfaceJob> logger, IApplicationDbContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
     public async Task Execute(IJobExecutionContext context)
     {
         try
         {
-            _logger.LogInformation("Job {} Start", context.JobDetail.Description);
+            _logger.LogInformation("Job {Description} Start", context.JobDetail.Description);
+            
+            // get scheduled job from job parameters
             JobDataMap param = context.JobDetail.JobDataMap;
-
             string? jobJsonStr = param.GetString(JobConstants.Scheduled);
-            string? triggerJsonStr = param.GetString(JobConstants.TriggerJobs);
+            
             if (string.IsNullOrEmpty(jobJsonStr))
             {
-                _logger.LogWarning("Job or trigger data is missing");
-                return;
+                throw new ArgumentException("Invalid job parameters");
             }
-
-            var job = JsonSerializer.Deserialize<BJob>(jobJsonStr);
-            var triggerList = JsonSerializer.Deserialize<List<BJob>>(triggerJsonStr ?? "");
-
-            var response = await GetRequest(job?.JobUrl ?? "");
-            Console.WriteLine(response);
-            foreach (BJob trigger in triggerList ?? Enumerable.Empty<BJob>())
+            
+            var job = JsonSerializer.Deserialize<BJob>(jobJsonStr!);
+         
+            if (job == null)
             {
-                // TODO 返回值处理
-                _logger.LogInformation("Trigger: {TriggerId}", trigger.Id);
-                var response2 = await GetRequest(job?.JobUrl ?? "");
-                Console.WriteLine(response2);
+                throw new ArgumentException("Invalid job parameters: Deserialized job is null");
+            }
+            
+            var triggerList = GetTriggerJobs(job!.Id);
+
+            if (string.IsNullOrEmpty(job.JobUrl))
+            {
+                throw new ArgumentException("Invalid job parameters");
+            }
+            
+            _logger.LogInformation("Execute scheduled job: {TriggerId}", job.Id);
+            var response = await GetRequest(job.JobUrl);
+            LogResponse(response);
+            
+            foreach (BJob trigger in triggerList )
+            {
+                _logger.LogInformation("Execute trigger job: {TriggerId}", trigger.Id);
+                var triggerResponse = await GetRequest(job.JobUrl!);
+                LogResponse(triggerResponse);
             }
 
-            _logger.LogInformation("CallRemoteInterfaceJob is executing.");
+            _logger.LogInformation("CallRemoteInterfaceJob is executing");
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "An error occurred while executing CallRemoteInterfaceJob.");
+            _logger.LogError(e, "An error occurred while executing CallRemoteInterfaceJob");
             throw;
         }
     }
@@ -56,7 +70,7 @@ public class  CallRemoteInterfaceJob : IJob
     
     private async Task<string> GetRequest(string url)
     {
-        HttpClient client = new HttpClient();
+        HttpClient client = new ();
          
         try
         {
@@ -66,18 +80,33 @@ public class  CallRemoteInterfaceJob : IJob
         }
         catch (HttpRequestException e)
         {
-            _logger.LogError($"Request error: {e.Message}");
+            _logger.LogError("Request error: {Message}", e.Message);
             throw; // 重新抛出异常或者返回一个错误信息
         }
         catch (TaskCanceledException e)
         {
-            _logger.LogError($"Request timed out: {e.Message}");
+            _logger.LogError("Request timed out: {Message}", e.Message);
             throw; // 重新抛出异常或者返回一个错误信息
         }
         catch (Exception e)
         {
-            _logger.LogError($"Unexpected error: {e.Message}");
+            _logger.LogError("Unexpected error: {Message}", e.Message);
             throw; // 重新抛出异常或者返回一个错误信息
         }
+    }
+    
+    private List<BJob> GetTriggerJobs(int jobId)
+    {
+        return _context.BatchJobs
+            .AsNoTracking()
+            .Where(x => x.JobTriggerId == jobId)
+            .ToList();
+    }
+    
+    
+    private void LogResponse(string response)
+    {
+        Console.WriteLine(response);
+        _logger.LogInformation("Response: {Response}", response);
     }
 }

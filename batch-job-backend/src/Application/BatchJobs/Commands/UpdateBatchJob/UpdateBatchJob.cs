@@ -103,6 +103,7 @@ public class UpdateBatchJobCommandHandler : IRequestHandler<UpdateBatchJobComman
             await _context.SaveChangesAsync(cancellationToken);
             
             // TODO Execute the job
+            
             // await _sender.Send(new ExecuteBatchJobCommand() { JobId = entity.Id });
             
             // commit

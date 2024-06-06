@@ -219,7 +219,7 @@ export interface HmProps {
     job?: BJob;
     setJob?: (job: BJob) => void;
 }
-export interface ScheduleProps {
+export interface JobProps {
     jobParam?: BJob;
     closeModal: () => void;
 }

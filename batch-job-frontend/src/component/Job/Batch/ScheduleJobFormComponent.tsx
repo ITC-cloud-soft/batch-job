@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Flex, Form, Input, Select } from 'antd';
 import {
     BJob,
-    ScheduleProps,
+    JobProps,
     ScheduleType,
     ScheduleTypeDes,
     TaskJobStatus,
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     height: 85vh;
 `;
 
-const ScheduleJobFormComponent: React.FC<ScheduleProps> = ({
+const ScheduleJobFormComponent: React.FC<JobProps> = ({
     jobParam,
     closeModal,
 }) => {

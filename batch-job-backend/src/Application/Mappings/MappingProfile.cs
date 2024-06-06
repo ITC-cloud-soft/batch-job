@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text;
 using batch_job_backend.Application.BatchJobs.Commands.UpdateBatchJob;
 using batch_job_backend.Application.BatchJobs.Queries.GetBatchJob;
 using batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
@@ -65,9 +66,14 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.BatchLaunchWeekDay, opt => opt.MapFrom(src => MapBatchLaunchDay(src.BatchLaunchWeedDay)))
             .ForMember(dest => dest.TaskJobStatusDes, opt => opt.MapFrom(src => src.Status.GetShortDescription()))
             .ForMember(dest => dest.TaskJobStatusColor, opt => opt.MapFrom(src => src.Status.GetColor()))
-            .ForMember(dest => dest.ScheduleTypeStr, opt => opt.MapFrom(src => ScheduleType.GetDescription(src.ScheduleType)));
+            .ForMember(dest => dest.ScheduleTypeStr, opt => opt.MapFrom(src => GetDes(src)));
         
     }
+    
+    private static string GetDes(BJob job)
+    {
+        return string.IsNullOrEmpty(job.ScheduleType) ? "" : ScheduleType.GetDescription(job.ScheduleType);
+    }        
     
     private static string[] MapBatchLaunchDay(string? MapBatchLaunchDay)
     {

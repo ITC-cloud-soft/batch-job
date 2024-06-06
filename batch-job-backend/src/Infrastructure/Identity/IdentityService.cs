@@ -2,7 +2,6 @@ using batch_job_backend.Application.Common.Interfaces;
 using batch_job_backend.Application.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace batch_job_backend.Infrastructure.Identity;
 

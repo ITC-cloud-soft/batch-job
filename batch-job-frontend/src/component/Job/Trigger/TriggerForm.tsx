@@ -1,32 +1,44 @@
-import { BJob } from '../../../props/DataStructure.ts';
+import { BJob, JobProps, JobType } from '../../../props/DataStructure.ts';
 import { Button, Form, Input, Space, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'antd/es/form/Form';
+import { SaveJob, UpdateJob } from '../../../service/api.ts';
 
-interface TriggerFormProps {
-    ifAdd: boolean;
-}
-
-const TriggerForm: React.FC<TriggerFormProps> = ({ ifAdd }) => {
+const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
     const [form] = useForm();
     const mustInputMessage = 'Please input!';
     const [job, setJob] = useState<BJob>();
-    const sumbit = (s: BJob) => {
-        console.log(s);
-        setJob(s);
+    const submit = (param: BJob) => {
+        if (jobParam) {
+            UpdateJob({ ...jobParam, ...param }).then((r) => {
+                console.log(r);
+                closeModal();
+            });
+        } else {
+            param = { ...param, jobType: JobType.Trigger };
+            SaveJob(param)
+                .then((r) => {
+                    console.log(r);
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
     };
 
     useEffect(() => {
-        if (ifAdd) {
+        if (jobParam) {
+            setJob(jobParam);
+            form.setFieldsValue(jobParam);
         }
-    }, []);
+    }, [form, jobParam]);
 
     return (
         <Form
             form={form}
             layout="vertical"
             style={{ minWidth: 200, maxWidth: 500, margin: 20 }}
-            onFinish={sumbit}
+            onFinish={submit}
             initialValues={job}
         >
             <Form.Item label="バッチ名">

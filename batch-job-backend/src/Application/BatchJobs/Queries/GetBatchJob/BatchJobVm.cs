@@ -38,11 +38,11 @@ public class BatchJobVm
     public string[]? BatchLaunchWeekDay { get; set; }
     
     // 間隔値
-    public int LoopStep { get; set; }
+    public int? LoopStep { get; set; }
     
     // 稼働時間帯
-    public int WorkHourStart { get; set; }
-    public int WorkHourEnd { get; set; }
+    public int? WorkHourStart { get; set; }
+    public int? WorkHourEnd { get; set; }
     
     // Trigger トリガーファイル名 (Trigger) => 对应的scheduled job的id
     // 可能有多个Trigger 对一个scheduled job 的情况

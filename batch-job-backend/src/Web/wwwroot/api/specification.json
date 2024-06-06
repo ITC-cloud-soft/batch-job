@@ -391,7 +391,8 @@
                 "nullable": true
               },
               "scheduleType": {
-                "type": "string"
+                "type": "string",
+                "nullable": true
               },
               "year": {
                 "type": "string",
@@ -431,15 +432,18 @@
               },
               "loopStep": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "nullable": true
               },
               "workHourStart": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "nullable": true
               },
               "workHourEnd": {
                 "type": "integer",
-                "format": "int32"
+                "format": "int32",
+                "nullable": true
               },
               "jobTriggerId": {
                 "type": "integer",
@@ -889,15 +893,18 @@
           },
           "loopStep": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "workHourStart": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "workHourEnd": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "jobTriggerId": {
             "type": "integer",

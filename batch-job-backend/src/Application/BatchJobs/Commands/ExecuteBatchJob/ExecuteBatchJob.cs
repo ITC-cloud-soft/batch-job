@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using batch_job_backend.Application.Common.Interfaces;
+using batch_job_backend.Application.Common.Job;
 using batch_job_backend.Domain.Entities;
 using batch_job_backend.Domain.Enums;
-using batch_job_backend.Infrastructure.Job;
 using Microsoft.Extensions.Logging;
 using Quartz;
 
@@ -42,23 +42,21 @@ public class ExecuteBatchJobCommandHandler : IRequestHandler<ExecuteBatchJobComm
     {
         
         _logger.LogInformation("Start executing job [{JobId}]", request.JobId);
+        
         // Step 1: Retrieve the job from the database
         var job = GetJob(request.JobId);
         Guard.Against.NotFound(request.JobId, job);
-
-        // Step 2: Retrieve the trigger jobs associated with the main job
-        var triggerJobList = GetTriggerJobs(request.JobId);
-
-        // Step 3: Prepare JobDataMap
+        
+        // Step 2: Prepare JobDataMap
         var jobKey = new JobKey(job.JobName, job.JobGroup);
         var triggerKey = new TriggerKey(job.JobName, job.JobGroup);
-        var jobDataMap = CreateJobDataMap(job, triggerJobList);
+        var jobDataMap = CreateJobDataMap(job, new List<BJob>());
    
-        // Step 4: Schedule the job with Quartz.NET
+        // Step 3: Schedule the job with Quartz.NET
         await ScheduleJob(jobKey, triggerKey, jobDataMap, job.CronExpression ?? "", cancellationToken);
         job.Status = TaskJobStatus.Processing;
         
-        // 更新 Job 状态
+        // Step 5: update job status
         job.Status = TaskJobStatus.Processing;
         await _context.SaveChangesAsync(cancellationToken);
         
@@ -69,14 +67,6 @@ public class ExecuteBatchJobCommandHandler : IRequestHandler<ExecuteBatchJobComm
     {
         return _context.BatchJobs
             .FirstOrDefault(x => x.Id == jobId);
-    }
-
-    private List<BJob> GetTriggerJobs(int jobId)
-    {
-        return _context.BatchJobs
-            .AsNoTracking()
-            .Where(x => x.JobTriggerId == jobId)
-            .ToList();
     }
     
     private JobDataMap CreateJobDataMap(BJob job, List<BJob> triggerJobList)

@@ -8,7 +8,7 @@ public enum TaskJobStatus
     Enqueued = 0,
     [JobStatus("Scheduled", "The job is scheduled to be processed at a specific time.", "cyan")]
     Scheduled = 1,
-    [JobStatus("Processing", "The job is currently being processed.", "orange")]
+    [JobStatus("Processing", "The job is currently being processed.", "green")]
     Processing = 2,
     [JobStatus("Succeeded", "The job has been processed successfully.", "green")]
     Succeeded = 3,

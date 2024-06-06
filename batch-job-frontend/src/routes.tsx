@@ -4,7 +4,7 @@ import ServerErrorPage from './pages/ServerErrorPage.tsx';
 import ScheduledJobList from './pages/job/ScheduledJobList.tsx';
 import ScheduleJobFormComponent from './component/Job/Batch/ScheduleJobFormComponent.tsx';
 import AddTriggerJob from './pages/job/AddTriggerJob.tsx';
-import TriggerListPage from './pages/job/TriggerListPage.tsx';
+import TriggerList from './pages/job/TriggerList.tsx';
 
 const routes = createBrowserRouter([
     {
@@ -25,11 +25,17 @@ const routes = createBrowserRouter([
     },
     {
         path: '/trigger',
-        element: <TriggerListPage />,
+        element: <TriggerList />,
     },
     {
         path: '/scheduled/add',
-        element: <ScheduleJobFormComponent />,
+        element: (
+            <ScheduleJobFormComponent
+                closeModal={function (): void {
+                    throw new Error('Function not implemented.');
+                }}
+            />
+        ),
     },
     {
         path: '/trigger/add',
