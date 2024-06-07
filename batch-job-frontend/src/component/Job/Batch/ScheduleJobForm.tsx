@@ -14,6 +14,7 @@ import WeekDayComponent from '../Component/WeekDayComponent.tsx';
 import PeriodComponent from '../Component/PeriodComponent.tsx';
 import { SaveJob, UpdateJob } from '../../../service/api.ts';
 import { useNavigate } from 'react-router-dom';
+import Title from 'antd/es/typography/Title';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -60,7 +61,16 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
     }));
     return (
         <Wrapper>
-            <Flex justify="center" style={{ minHeight: '500px' }}>
+            <Flex align="center" vertical={true} style={{ minHeight: '500px' }}>
+                {!jobParam && (
+                    <Flex justify={'space-between'} align={'center'}>
+                        <Title level={2}>定時周期JOB設定</Title>
+                        <Flex>
+                            <Button>トリガーJOB一覧</Button>
+                            <Button>新規周期JOB</Button>
+                        </Flex>
+                    </Flex>
+                )}
                 <Form
                     form={form}
                     layout="vertical"
@@ -95,11 +105,19 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                     {job?.scheduleType == ScheduleType.Year && (
                         <Flex vertical={false} gap={20}>
                             <HourMinComponent job={job} />
-                            <Form.Item label="日" name="day">
+                            <Form.Item
+                                label="日"
+                                name="day"
+                                style={{ width: '70px' }}
+                            >
                                 <Select options={daySelectOptios} />
                             </Form.Item>
 
-                            <Form.Item label={'月'} name="month">
+                            <Form.Item
+                                label={'月'}
+                                name="month"
+                                style={{ width: '70px' }}
+                            >
                                 <Select options={monthSelectOptios} />
                             </Form.Item>
                         </Flex>
@@ -170,11 +188,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                         </>
                     )}
 
-                    <Button
-                        style={{ float: 'right' }}
-                        type="primary"
-                        htmlType="submit"
-                    >
+                    <Button type="primary" htmlType="submit">
                         保存
                     </Button>
                 </Form>

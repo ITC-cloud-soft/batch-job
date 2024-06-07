@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { Modal, Space, Table, TableProps, Tag } from 'antd';
+import { Button, Flex, Modal, Space, Table, TableProps, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { BJob, JobType } from '../../props/DataStructure.ts';
 import { GetJobList } from '../../service/api.ts';
 import TriggerForm from '../../component/Job/Trigger/TriggerForm.tsx';
+import Title from 'antd/es/typography/Title';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -60,6 +61,8 @@ const TriggerList = () => {
             title: 'バッチURL',
             dataIndex: 'jobUrl',
             key: 'jobUrl',
+            width: '300px',
+            ellipsis: true, // 内容超出时显示省略号
         },
         {
             title: '状態',
@@ -93,6 +96,13 @@ const TriggerList = () => {
 
     return (
         <Wrapper>
+            <Flex justify={'space-between'} align={'center'}>
+                <Title level={2}>トリガーJOB一覧</Title>
+                <Flex>
+                    <Button>定時JOB一覧</Button>
+                    <Button>新規トリガーJOB</Button>
+                </Flex>
+            </Flex>
             <Table dataSource={jobList} columns={columns}></Table>
             <Modal
                 open={isModalOpen}

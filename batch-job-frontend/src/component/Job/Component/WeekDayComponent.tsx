@@ -12,7 +12,7 @@ const WeekDayComponent = () => {
 
     return (
         <Flex gap={20} vertical={false}>
-            <Form.Item label="曜日：" name="weekDay">
+            <Form.Item label="曜日：" name="weekDay" style={{ width: '80px' }}>
                 <Select>
                     {daysOfWeek.map((value, index) => (
                         <Select.Option key={value} value={`${index}`}>

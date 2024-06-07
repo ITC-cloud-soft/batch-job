@@ -28,6 +28,23 @@ public class CronExpressionParser
         Console.WriteLine(cronExpression);
         return cronExpression;
     }
+    
+    public static string GenerateCronExpressionString(CreateBatchJobCommand job)
+    {
+        var cronExpression = "";
+        var batchLaunchMonthDay = string.Join(",", job.BatchLaunchMonthDay);
+        switch (job.ScheduleType)
+        {
+            case ScheduleType.Year: cronExpression = $"0 {job.Minute} {job.Hour} {job.Day} {job.Month} ? *"; break;
+            case ScheduleType.Month: cronExpression = $"0 {job.Minute} {job.Hour} {batchLaunchMonthDay} * ? *"; break;
+            case ScheduleType.Week: cronExpression = $"0 {job.Minute} {job.Hour} ? * {job.WeekDay + 1} *"; break;
+            case ScheduleType.Day: cronExpression = $"0 {job.Minute} {job.Hour} * * ? *"; break;
+            case ScheduleType.Hour: cronExpression = GenHourLoopCronExpression(job); break;
+            case ScheduleType.Minute: cronExpression = GenMinLoopCronExpression(job); break;
+        }
+        Console.WriteLine(cronExpression);
+        return cronExpression;
+    }
 
     private static string GenMinLoopCronExpression(CreateBatchJobCommand job)
     {

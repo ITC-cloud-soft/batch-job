@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { BJob, JobType, TaskJobStatus } from '../../props/DataStructure.ts';
 import { ExecuteJob, GetJobList, StopJob } from '../../service/api.ts';
 import ScheduleJobForm from '../../component/Job/Batch/ScheduleJobForm.tsx';
+import Title from 'antd/es/typography/Title';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -97,6 +98,8 @@ const ScheduledJobList = () => {
             title: 'バッチURL',
             dataIndex: 'jobUrl',
             key: 'jobUrl',
+            width: '300px',
+            ellipsis: true, // 内容超出时显示省略号
         },
         {
             title: '状態',
@@ -114,16 +117,20 @@ const ScheduledJobList = () => {
             title: '操作',
             dataIndex: 'id',
             key: 'id',
-            render: (_, { id }) => {
+            render: (_, { id, status }) => {
                 return (
                     <>
                         <Space size={10}>
-                            <a href="#" onClick={() => executeJob(id)}>
-                                起動
-                            </a>
-                            <a href="#" onClick={() => stopJob(id)}>
-                                停止
-                            </a>
+                            {status === TaskJobStatus.Stop && (
+                                <a href="#" onClick={() => executeJob(id)}>
+                                    起動
+                                </a>
+                            )}
+                            {status === TaskJobStatus.Processing && (
+                                <a href="#" onClick={() => stopJob(id)}>
+                                    停止
+                                </a>
+                            )}
                             <a href="#" onClick={() => editJob(id)}>
                                 編集
                             </a>
@@ -136,6 +143,7 @@ const ScheduledJobList = () => {
 
     return (
         <Wrapper>
+            <Title level={2}>定時周期JOB設定</Title>
             <Table dataSource={jobList} columns={columns}></Table>
             <Modal
                 open={isModalOpen}

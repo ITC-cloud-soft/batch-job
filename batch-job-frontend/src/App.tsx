@@ -10,9 +10,12 @@ const App = () => {
             <ConfigProvider
                 theme={{
                     token: {
-                        fontSize: 15,
                         borderRadius: 6,
-                        wireframe: false,
+                        wireframe: true,
+                        boxShadowSecondary:
+                            '\n      0 6px 26px 0 rgba(0, 0, 0, 0.08),\n      0 3px 6px -4px rgba(0, 0, 0, 0.12),\n      0 9px 28px 8px rgba(0, 0, 0, 0.05)\n    ',
+                        colorPrimary: '#c73099',
+                        colorInfo: '#c73099',
                     },
                     components: {
                         Checkbox: {

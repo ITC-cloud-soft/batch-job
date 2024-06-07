@@ -82,6 +82,7 @@ public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobComman
     {
         command.JobGroup = command.JobName;
         command.CronExpression = CronExpressionParser.GenerateCronExpression(command);
+        command.CronExpression = CronExpressionParser.GenerateCronExpressionString(command);
         
         var job = _mapper.Map<BJob>(command);
         await _context.BatchJobs.AddAsync(job, cancellationToken);
