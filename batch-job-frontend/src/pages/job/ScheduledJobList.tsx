@@ -3,7 +3,7 @@ import { Modal, Space, Table, TableProps, Tag } from 'antd';
 import { useEffect, useState } from 'react';
 import { BJob, JobType, TaskJobStatus } from '../../props/DataStructure.ts';
 import { ExecuteJob, GetJobList, StopJob } from '../../service/api.ts';
-import ScheduleJobFormComponent from '../../component/Job/Batch/ScheduleJobFormComponent.tsx';
+import ScheduleJobForm from '../../component/Job/Batch/ScheduleJobForm.tsx';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -147,10 +147,7 @@ const ScheduledJobList = () => {
                 style={{ maxHeight: '80vh', overflowY: 'auto' }} // 设置最大高度，并启用滚动
                 bodyStyle={{ maxHeight: '60vh', overflowY: 'auto' }} // 设置内容区域最大高度，并启用滚动
             >
-                <ScheduleJobFormComponent
-                    jobParam={job}
-                    closeModal={handleCancel}
-                />
+                <ScheduleJobForm jobParam={job} closeModal={handleCancel} />
             </Modal>
         </Wrapper>
     );

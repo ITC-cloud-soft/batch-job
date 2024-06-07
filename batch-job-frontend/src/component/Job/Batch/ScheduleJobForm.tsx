@@ -8,35 +8,33 @@ import {
     ScheduleTypeDes,
     TaskJobStatus,
 } from '../../../props/DataStructure.ts';
-import HourMinComponent from './HourMinComponent.tsx';
-import MonthDayComponent from './MonthDayComponent.tsx';
-import WeekDayComponent from './WeekDayComponent.tsx';
-import PeriodComponent from './PeriodComponent.tsx';
+import HourMinComponent from '../Component/HourMinComponent.tsx';
+import MonthDayComponent from '../Component/MonthDayComponent.tsx';
+import WeekDayComponent from '../Component/WeekDayComponent.tsx';
+import PeriodComponent from '../Component/PeriodComponent.tsx';
 import { SaveJob, UpdateJob } from '../../../service/api.ts';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
     height: 85vh;
 `;
 
-const ScheduleJobFormComponent: React.FC<JobProps> = ({
-    jobParam,
-    closeModal,
-}) => {
+const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
     const [job, setJob] = useState<BJob>();
     const mustInputMessage = 'Please input!';
     const [form] = Form.useForm();
+    const navigate = useNavigate();
 
     const sumbit = (bJob: BJob) => {
         console.log(bJob);
         if (jobParam) {
-            UpdateJob({ ...jobParam, ...bJob }).then((r) => {
-                console.log(r);
+            UpdateJob({ ...jobParam, ...bJob }).then(() => {
                 closeModal();
             });
         } else {
             bJob.status = TaskJobStatus.Stop;
-            SaveJob(bJob).then((r) => {
-                console.log(r);
+            SaveJob(bJob).then((res) => {
+                navigate(`/success/${res.id}/type/${res.jobType}`);
             });
         }
     };
@@ -185,4 +183,4 @@ const ScheduleJobFormComponent: React.FC<JobProps> = ({
     );
 };
 
-export default ScheduleJobFormComponent;
+export default ScheduleJobForm;
