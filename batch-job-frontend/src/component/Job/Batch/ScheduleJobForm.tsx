@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
-import { Button, Flex, Form, Input, Select } from 'antd';
+import { Button, Flex, Form, Input, message, Select } from 'antd';
 import {
     BJob,
     JobProps,
@@ -13,7 +13,6 @@ import MonthDayComponent from '../Component/MonthDayComponent.tsx';
 import WeekDayComponent from '../Component/WeekDayComponent.tsx';
 import PeriodComponent from '../Component/PeriodComponent.tsx';
 import { SaveJob, UpdateJob } from '../../../service/api.ts';
-import { useNavigate } from 'react-router-dom';
 import Title from 'antd/es/typography/Title';
 
 const Wrapper = styled.div`
@@ -22,9 +21,8 @@ const Wrapper = styled.div`
 
 const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
     const [job, setJob] = useState<BJob>();
-    const mustInputMessage = 'Please input!';
     const [form] = Form.useForm();
-    const navigate = useNavigate();
+    const [messageApi, contextHolder] = message.useMessage();
 
     const sumbit = (bJob: BJob) => {
         console.log(bJob);
@@ -34,9 +32,19 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
             });
         } else {
             bJob.status = TaskJobStatus.Stop;
-            SaveJob(bJob).then((res) => {
-                navigate(`/success/${res.id}/type/${res.jobType}`);
-            });
+            SaveJob(bJob)
+                .then((res) => {
+                    closeModal();
+                    console.log(res);
+                })
+                .catch((error) => {
+                    debugger;
+                    console.error(error);
+                    messageApi.open({
+                        type: 'error',
+                        content: '保存に失敗しました。もう一度お試しください',
+                    });
+                });
         }
     };
     useEffect(() => {
@@ -61,16 +69,11 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
     }));
     return (
         <Wrapper>
+            {contextHolder}
             <Flex align="center" vertical={true} style={{ minHeight: '500px' }}>
-                {!jobParam && (
-                    <Flex justify={'space-between'} align={'center'}>
-                        <Title level={2}>定時周期JOB設定</Title>
-                        <Flex>
-                            <Button>トリガーJOB一覧</Button>
-                            <Button>新規周期JOB</Button>
-                        </Flex>
-                    </Flex>
-                )}
+                <Flex justify={'space-between'} align={'center'}>
+                    <Title level={3}>定時周期JOB設定</Title>
+                </Flex>
                 <Form
                     form={form}
                     layout="vertical"
@@ -81,7 +84,12 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                     <Form.Item
                         label="バッチ名"
                         name="jobName"
-                        rules={[{ required: true, message: mustInputMessage }]}
+                        rules={[
+                            {
+                                required: true,
+                                message: 'バッチ名を入力してください',
+                            },
+                        ]}
                     >
                         <Input />
                     </Form.Item>
@@ -89,7 +97,12 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                     <Form.Item
                         label="バッチURL"
                         name="jobUrl"
-                        rules={[{ required: true, message: mustInputMessage }]}
+                        rules={[
+                            {
+                                required: true,
+                                message: 'バッチURLを入力してください',
+                            },
+                        ]}
                     >
                         <Input />
                     </Form.Item>
@@ -109,6 +122,12 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                 label="日"
                                 name="day"
                                 style={{ width: '70px' }}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '日付を入力してください',
+                                    },
+                                ]}
                             >
                                 <Select options={daySelectOptios} />
                             </Form.Item>
@@ -117,6 +136,12 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                 label={'月'}
                                 name="month"
                                 style={{ width: '70px' }}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '日付を入力してください',
+                                    },
+                                ]}
                             >
                                 <Select options={monthSelectOptios} />
                             </Form.Item>
@@ -169,6 +194,13 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                             display: 'inline-block',
                                             width: 'calc(50% - 28px)',
                                         }}
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message:
+                                                    '稼働時間帯を入力してください',
+                                            },
+                                        ]}
                                     >
                                         <Input />
                                     </Form.Item>
@@ -188,9 +220,11 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                         </>
                     )}
 
-                    <Button type="primary" htmlType="submit">
-                        保存
-                    </Button>
+                    <Flex justify={'center'}>
+                        <Button type="primary" htmlType="submit">
+                            保存
+                        </Button>
+                    </Flex>
                 </Form>
             </Flex>
         </Wrapper>

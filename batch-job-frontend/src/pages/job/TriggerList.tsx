@@ -5,6 +5,7 @@ import { BJob, JobType } from '../../props/DataStructure.ts';
 import { GetJobList } from '../../service/api.ts';
 import TriggerForm from '../../component/Job/Trigger/TriggerForm.tsx';
 import Title from 'antd/es/typography/Title';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -15,6 +16,7 @@ const TriggerList = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [job, setJob] = useState<BJob>();
 
+    const navigate = useNavigate();
     useEffect(() => {
         GetJobList(JobType.Trigger).then((data) => {
             const jobList = data.items.map((job) => ({ ...job, key: job.id }));
@@ -98,9 +100,22 @@ const TriggerList = () => {
         <Wrapper>
             <Flex justify={'space-between'} align={'center'}>
                 <Title level={2}>トリガーJOB一覧</Title>
-                <Flex>
-                    <Button>定時JOB一覧</Button>
-                    <Button>新規トリガーJOB</Button>
+                <Flex gap={10}>
+                    <Button
+                        onClick={() => {
+                            setJob(undefined);
+                            setIsModalOpen(true);
+                        }}
+                    >
+                        新規トリガーJOB
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            navigate('/scheduled');
+                        }}
+                    >
+                        定時JOB一覧
+                    </Button>
                 </Flex>
             </Flex>
             <Table dataSource={jobList} columns={columns}></Table>
@@ -109,11 +124,13 @@ const TriggerList = () => {
                 onOk={handleOk}
                 onCancel={handleCancel}
                 style={{ minHeight: 'auto' }}
-                title="編集"
                 footer={''}
                 destroyOnClose
             >
-                <TriggerForm jobParam={job} closeModal={handleCancel} />
+                {!job && <TriggerForm closeModal={handleCancel} />}
+                {job && (
+                    <TriggerForm jobParam={job} closeModal={handleCancel} />
+                )}
             </Modal>
         </Wrapper>
     );

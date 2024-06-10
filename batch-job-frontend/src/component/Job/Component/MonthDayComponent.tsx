@@ -5,7 +5,15 @@ import { Checkbox, Col, Flex, Form, Row } from 'antd';
 const MonthDayComponent: React.FC<HmProps> = () => {
     return (
         <Flex vertical={false} gap={20}>
-            <Form.Item name={'batchLaunchMonthDay'}>
+            <Form.Item
+                name={'batchLaunchMonthDay'}
+                rules={[
+                    {
+                        required: true,
+                        message: '日付を入力してください',
+                    },
+                ]}
+            >
                 <Checkbox.Group>
                     <Row>
                         {Array.from({ length: 31 }, (_, i) => (

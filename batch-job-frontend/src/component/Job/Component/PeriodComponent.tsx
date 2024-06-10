@@ -14,7 +14,15 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
     return (
         <Flex vertical>
             <Flex>
-                <Form.Item name={'startType'}>
+                <Form.Item
+                    name={'startType'}
+                    rules={[
+                        {
+                            required: true,
+                            message: '起動日を入力してください',
+                        },
+                    ]}
+                >
                     <Radio.Group
                         onChange={(e) =>
                             setJob &&
@@ -28,7 +36,15 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
             </Flex>
             <Flex>
                 {job?.startType == StartType.Day && (
-                    <Form.Item name={'batchLaunchMonthDay'}>
+                    <Form.Item
+                        name={'batchLaunchMonthDay'}
+                        rules={[
+                            {
+                                required: true,
+                                message: '起動時間を入力してください',
+                            },
+                        ]}
+                    >
                         <Checkbox.Group>
                             <Row>
                                 {Array.from({ length: 31 }, (_, i) => (
@@ -43,7 +59,15 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
                     </Form.Item>
                 )}
                 {job?.startType == StartType.Week && (
-                    <Form.Item name={'batchLaunchWeekDay'}>
+                    <Form.Item
+                        name={'batchLaunchWeekDay'}
+                        rules={[
+                            {
+                                required: true,
+                                message: '起動時間を入力してください',
+                            },
+                        ]}
+                    >
                         <Checkbox.Group>
                             <Row>
                                 {daysOfWeek.map((value, i) => (

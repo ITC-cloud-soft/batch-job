@@ -8,7 +8,17 @@ const HourMinComponent: React.FC<HmProps> = () => {
 
     return (
         <Flex gap={20}>
-            <Form.Item style={{ width: '70px' }} label="分" name="minute">
+            <Form.Item
+                style={{ width: '70px' }}
+                label="分"
+                name="minute"
+                rules={[
+                    {
+                        required: true,
+                        message: '日付を入力してください',
+                    },
+                ]}
+            >
                 <Select>
                     {minuteOptions.map((value, index) => (
                         <Select.Option key={index} value={`${index}`}>
@@ -18,7 +28,17 @@ const HourMinComponent: React.FC<HmProps> = () => {
                 </Select>
             </Form.Item>
 
-            <Form.Item label="時" name="hour" style={{ minWidth: 70 }}>
+            <Form.Item
+                label="時"
+                name="hour"
+                style={{ minWidth: 70 }}
+                rules={[
+                    {
+                        required: true,
+                        message: '日付を入力してください',
+                    },
+                ]}
+            >
                 <Select>
                     {hourOptions.map((value, index) => (
                         <Select.Option key={index} value={`${index}`}>

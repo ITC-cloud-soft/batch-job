@@ -558,6 +558,7 @@ export class BJob extends BaseAuditableEntity implements IBJob {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
+    cronExpressionStr?: string | undefined;
     scheduleType?: string | undefined;
     year?: string | undefined;
     month?: string | undefined;
@@ -588,6 +589,7 @@ export class BJob extends BaseAuditableEntity implements IBJob {
             this.jobType = _data["jobType"];
             this.jobUrl = _data["jobUrl"];
             this.cronExpression = _data["cronExpression"];
+            this.cronExpressionStr = _data["cronExpressionStr"];
             this.scheduleType = _data["scheduleType"];
             this.year = _data["year"];
             this.month = _data["month"];
@@ -622,6 +624,7 @@ export class BJob extends BaseAuditableEntity implements IBJob {
         data["jobType"] = this.jobType;
         data["jobUrl"] = this.jobUrl;
         data["cronExpression"] = this.cronExpression;
+        data["cronExpressionStr"] = this.cronExpressionStr;
         data["scheduleType"] = this.scheduleType;
         data["year"] = this.year;
         data["month"] = this.month;
@@ -650,6 +653,7 @@ export interface IBJob extends IBaseAuditableEntity {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
+    cronExpressionStr?: string | undefined;
     scheduleType?: string | undefined;
     year?: string | undefined;
     month?: string | undefined;
@@ -722,6 +726,7 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
+    cronExpressionStr?: string | undefined;
     scheduleType?: string | undefined;
     year?: number | undefined;
     month?: number | undefined;
@@ -756,6 +761,7 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
             this.jobType = _data["jobType"];
             this.jobUrl = _data["jobUrl"];
             this.cronExpression = _data["cronExpression"];
+            this.cronExpressionStr = _data["cronExpressionStr"];
             this.scheduleType = _data["scheduleType"];
             this.year = _data["year"];
             this.month = _data["month"];
@@ -798,6 +804,7 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
         data["jobType"] = this.jobType;
         data["jobUrl"] = this.jobUrl;
         data["cronExpression"] = this.cronExpression;
+        data["cronExpressionStr"] = this.cronExpressionStr;
         data["scheduleType"] = this.scheduleType;
         data["year"] = this.year;
         data["month"] = this.month;
@@ -833,6 +840,7 @@ export interface ICreateBatchJobCommand {
     jobType?: JobType;
     jobUrl?: string | undefined;
     cronExpression?: string | undefined;
+    cronExpressionStr?: string | undefined;
     scheduleType?: string | undefined;
     year?: number | undefined;
     month?: number | undefined;
