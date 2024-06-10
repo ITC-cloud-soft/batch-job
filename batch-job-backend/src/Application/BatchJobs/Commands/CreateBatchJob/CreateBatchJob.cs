@@ -21,6 +21,8 @@ public record CreateBatchJobCommand : IRequest<BJob>,  IMapFrom<BJob>
     
     // 定時周期时间
     public string? CronExpression { get; set; }
+    public string? CronExpressionStr { get; set; }
+
     // バッチ起動日(定時周期)
     public string? ScheduleType { get; set; }
 
@@ -82,13 +84,11 @@ public class CreateBatchJobCommandHandler : IRequestHandler<CreateBatchJobComman
     {
         command.JobGroup = command.JobName;
         command.CronExpression = CronExpressionParser.GenerateCronExpression(command);
-        command.CronExpression = CronExpressionParser.GenerateCronExpressionString(command);
+        command.CronExpressionStr = CronExpressionParser.GenerateCronExpressionString(command);
         
         var job = _mapper.Map<BJob>(command);
         await _context.BatchJobs.AddAsync(job, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         return job;
     }
-
-
 }

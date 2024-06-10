@@ -16,7 +16,7 @@ public class BJob: BaseAuditableEntity
     // 定時周期时间
     public string? CronExpression { get; set; }
     // 実行設定
-    public string? CronExpressionString { get; set; }
+    public string? CronExpressionStr { get; set; }
     
     // バッチ起動日(定時周期)
     public string? ScheduleType { get; set; } = "0";

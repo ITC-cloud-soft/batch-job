@@ -8,7 +8,7 @@ public enum TaskJobStatus
     Enqueued = 0,
     [JobStatus("Scheduled", "The job is scheduled to be processed at a specific time.", "cyan")]
     Scheduled = 1,
-    [JobStatus("Processing", "The job is currently being processed.", "green")]
+    [JobStatus("アクティブ", "The job is currently being processed.", "green")]
     Processing = 2,
     [JobStatus("Succeeded", "The job has been processed successfully.", "green")]
     Succeeded = 3,
@@ -18,7 +18,7 @@ public enum TaskJobStatus
     Deleted = 5,
     [JobStatus("Awaiting", "The job is awaiting further actions or conditions.", "purple")]
     Awaiting = 6,
-    [JobStatus("Stopped", "The job has been stopped.", "black")]
+    [JobStatus("停止", "The job has been stopped.", "black")]
     Stop = 7,
     [JobStatus("Paused", "The job is paused and can be resumed later.", "yellow")]
     Paused = 8,
