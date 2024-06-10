@@ -7,19 +7,15 @@ const WeekDayComponent = () => {
     const daysOfWeek = [...Array(7).keys()].map((i) => {
         const date = new Date();
         date.setDate(date.getDate() - date.getDay() + i);
-        return dayOfWeekFormatter.format(date);
+        const weekDay = dayOfWeekFormatter.format(date);
+
+        return { label: weekDay, value: i };
     });
 
     return (
         <Flex gap={20} vertical={false}>
             <Form.Item label="曜日：" name="weekDay" style={{ width: '80px' }}>
-                <Select>
-                    {daysOfWeek.map((value, index) => (
-                        <Select.Option key={value} value={`${index}`}>
-                            {value}
-                        </Select.Option>
-                    ))}
-                </Select>
+                <Select options={daysOfWeek} />
             </Form.Item>
         </Flex>
     );
