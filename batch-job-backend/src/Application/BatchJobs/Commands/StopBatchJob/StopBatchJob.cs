@@ -14,6 +14,7 @@ public class StopBatchJobCommandValidator : AbstractValidator<StopBatchJobComman
 {
     public StopBatchJobCommandValidator()
     {
+        RuleFor(x => x.JobId).GreaterThan(0).WithMessage("JobId must be greater than 0");
     }
 }
 

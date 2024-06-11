@@ -13,11 +13,8 @@ public class BatchJobQueryValidator : AbstractValidator<BatchJobQuery>{
     public BatchJobQueryValidator()
     {
         RuleFor(v => v.Id)
-            .NotEmpty()
-            .WithMessage("Id is required")
             .GreaterThan(0)
             .WithMessage("Id should be greater than 0");
-
     }
 }
 

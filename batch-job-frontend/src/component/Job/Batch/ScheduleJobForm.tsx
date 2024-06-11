@@ -171,7 +171,22 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
 
                     {job?.scheduleType == ScheduleType.Hour && (
                         <>
-                            <Form.Item name="loopStep" label={'間隔値：'}>
+                            <Form.Item
+                                name="loopStep"
+                                label={'間隔値：'}
+                                rules={[
+                                    {
+                                        validator: (_, value) =>
+                                            value > 0
+                                                ? Promise.resolve()
+                                                : Promise.reject(
+                                                      new Error(
+                                                          '数値は0より大きい必要があります',
+                                                      ),
+                                                  ),
+                                    },
+                                ]}
+                            >
                                 <Input />
                             </Form.Item>
                             <PeriodComponent job={job} setJob={setJob} />
@@ -181,7 +196,22 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                     {job?.scheduleType == ScheduleType.Minute && (
                         <>
                             <Flex>
-                                <Form.Item name="loopStep" label={'間隔値：'}>
+                                <Form.Item
+                                    name="loopStep"
+                                    label={'間隔値：'}
+                                    rules={[
+                                        {
+                                            validator: (_, value) =>
+                                                value > 0
+                                                    ? Promise.resolve()
+                                                    : Promise.reject(
+                                                          new Error(
+                                                              '数値は0より大きい必要があります',
+                                                          ),
+                                                      ),
+                                        },
+                                    ]}
+                                >
                                     <Input />
                                 </Form.Item>
                             </Flex>
@@ -200,6 +230,16 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                                 message:
                                                     '稼働時間帯を入力してください',
                                             },
+                                            {
+                                                validator: (_, value) =>
+                                                    value >= 0
+                                                        ? Promise.resolve()
+                                                        : Promise.reject(
+                                                              new Error(
+                                                                  '0以上である必要があります',
+                                                              ),
+                                                          ),
+                                            },
                                         ]}
                                     >
                                         <Input />
@@ -211,6 +251,18 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                             width: 'calc(50% - 28px)',
                                             margin: '0 8px',
                                         }}
+                                        rules={[
+                                            {
+                                                validator: (_, value) =>
+                                                    value >= 0
+                                                        ? Promise.resolve()
+                                                        : Promise.reject(
+                                                              new Error(
+                                                                  '0以上である必要があります',
+                                                              ),
+                                                          ),
+                                            },
+                                        ]}
                                     >
                                         <Input />
                                     </Form.Item>

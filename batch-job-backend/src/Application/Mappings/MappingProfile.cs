@@ -1,8 +1,9 @@
 using System.Reflection;
-using System.Text;
+using batch_job_backend.Application.BatchJobs.Commands;
 using batch_job_backend.Application.BatchJobs.Commands.UpdateBatchJob;
 using batch_job_backend.Application.BatchJobs.Queries.GetBatchJob;
 using batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
+using batch_job_backend.Application.Common.Util;
 using batch_job_backend.Domain.Entities;
 using batch_job_backend.Domain.Enums;
 
@@ -25,7 +26,7 @@ public class MappingProfile : Profile
         
         var types = assembly.GetExportedTypes().Where(t => t.GetInterfaces().Any(HasInterface)).ToList();
         
-        var argumentTypes = new Type[] { typeof(Profile) };
+        var argumentTypes = new [] { typeof(Profile) };
         
         foreach (var type in types)
         {
@@ -53,14 +54,13 @@ public class MappingProfile : Profile
             }
         }
 
-        CreateMap<CreateBatchJobCommand, BJob>()
+        CreateMap<JobCommand, BJob>()
+            .ForMember(dest => dest.CronExpression, opt => opt.MapFrom(src => CronExpressionParser.GenerateCronExpression(src)))
+            .ForMember(dest => dest.CronExpressionStr, opt => opt.MapFrom(src => CronExpressionParser.GenerateCronExpressionString(src)))
             .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchMonthDay)))
             .ForMember(dest => dest.BatchLaunchWeedDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchWeekDay)));
 
-        CreateMap<UpdateBatchJobCommand, BJob>()
-            .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchMonthDay)))
-            .ForMember(dest => dest.BatchLaunchWeedDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchWeekDay)));
-
+      
         CreateMap<BJob, BatchJobVm>()
             .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => MapBatchLaunchDay(src.BatchLaunchMonthDay)))
             .ForMember(dest => dest.BatchLaunchWeekDay, opt => opt.MapFrom(src => MapBatchLaunchDay(src.BatchLaunchWeedDay)))

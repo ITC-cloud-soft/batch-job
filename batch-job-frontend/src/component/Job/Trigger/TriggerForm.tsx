@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'antd/es/form/Form';
 import { GetJobList, SaveJob, UpdateJob } from '../../../service/api.ts';
 import Title from 'antd/es/typography/Title';
+import { validateAlphanumeric } from '../../../utils/util.ts';
 
 const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
     const [form] = useForm();
@@ -76,6 +77,7 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
                                     required: true,
                                     message: 'バッチ名を入力してください',
                                 },
+                                { validator: validateAlphanumeric },
                             ]}
                         >
                             <Input style={{ width: 300 }} />

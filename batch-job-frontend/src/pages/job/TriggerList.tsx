@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, Flex, Modal, Space, Table, TableProps, Tag } from 'antd';
+import { Button, Flex, Modal, Space, Table, TableProps } from 'antd';
 import { useEffect, useState } from 'react';
 import { BJob, JobType } from '../../props/DataStructure.ts';
 import { GetJobList } from '../../service/api.ts';
@@ -65,18 +65,6 @@ const TriggerList = () => {
             key: 'jobUrl',
             width: '300px',
             ellipsis: true, // 内容超出时显示省略号
-        },
-        {
-            title: '状態',
-            dataIndex: 'status',
-            key: 'status',
-            render: (_, record) => {
-                return (
-                    <Tag color={record.taskJobStatusColor}>
-                        {record.taskJobStatusDes}
-                    </Tag>
-                );
-            },
         },
         {
             title: '操作',

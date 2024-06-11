@@ -720,7 +720,7 @@ export abstract class BaseEvent implements IBaseEvent {
 export interface IBaseEvent {
 }
 
-export class CreateBatchJobCommand implements ICreateBatchJobCommand {
+export class JobCommand implements IJobCommand {
     jobName?: string | undefined;
     jobGroup?: string | undefined;
     jobType?: JobType;
@@ -745,7 +745,7 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
     status?: number | undefined;
     startType?: number | undefined;
 
-    constructor(data?: ICreateBatchJobCommand) {
+    constructor(data?: IJobCommand) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -790,9 +790,9 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
         }
     }
 
-    static fromJS(data: any): CreateBatchJobCommand {
+    static fromJS(data: any): JobCommand {
         data = typeof data === 'object' ? data : {};
-        let result = new CreateBatchJobCommand();
+        let result = new JobCommand();
         result.init(data);
         return result;
     }
@@ -834,7 +834,7 @@ export class CreateBatchJobCommand implements ICreateBatchJobCommand {
     }
 }
 
-export interface ICreateBatchJobCommand {
+export interface IJobCommand {
     jobName?: string | undefined;
     jobGroup?: string | undefined;
     jobType?: JobType;
@@ -860,144 +860,64 @@ export interface ICreateBatchJobCommand {
     startType?: number | undefined;
 }
 
-export class UpdateBatchJobCommand implements IUpdateBatchJobCommand {
+export class CreateBatchJobCommand extends JobCommand implements ICreateBatchJobCommand {
+
+    constructor(data?: ICreateBatchJobCommand) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+    }
+
+    static override fromJS(data: any): CreateBatchJobCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateBatchJobCommand();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface ICreateBatchJobCommand extends IJobCommand {
+}
+
+export class UpdateBatchJobCommand extends JobCommand implements IUpdateBatchJobCommand {
     id?: number;
-    jobName?: string | undefined;
-    jobGroup?: string | undefined;
-    jobType?: JobType;
-    jobUrl?: string | undefined;
-    cronExpression?: string | undefined;
-    scheduleType?: number | undefined;
-    year?: number | undefined;
-    month?: number | undefined;
-    day?: number | undefined;
-    weekDay?: number | undefined;
-    hour?: number | undefined;
-    minute?: number | undefined;
-    second?: number | undefined;
-    batchLaunchMonthDay?: string[];
-    batchLaunchWeekDay?: string[];
-    loopStep?: number;
-    workHourStart?: number;
-    workHourEnd?: number;
-    jobTriggerId?: number | undefined;
-    jobNo?: number | undefined;
-    status?: number | undefined;
-    startType?: number | undefined;
 
     constructor(data?: IUpdateBatchJobCommand) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
+        super(data);
     }
 
-    init(_data?: any) {
+    override init(_data?: any) {
+        super.init(_data);
         if (_data) {
             this.id = _data["id"];
-            this.jobName = _data["jobName"];
-            this.jobGroup = _data["jobGroup"];
-            this.jobType = _data["jobType"];
-            this.jobUrl = _data["jobUrl"];
-            this.cronExpression = _data["cronExpression"];
-            this.scheduleType = _data["scheduleType"];
-            this.year = _data["year"];
-            this.month = _data["month"];
-            this.day = _data["day"];
-            this.weekDay = _data["weekDay"];
-            this.hour = _data["hour"];
-            this.minute = _data["minute"];
-            this.second = _data["second"];
-            if (Array.isArray(_data["batchLaunchMonthDay"])) {
-                this.batchLaunchMonthDay = [] as any;
-                for (let item of _data["batchLaunchMonthDay"])
-                    this.batchLaunchMonthDay!.push(item);
-            }
-            if (Array.isArray(_data["batchLaunchWeekDay"])) {
-                this.batchLaunchWeekDay = [] as any;
-                for (let item of _data["batchLaunchWeekDay"])
-                    this.batchLaunchWeekDay!.push(item);
-            }
-            this.loopStep = _data["loopStep"];
-            this.workHourStart = _data["workHourStart"];
-            this.workHourEnd = _data["workHourEnd"];
-            this.jobTriggerId = _data["jobTriggerId"];
-            this.jobNo = _data["jobNo"];
-            this.status = _data["status"];
-            this.startType = _data["startType"];
         }
     }
 
-    static fromJS(data: any): UpdateBatchJobCommand {
+    static override fromJS(data: any): UpdateBatchJobCommand {
         data = typeof data === 'object' ? data : {};
         let result = new UpdateBatchJobCommand();
         result.init(data);
         return result;
     }
 
-    toJSON(data?: any) {
+    override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["jobName"] = this.jobName;
-        data["jobGroup"] = this.jobGroup;
-        data["jobType"] = this.jobType;
-        data["jobUrl"] = this.jobUrl;
-        data["cronExpression"] = this.cronExpression;
-        data["scheduleType"] = this.scheduleType;
-        data["year"] = this.year;
-        data["month"] = this.month;
-        data["day"] = this.day;
-        data["weekDay"] = this.weekDay;
-        data["hour"] = this.hour;
-        data["minute"] = this.minute;
-        data["second"] = this.second;
-        if (Array.isArray(this.batchLaunchMonthDay)) {
-            data["batchLaunchMonthDay"] = [];
-            for (let item of this.batchLaunchMonthDay)
-                data["batchLaunchMonthDay"].push(item);
-        }
-        if (Array.isArray(this.batchLaunchWeekDay)) {
-            data["batchLaunchWeekDay"] = [];
-            for (let item of this.batchLaunchWeekDay)
-                data["batchLaunchWeekDay"].push(item);
-        }
-        data["loopStep"] = this.loopStep;
-        data["workHourStart"] = this.workHourStart;
-        data["workHourEnd"] = this.workHourEnd;
-        data["jobTriggerId"] = this.jobTriggerId;
-        data["jobNo"] = this.jobNo;
-        data["status"] = this.status;
-        data["startType"] = this.startType;
+        super.toJSON(data);
         return data;
     }
 }
 
-export interface IUpdateBatchJobCommand {
+export interface IUpdateBatchJobCommand extends IJobCommand {
     id?: number;
-    jobName?: string | undefined;
-    jobGroup?: string | undefined;
-    jobType?: JobType;
-    jobUrl?: string | undefined;
-    cronExpression?: string | undefined;
-    scheduleType?: number | undefined;
-    year?: number | undefined;
-    month?: number | undefined;
-    day?: number | undefined;
-    weekDay?: number | undefined;
-    hour?: number | undefined;
-    minute?: number | undefined;
-    second?: number | undefined;
-    batchLaunchMonthDay?: string[];
-    batchLaunchWeekDay?: string[];
-    loopStep?: number;
-    workHourStart?: number;
-    workHourEnd?: number;
-    jobTriggerId?: number | undefined;
-    jobNo?: number | undefined;
-    status?: number | undefined;
-    startType?: number | undefined;
 }
 
 export class PaginatedListOfBatchJobVm implements IPaginatedListOfBatchJobVm {
