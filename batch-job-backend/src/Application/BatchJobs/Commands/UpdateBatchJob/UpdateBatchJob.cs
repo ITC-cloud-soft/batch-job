@@ -54,7 +54,7 @@ public class UpdateBatchJobCommandHandler : IRequestHandler<UpdateBatchJobComman
             // Stop quartz job
             await _sender.Send(new StopBatchJobCommand { JobId = request.Id });
         
-            // Delete the job
+            // Delete the job record from the database
             _context.BatchJobs.Remove(job);
             await _context.SaveChangesAsync(cancellationToken);
         
@@ -63,9 +63,11 @@ public class UpdateBatchJobCommandHandler : IRequestHandler<UpdateBatchJobComman
             await _context.BatchJobs.AddAsync(entity, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             
-            // TODO Execute the job
-            
-            // await _sender.Send(new ExecuteBatchJobCommand() { JobId = entity.Id });
+            // Execute the job only when scheduled job
+            if (string.Equals("0", job.ScheduleType))
+            {
+                await _sender.Send(new ExecuteBatchJobCommand { JobId = entity.Id });
+            }
             
             // commit
             await transaction.CommitAsync(cancellationToken);

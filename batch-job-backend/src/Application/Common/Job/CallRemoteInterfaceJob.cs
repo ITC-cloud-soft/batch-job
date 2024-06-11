@@ -47,7 +47,7 @@ public class  CallRemoteInterfaceJob : IJob
                 throw new ArgumentException("Invalid job parameters");
             }
             
-            _logger.LogInformation("Execute scheduled job: {TriggerId}", job.Id);
+            _logger.LogInformation("Execute scheduled job: {TriggerId} and cron is {Cronstring}", job.Id, job.CronExpressionStr);
             var response = await GetRequest(job.JobUrl);
             LogResponse(response);
             
@@ -106,6 +106,6 @@ public class  CallRemoteInterfaceJob : IJob
     
     private void LogResponse(string response)
     {
-        _logger.LogInformation("Response: {Response}", response);
+        // _logger.LogInformation("Response: {Response}", response);
     }
 }

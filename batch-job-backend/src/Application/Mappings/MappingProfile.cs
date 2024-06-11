@@ -56,6 +56,7 @@ public class MappingProfile : Profile
 
         CreateMap<JobCommand, BJob>()
             .ForMember(dest => dest.CronExpression, opt => opt.MapFrom(src => CronExpressionParser.GenerateCronExpression(src)))
+            .ForMember(dest => dest.JobGroup, opt => opt.MapFrom(src => src.JobName))
             .ForMember(dest => dest.CronExpressionStr, opt => opt.MapFrom(src => CronExpressionParser.GenerateCronExpressionString(src)))
             .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchMonthDay)))
             .ForMember(dest => dest.BatchLaunchWeedDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchWeekDay)));

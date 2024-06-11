@@ -1,4 +1,5 @@
 import { JwtPayload } from 'jwt-decode';
+import { atom } from 'recoil';
 
 export interface WorkInfoCardInfo {
     id: number;
@@ -223,3 +224,7 @@ export interface JobProps {
     jobParam?: BJob;
     closeModal: () => void;
 }
+export const loadingState = atom({
+    key: 'loadingState',
+    default: false,
+});

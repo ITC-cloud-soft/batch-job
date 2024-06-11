@@ -47,7 +47,7 @@ public class CronExpressionParser
 
     private static string GenMonthDayString(string[] batchLaunchMonthDay)
     {
-        return string.Join("日,", batchLaunchMonthDay);
+        return string.Join("日,", batchLaunchMonthDay) + "日";
     }
 
     private static string GenLoopString(int startType, string[] BatchLaunchMonthDay, string[] BatchLaunchWeekDay)
@@ -55,7 +55,7 @@ public class CronExpressionParser
         // バッチ起動日  
         if (startType == 1)
         {
-            return GenMonthDayString(BatchLaunchMonthDay) + "日";
+            return GenMonthDayString(BatchLaunchMonthDay);
         }
         // バッチ起動曜日
         if (startType == 2)

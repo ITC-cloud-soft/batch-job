@@ -9,7 +9,7 @@ const WeekDayComponent = () => {
         date.setDate(date.getDate() - date.getDay() + i);
         const weekDay = dayOfWeekFormatter.format(date);
 
-        return { label: weekDay, value: i };
+        return { label: weekDay, value: i + '' };
     });
 
     return (
