@@ -1,9 +1,20 @@
 import { Spin } from 'antd';
-import { useRecoilState } from 'recoil';
-import { loadingState } from '../props/DataStructure.ts';
+import { useEffect, useState } from 'react';
 
 const GlobalSpin = () => {
-    const [loading] = useRecoilState(loadingState);
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        const handleShowSpin = () => setLoading(true);
+        const handleHideSpin = () => setLoading(false);
+
+        window.addEventListener('showSpin', handleShowSpin);
+        window.addEventListener('hideSpin', handleHideSpin);
+
+        return () => {
+            window.removeEventListener('showSpin', handleShowSpin);
+            window.removeEventListener('hideSpin', handleHideSpin);
+        };
+    }, []);
     return (
         loading && (
             <div

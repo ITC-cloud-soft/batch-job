@@ -24,6 +24,8 @@ if (token) {
 // 添加请求拦截器
 instance.interceptors.request.use(
     (config) => {
+        // 显示加载指示器
+        window.dispatchEvent(new CustomEvent('showSpin'));
         const token = localStorage.getItem('token'); // 获取 JWT
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
@@ -31,6 +33,8 @@ instance.interceptors.request.use(
         return config;
     },
     (error) => {
+        // 隐藏加载指示器
+        window.dispatchEvent(new CustomEvent('hideSpin'));
         return Promise.reject(error);
     },
 );
@@ -38,10 +42,16 @@ instance.interceptors.request.use(
 // 添加响应拦截器
 instance.interceptors.response.use(
     function (response) {
+        // 隐藏加载指示器
+        window.dispatchEvent(new CustomEvent('hideSpin'));
+
         // 对响应数据做点什么
         return response.data;
     },
     function (error) {
+        // 隐藏加载指示器
+        window.dispatchEvent(new CustomEvent('hideSpin'));
+
         // 对响应错误做些什么
         if (error.response) {
             // 请求已发送，服务器返回状态码在 2xx 之外

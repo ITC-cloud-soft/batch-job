@@ -1,8 +1,6 @@
 using System.Reflection;
 using batch_job_backend.Application.BatchJobs.Commands;
-using batch_job_backend.Application.BatchJobs.Commands.UpdateBatchJob;
 using batch_job_backend.Application.BatchJobs.Queries.GetBatchJob;
-using batch_job_backend.Application.BatchJobs.Commands.CreateBatchJob;
 using batch_job_backend.Application.Common.Util;
 using batch_job_backend.Domain.Entities;
 using batch_job_backend.Domain.Enums;
@@ -76,8 +74,8 @@ public class MappingProfile : Profile
         return string.IsNullOrEmpty(job.ScheduleType) ? "" : ScheduleType.GetDescription(job.ScheduleType);
     }        
     
-    private static string[] MapBatchLaunchDay(string? MapBatchLaunchDay)
+    private static string[] MapBatchLaunchDay(string? mapBatchLaunchDay)
     {
-        return string.IsNullOrEmpty(MapBatchLaunchDay) ? new string[] { } : MapBatchLaunchDay.Split(",");
+        return string.IsNullOrEmpty(mapBatchLaunchDay) ? new string[] { } : mapBatchLaunchDay.Split(",");
     }
 }

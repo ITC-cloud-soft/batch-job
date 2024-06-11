@@ -3,6 +3,7 @@ import { RecoilRoot } from 'recoil';
 import './locale/index';
 import { ConfigProvider } from 'antd';
 import { RouterProvider } from 'react-router-dom';
+import GlobalSpin from './component/GlobalSpin.tsx';
 
 const App = () => {
     return (
@@ -24,6 +25,7 @@ const App = () => {
                     },
                 }}
             >
+                <GlobalSpin />
                 <RouterProvider router={routes} />
             </ConfigProvider>
         </RecoilRoot>

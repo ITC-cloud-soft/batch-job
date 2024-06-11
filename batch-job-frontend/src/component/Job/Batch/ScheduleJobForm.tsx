@@ -23,9 +23,9 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
     const [job, setJob] = useState<BJob>();
     const [form] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
-
     const sumbit = (bJob: BJob) => {
         console.log(bJob);
+        closeModal();
         if (jobParam) {
             UpdateJob({ ...jobParam, ...bJob }).then(() => {
                 closeModal();
@@ -38,7 +38,6 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                     console.log(res);
                 })
                 .catch((error) => {
-                    debugger;
                     console.error(error);
                     messageApi.open({
                         type: 'error',
