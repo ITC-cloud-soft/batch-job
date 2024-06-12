@@ -3,6 +3,7 @@ using batch_job_backend.Application.BatchJobs.Commands.StopBatchJob;
 using batch_job_backend.Application.Common.Interfaces;
 using batch_job_backend.Application.Mappings;
 using batch_job_backend.Domain.Entities;
+using batch_job_backend.Domain.Enums;
 using Microsoft.Extensions.Logging;
 
 namespace batch_job_backend.Application.BatchJobs.Commands.UpdateBatchJob;
@@ -51,27 +52,30 @@ public class UpdateBatchJobCommandHandler : IRequestHandler<UpdateBatchJobComman
         await using var transaction = await _context.BeginTransactionAsync(cancellationToken);
         try
         {
-            // Stop quartz job
-            await _sender.Send(new StopBatchJobCommand { JobId = request.Id });
-        
-            // Delete the job record from the database
-            _context.BatchJobs.Remove(job);
-            await _context.SaveChangesAsync(cancellationToken);
-        
-            // Create new job
-            var entity = _mapper.Map<BJob>(request);
-            await _context.BatchJobs.AddAsync(entity, cancellationToken);
+          
+            var existingEntity = await _context.BatchJobs.FindAsync(request.Id);
+            if (existingEntity == null)
+            {
+                // Handle entity not found
+                throw new Exception("Entity not found");
+            }
+
+            
+       
+            _mapper.Map(request, existingEntity);
             await _context.SaveChangesAsync(cancellationToken);
             
             // Execute the job only when scheduled job
-            if (string.Equals("0", job.ScheduleType))
+            if (JobType.Scheduled == job.JobType && job.Status == TaskJobStatus.Processing)
             {
-                await _sender.Send(new ExecuteBatchJobCommand { JobId = entity.Id });
+                // Stop quartz job
+                await _sender.Send(new StopBatchJobCommand { JobId = existingEntity.Id }, cancellationToken);
+                await _sender.Send(new ExecuteBatchJobCommand { JobId = existingEntity.Id }, cancellationToken);
             }
             
             // commit
             await transaction.CommitAsync(cancellationToken);
-            return entity;
+            return existingEntity;
         }
         catch (Exception ex)
         {

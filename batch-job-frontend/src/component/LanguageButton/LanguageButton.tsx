@@ -9,6 +9,7 @@ const Wrapper = styled.div`
     position: fixed;
     right: 16px;
     border-radius: 6px;
+    padding-top: 5px;
 
     .ant-dropdown-trigger {
         cursor: pointer;

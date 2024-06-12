@@ -4,6 +4,7 @@ import { Button, Flex, Form, Input, message, Select } from 'antd';
 import {
     BJob,
     JobProps,
+    modalState,
     ScheduleType,
     ScheduleTypeDes,
     TaskJobStatus,
@@ -14,6 +15,7 @@ import WeekDayComponent from '../Component/WeekDayComponent.tsx';
 import PeriodComponent from '../Component/PeriodComponent.tsx';
 import { SaveJob, UpdateJob } from '../../../service/api.ts';
 import Title from 'antd/es/typography/Title';
+import { useRecoilState } from 'recoil';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -23,9 +25,10 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
     const [job, setJob] = useState<BJob>();
     const [form] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
+    const [, setIsModalOpen] = useRecoilState(modalState);
     const sumbit = (bJob: BJob) => {
         console.log(bJob);
-        closeModal();
+        setIsModalOpen(false);
         if (jobParam) {
             UpdateJob({ ...jobParam, ...bJob }).then(() => {
                 closeModal();
@@ -39,6 +42,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                 })
                 .catch((error) => {
                     console.error(error);
+                    closeModal();
                     messageApi.open({
                         type: 'error',
                         content: '保存に失敗しました。もう一度お試しください',

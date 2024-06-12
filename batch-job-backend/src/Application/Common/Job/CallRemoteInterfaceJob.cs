@@ -33,27 +33,27 @@ public class  CallRemoteInterfaceJob : IJob
                 throw new ArgumentException("Invalid job parameters");
             }
             
-            var job = JsonSerializer.Deserialize<BJob>(jobJsonStr!);
+            var job = JsonSerializer.Deserialize<BJob>(jobJsonStr);
          
             if (job == null)
             {
                 throw new ArgumentException("Invalid job parameters: Deserialized job is null");
             }
             
-            var triggerList = GetTriggerJobs(job!.Id);
+            var triggerList = GetTriggerJobs(job.Id);
 
             if (string.IsNullOrEmpty(job.JobUrl))
             {
                 throw new ArgumentException("Invalid job parameters");
             }
             
-            _logger.LogInformation("Execute scheduled job: {TriggerId} and cron is {Cronstring}", job.Id, job.CronExpressionStr);
+            _logger.LogInformation("Execute scheduled job id: {TriggerId} name: {Name} and cron is {CronString}", job.Id, job.JobName, job.CronExpressionStr);
             var response = await GetRequest(job.JobUrl);
             LogResponse(response);
             
             foreach (BJob trigger in triggerList )
             {
-                _logger.LogInformation("Execute trigger job: {TriggerId}", trigger.Id);
+                _logger.LogInformation("Execute trigger job id: {TriggerId} name: {Name} ", trigger.Id, trigger.JobName);
                 var triggerResponse = await GetRequest(trigger.JobUrl!);
                 LogResponse(triggerResponse);
             }

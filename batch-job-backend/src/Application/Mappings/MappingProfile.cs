@@ -1,5 +1,6 @@
 using System.Reflection;
 using batch_job_backend.Application.BatchJobs.Commands;
+using batch_job_backend.Application.BatchJobs.Commands.UpdateBatchJob;
 using batch_job_backend.Application.BatchJobs.Queries.GetBatchJob;
 using batch_job_backend.Application.Common.Util;
 using batch_job_backend.Domain.Entities;
@@ -53,6 +54,13 @@ public class MappingProfile : Profile
         }
 
         CreateMap<JobCommand, BJob>()
+            .ForMember(dest => dest.CronExpression, opt => opt.MapFrom(src => CronExpressionParser.GenerateCronExpression(src)))
+            .ForMember(dest => dest.JobGroup, opt => opt.MapFrom(src => src.JobName))
+            .ForMember(dest => dest.CronExpressionStr, opt => opt.MapFrom(src => CronExpressionParser.GenerateCronExpressionString(src)))
+            .ForMember(dest => dest.BatchLaunchMonthDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchMonthDay)))
+            .ForMember(dest => dest.BatchLaunchWeedDay, opt => opt.MapFrom(src => string.Join(",", src.BatchLaunchWeekDay)));
+        
+        CreateMap<UpdateBatchJobCommand, BJob>()
             .ForMember(dest => dest.CronExpression, opt => opt.MapFrom(src => CronExpressionParser.GenerateCronExpression(src)))
             .ForMember(dest => dest.JobGroup, opt => opt.MapFrom(src => src.JobName))
             .ForMember(dest => dest.CronExpressionStr, opt => opt.MapFrom(src => CronExpressionParser.GenerateCronExpressionString(src)))

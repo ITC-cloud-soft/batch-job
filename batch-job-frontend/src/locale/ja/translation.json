@@ -42,5 +42,25 @@
         "inputCompany": "組織名を入力してください",
         "confirmPassword": "パスワードを確認してください"
     },
+    "job":{
+        "jobName": "バッチ名",
+        "scheduledJob": "定時周期JOB",
+        "jobNo": "バッチ番号",
+        "jobUrl": "バッチURL",
+        "action": "操作",
+        "edit": "編集",
+        "triggerJobList": "トリガーJOB一覧",
+        "newTriggerJob": "新規トリガーJOB",
+        "scheduledJobList": "定時JOB一覧",
+        "triggerJobSetting": "トリガーJOB設定",
+        "scheduleType": "実行種類",
+        "cronExpressionStr": "実行設定",
+        "status": "状態",
+        "start": "起動",
+        "stop": "停止",
+        "save": "保存",
+        "jobManageNo": "※バッチ管理番号",
+        "alphanumeric": "※英数字"
+    },
     "noResponse": "サーバーからの応答がありません."
 }
