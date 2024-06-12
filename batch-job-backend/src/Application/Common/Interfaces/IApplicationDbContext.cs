@@ -1,4 +1,5 @@
 ﻿using batch_job_backend.Domain.Entities;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -18,5 +19,7 @@ public interface IApplicationDbContext
 
     Task<IDbContextTransaction> BeginTransactionAsync(
         CancellationToken cancellationToken = default(CancellationToken));
+    
+    EntityEntry GetEntityEntry(Object entity);
 
 }

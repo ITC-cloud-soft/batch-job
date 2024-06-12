@@ -1,16 +1,26 @@
 import { Flex, Form, Select } from 'antd';
 import { HmProps } from '../../../props/DataStructure.ts';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const HourMinComponent: React.FC<HmProps> = () => {
-    const minuteOptions = Array.from({ length: 60 }, (_, i) => `${i}分`);
-    const hourOptions = Array.from({ length: 24 }, (_, i) => `${i}時`);
+    const [t] = useTranslation();
+
+    const minuteOptions = Array.from(
+        { length: 60 },
+        (_, i) => `${i}${t('job.minute')}`,
+    );
+
+    const hourOptions = Array.from(
+        { length: 24 },
+        (_, i) => `${i}${t('job.hour')}`,
+    );
 
     return (
         <Flex gap={20}>
             <Form.Item
                 style={{ width: '70px' }}
-                label="分"
+                label={t('job.minute')}
                 name="minute"
                 rules={[
                     {
@@ -29,7 +39,7 @@ const HourMinComponent: React.FC<HmProps> = () => {
             </Form.Item>
 
             <Form.Item
-                label="時"
+                label={t('job.hour')}
                 name="hour"
                 style={{ minWidth: 70 }}
                 rules={[

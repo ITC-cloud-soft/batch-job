@@ -60,8 +60,6 @@ public class UpdateBatchJobCommandHandler : IRequestHandler<UpdateBatchJobComman
                 throw new Exception("Entity not found");
             }
 
-            
-       
             _mapper.Map(request, existingEntity);
             await _context.SaveChangesAsync(cancellationToken);
             

@@ -16,6 +16,7 @@ import PeriodComponent from '../Component/PeriodComponent.tsx';
 import { SaveJob, UpdateJob } from '../../../service/api.ts';
 import Title from 'antd/es/typography/Title';
 import { useRecoilState } from 'recoil';
+import { useTranslation } from 'react-i18next';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -26,7 +27,8 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
     const [form] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
     const [, setIsModalOpen] = useRecoilState(modalState);
-    const sumbit = (bJob: BJob) => {
+    const [t] = useTranslation();
+    const submit = (bJob: BJob) => {
         console.log(bJob);
         setIsModalOpen(false);
         if (jobParam) {
@@ -50,6 +52,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                 });
         }
     };
+
     useEffect(() => {
         if (jobParam) {
             console.log('effect', jobParam);
@@ -59,38 +62,41 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
     }, [jobParam, form]);
 
     const scheduleTypeOptions = Object.entries(ScheduleTypeDes).map(
-        ([key, value]) => ({ value: key, label: value.description }),
+        ([key, value]) => ({
+            value: key,
+            label: t(`job.${value.description}`),
+        }),
     );
 
     const daySelectOptios = Array.from({ length: 31 }, (_, i) => ({
         value: `${i + 1}`,
-        label: `${i + 1}日`,
+        label: `${i + 1}${t('job.day')}`,
     }));
     const monthSelectOptios = Array.from({ length: 12 }, (_, i) => ({
         value: `${i + 1}`,
-        label: `${i + 1}月`,
+        label: `${i + 1}${t('job.month')}`,
     }));
     return (
         <Wrapper>
             {contextHolder}
             <Flex align="center" vertical={true} style={{ minHeight: '500px' }}>
                 <Flex justify={'space-between'} align={'center'}>
-                    <Title level={3}>定時周期JOB設定</Title>
+                    <Title level={3}>{t('job.scheduledJobSetting')}</Title>
                 </Flex>
                 <Form
                     form={form}
                     layout="vertical"
                     style={{ width: 400, margin: 20 }}
-                    onFinish={sumbit}
+                    onFinish={submit}
                     initialValues={job}
                 >
                     <Form.Item
-                        label="バッチ名"
+                        label={t('job.jobName')}
                         name="jobName"
                         rules={[
                             {
                                 required: true,
-                                message: 'バッチ名を入力してください',
+                                message: t('job.jobNameValidate'),
                             },
                         ]}
                     >
@@ -98,18 +104,21 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                     </Form.Item>
 
                     <Form.Item
-                        label="バッチURL"
+                        label={t('job.jobUrl')}
                         name="jobUrl"
                         rules={[
                             {
                                 required: true,
-                                message: 'バッチURLを入力してください',
+                                message: t('job.jobUrlValidate'),
                             },
                         ]}
                     >
                         <Input />
                     </Form.Item>
-                    <Form.Item label="定時周期：" name="scheduleType">
+                    <Form.Item
+                        label={t('job.scheduleType')}
+                        name={'scheduleType'}
+                    >
                         <Select
                             onChange={(value) => {
                                 console.log(value);
@@ -122,13 +131,13 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                         <Flex vertical={false} gap={20}>
                             <HourMinComponent job={job} />
                             <Form.Item
-                                label="日"
+                                label={t('job.day')}
                                 name="day"
                                 style={{ width: '70px' }}
                                 rules={[
                                     {
                                         required: true,
-                                        message: '日付を入力してください',
+                                        message: t('job.dateValidate'),
                                     },
                                 ]}
                             >
@@ -136,13 +145,13 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                             </Form.Item>
 
                             <Form.Item
-                                label={'月'}
+                                label={t('job.month')}
                                 name="month"
                                 style={{ width: '70px' }}
                                 rules={[
                                     {
                                         required: true,
-                                        message: '日付を入力してください',
+                                        message: t('job.dateValidate'),
                                     },
                                 ]}
                             >
@@ -176,7 +185,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                         <>
                             <Form.Item
                                 name="loopStep"
-                                label={'間隔値：'}
+                                label={t('job.loopStep')}
                                 rules={[
                                     {
                                         validator: (_, value) =>
@@ -201,7 +210,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                             <Flex>
                                 <Form.Item
                                     name="loopStep"
-                                    label={'間隔値：'}
+                                    label={t('job.loopStep')}
                                     rules={[
                                         {
                                             validator: (_, value) =>
@@ -220,7 +229,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                             </Flex>
 
                             <Flex>
-                                <Form.Item label={'稼働時間帯：'}>
+                                <Form.Item label={t('job.workHours')}>
                                     <Form.Item
                                         name="workHourStart"
                                         style={{
@@ -277,7 +286,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
 
                     <Flex justify={'center'}>
                         <Button type="primary" htmlType="submit">
-                            保存
+                            {t('job.save')}
                         </Button>
                     </Flex>
                 </Form>

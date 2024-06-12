@@ -29,7 +29,7 @@ const items: MenuProps['items'] = [
     },
     {
         label: '日本語',
-        key: 'ja',
+        key: 'ja-JP',
     },
     {
         label: 'English',

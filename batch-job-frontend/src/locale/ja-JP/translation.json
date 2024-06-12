@@ -45,6 +45,7 @@
     "job":{
         "jobName": "バッチ名",
         "scheduledJob": "定時周期JOB",
+        "scheduledJobSetting": "定時周期JOB設定",
         "jobNo": "バッチ番号",
         "jobUrl": "バッチURL",
         "action": "操作",
@@ -60,7 +61,29 @@
         "stop": "停止",
         "save": "保存",
         "jobManageNo": "※バッチ管理番号",
-        "alphanumeric": "※英数字"
+        "alphanumeric": "※英数字",
+        "scheduleType": "定時周期",
+        "day": "日",
+        "month": "月",
+        "minute": "分",
+        "hour": "時",
+        "weekday": "曜日",
+        "loopStep": "間隔値:",
+        "workHours": "稼働時間帯:",
+        "everyYear":"年次処理",
+        "everyMonth":"月次処理",
+        "everyWeek":"週次処理",
+        "everyDay":"日次処理",
+        "everyHour":"時間隔処理",
+        "everyMinute":"分間隔処理",
+        "startTypeMonthDay":"バッチ起動日",
+        "startTypeWeekDay":"バッチ起動日(曜日)",
+        "startTypeValidate": "起動日を入力してください",
+        "batchLaunchMonthDayValidate": "起動日を入力してください",
+        "jobNameValidate": "バッチ名を入力してください",
+        "jobUrlValidate": "バッチURLを入力してください",
+        "dateValidate": "日付を入力してください",
+        "Validate": "起動日を入力してください"
     },
     "noResponse": "サーバーからの応答がありません."
 }

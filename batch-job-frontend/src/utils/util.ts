@@ -1,3 +1,5 @@
+import i18n from 'i18next';
+
 export const toURLParam = (param: any) => {
     const queryParam = new URLSearchParams();
     for (let key in param) {

@@ -70,7 +70,6 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
                 <Form.Item
                     label={t('job.jobName')}
                     name="jobName"
-                    noStyle
                     rules={[
                         {
                             required: true,

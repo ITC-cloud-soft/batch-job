@@ -1,11 +1,16 @@
 import React from 'react';
 import { HmProps, StartType } from '../../../props/DataStructure.ts';
 import { Checkbox, Col, Flex, Form, Radio, Row } from 'antd';
+import { useTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
-    const dayOfWeekFormatter = new Intl.DateTimeFormat('ja-JP', {
+    const [t] = useTranslation();
+    const currentLanguage = i18n.language;
+    const dayOfWeekFormatter = new Intl.DateTimeFormat(currentLanguage, {
         weekday: 'long',
     });
+
     const daysOfWeek = [...Array(7).keys()].map((i) => {
         const date = new Date();
         date.setDate(date.getDate() - date.getDay() + i);
@@ -19,7 +24,7 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
                     rules={[
                         {
                             required: true,
-                            message: '起動日を入力してください',
+                            message: t('job.startTypeValidate'),
                         },
                     ]}
                 >
@@ -29,8 +34,8 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
                             setJob({ ...job!, startType: e.target.value })
                         }
                     >
-                        <Radio value={1}>バッチ起動日</Radio>
-                        <Radio value={2}>バッチ起動日(曜日)</Radio>
+                        <Radio value={1}>{t('job.startTypeMonthDay')}</Radio>
+                        <Radio value={2}>{t('job.startTypeWeekDay')}</Radio>
                     </Radio.Group>
                 </Form.Item>
             </Flex>
@@ -41,7 +46,7 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
                         rules={[
                             {
                                 required: true,
-                                message: '起動時間を入力してください',
+                                message: t('job.batchLaunchMonthDayValidate'),
                             },
                         ]}
                     >
@@ -50,7 +55,8 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
                                 {Array.from({ length: 31 }, (_, i) => (
                                     <Col span={6} key={i}>
                                         <Checkbox value={`${i + 1}`}>
-                                            {i + 1}日
+                                            {i + 1}
+                                            {t('job.day')}
                                         </Checkbox>
                                     </Col>
                                 ))}
@@ -64,7 +70,7 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
                         rules={[
                             {
                                 required: true,
-                                message: '起動時間を入力してください',
+                                message: t('job.batchLaunchMonthDayValidate'),
                             },
                         ]}
                     >

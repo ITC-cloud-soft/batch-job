@@ -4,7 +4,7 @@ using batch_job_backend.Domain.Entities;
 using batch_job_backend.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace batch_job_backend.Infrastructure.Data;
@@ -27,5 +27,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default(CancellationToken))
     {
        return this.Database.BeginTransactionAsync(cancellationToken);
+    }
+
+    public EntityEntry GetEntityEntry(Object entity)
+    {
+        return this.Entry(entity);
     }
 }

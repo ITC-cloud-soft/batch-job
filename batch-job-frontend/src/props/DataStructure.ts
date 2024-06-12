@@ -192,12 +192,12 @@ export enum ScheduleType {
 export const ScheduleTypeDes: {
     [key in ScheduleType]: { description: string };
 } = {
-    [ScheduleType.Year]: { description: '年次処理' },
-    [ScheduleType.Month]: { description: '月次処理' },
-    [ScheduleType.Week]: { description: '週次処理' },
-    [ScheduleType.Day]: { description: '日次処理' },
-    [ScheduleType.Hour]: { description: '時間隔処理' },
-    [ScheduleType.Minute]: { description: '分間隔処理' },
+    [ScheduleType.Year]: { description: 'everyYear' },
+    [ScheduleType.Month]: { description: 'everyMonth' },
+    [ScheduleType.Week]: { description: 'everyWeek' },
+    [ScheduleType.Day]: { description: 'everyDay' },
+    [ScheduleType.Hour]: { description: 'everyHour' },
+    [ScheduleType.Minute]: { description: 'everyMinute' },
 };
 
 export enum JobType {

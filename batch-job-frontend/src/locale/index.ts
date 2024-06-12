@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import enUS from './en-US/translation.json';
 import zhCN from './zh-CN/translation.json';
-import ja from './ja/translation.json';
+import ja from './ja-JP/translation.json';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 const resources = {
@@ -12,7 +12,7 @@ const resources = {
     'zh-CN': {
         translation: zhCN,
     },
-    ja: {
+    'ja-JP': {
         translation: ja,
     },
 };

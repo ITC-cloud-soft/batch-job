@@ -38,7 +38,7 @@ const AppLayout = () => {
             label: '中文简体',
         },
         {
-            key: 'ja',
+            key: 'ja-JP',
             label: '日本語',
         },
         {
