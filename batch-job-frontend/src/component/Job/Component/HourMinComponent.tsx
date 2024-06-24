@@ -25,7 +25,7 @@ const HourMinComponent: React.FC<HmProps> = () => {
                 rules={[
                     {
                         required: true,
-                        message: '日付を入力してください',
+                        message: t('job.dateValidate'),
                     },
                 ]}
             >
@@ -45,7 +45,7 @@ const HourMinComponent: React.FC<HmProps> = () => {
                 rules={[
                     {
                         required: true,
-                        message: '日付を入力してください',
+                        message: t('job.dateValidate'),
                     },
                 ]}
             >

@@ -67,6 +67,7 @@
         "month": "月",
         "minute": "分",
         "hour": "時",
+        "hours": "時",
         "weekday": "曜日",
         "loopStep": "間隔値:",
         "workHours": "稼働時間帯:",
@@ -82,8 +83,13 @@
         "batchLaunchMonthDayValidate": "起動日を入力してください",
         "jobNameValidate": "バッチ名を入力してください",
         "jobUrlValidate": "バッチURLを入力してください",
+        "jobNoValidate": "バッチURLを入力してください",
         "dateValidate": "日付を入力してください",
-        "Validate": "起動日を入力してください"
+        "greaterThan0": "数値は0より大きい必要があります",
+        "workHoursValidate": "稼働時間帯を入力してください",
+        "saveError": "保存に失敗しました。もう一度お試しください",
+        "jobTriggerIdValidate": "定時周期JOBを入力してください",
+        "newScheduleJob": "新規定時JOB"
     },
     "noResponse": "サーバーからの応答がありません."
 }

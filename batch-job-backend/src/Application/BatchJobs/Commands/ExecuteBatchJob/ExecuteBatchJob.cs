@@ -56,7 +56,7 @@ public class ExecuteBatchJobCommandHandler : IRequestHandler<ExecuteBatchJobComm
         await ScheduleJob(jobKey, triggerKey, jobDataMap, job.CronExpression ?? "", cancellationToken);
         job.Status = TaskJobStatus.Processing;
         
-        // Step 5: update job status
+        // Step 4: Update job status
         job.Status = TaskJobStatus.Processing;
         await _context.SaveChangesAsync(cancellationToken);
         

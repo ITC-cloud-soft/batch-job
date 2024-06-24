@@ -117,7 +117,7 @@ const ScheduledJobList = () => {
             render: (_, record) => {
                 return (
                     <Tag color={record.taskJobStatusColor}>
-                        {record.taskJobStatusDes}
+                        {record.status == 7 ? t('job.stop') : t('job.start')}
                     </Tag>
                 );
             },
@@ -155,7 +155,7 @@ const ScheduledJobList = () => {
             <LanguageButton />
             <div style={{ padding: '30px' }}>
                 <Flex justify={'space-between'} align={'center'}>
-                    <Title level={2}>定時JOB一覧</Title>
+                    <Title level={2}>{t('job.scheduledJobList')}</Title>
                     <Flex gap={10}>
                         <Button
                             onClick={() => {
@@ -163,14 +163,14 @@ const ScheduledJobList = () => {
                                 setIsModalOpen(true);
                             }}
                         >
-                            新規定時JOB
+                            {t('job.newScheduleJob')}
                         </Button>
                         <Button
                             onClick={() => {
                                 navigate('/trigger');
                             }}
                         >
-                            トリガーJOB一覧
+                            {t('job.triggerJobList')}
                         </Button>
                     </Flex>
                 </Flex>

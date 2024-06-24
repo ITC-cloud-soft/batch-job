@@ -6,7 +6,9 @@ import i18n from 'i18next';
 
 const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
     const [t] = useTranslation();
+
     const currentLanguage = i18n.language;
+
     const dayOfWeekFormatter = new Intl.DateTimeFormat(currentLanguage, {
         weekday: 'long',
     });
@@ -16,6 +18,7 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
         date.setDate(date.getDate() - date.getDay() + i);
         return dayOfWeekFormatter.format(date);
     });
+
     return (
         <Flex vertical>
             <Flex>

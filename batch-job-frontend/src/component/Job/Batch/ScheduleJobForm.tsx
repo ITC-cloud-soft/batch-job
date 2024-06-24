@@ -17,6 +17,7 @@ import { SaveJob, UpdateJob } from '../../../service/api.ts';
 import Title from 'antd/es/typography/Title';
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
+import { generateCronExpressionString } from '../../../utils/util.ts';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -29,7 +30,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
     const [, setIsModalOpen] = useRecoilState(modalState);
     const [t] = useTranslation();
     const submit = (bJob: BJob) => {
-        console.log(bJob);
+        console.log(generateCronExpressionString(bJob));
         setIsModalOpen(false);
         if (jobParam) {
             UpdateJob({ ...jobParam, ...bJob }).then(() => {
@@ -193,7 +194,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                                 ? Promise.resolve()
                                                 : Promise.reject(
                                                       new Error(
-                                                          '数値は0より大きい必要があります',
+                                                          t('job.greaterThan0'),
                                                       ),
                                                   ),
                                     },
@@ -218,7 +219,9 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                                     ? Promise.resolve()
                                                     : Promise.reject(
                                                           new Error(
-                                                              '数値は0より大きい必要があります',
+                                                              t(
+                                                                  'job.greaterThan0',
+                                                              ),
                                                           ),
                                                       ),
                                         },
@@ -239,8 +242,9 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                         rules={[
                                             {
                                                 required: true,
-                                                message:
-                                                    '稼働時間帯を入力してください',
+                                                message: t(
+                                                    'job.workHoursValidate',
+                                                ),
                                             },
                                             {
                                                 validator: (_, value) =>
@@ -248,7 +252,9 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                                         ? Promise.resolve()
                                                         : Promise.reject(
                                                               new Error(
-                                                                  '0以上である必要があります',
+                                                                  t(
+                                                                      'job.greaterThan0',
+                                                                  ),
                                                               ),
                                                           ),
                                             },
@@ -270,7 +276,9 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                                         ? Promise.resolve()
                                                         : Promise.reject(
                                                               new Error(
-                                                                  '0以上である必要があります',
+                                                                  t(
+                                                                      'job.greaterThan0',
+                                                                  ),
                                                               ),
                                                           ),
                                             },

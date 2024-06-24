@@ -4,14 +4,15 @@ import i18n from 'i18next';
 
 const WeekDayComponent = () => {
     const currentLanguage = i18n.language;
+
     const dayOfWeekFormatter = new Intl.DateTimeFormat(currentLanguage, {
         weekday: 'long',
     });
+
     const daysOfWeek = [...Array(7).keys()].map((i) => {
         const date = new Date();
         date.setDate(date.getDate() - date.getDay() + i);
         const weekDay = dayOfWeekFormatter.format(date);
-
         return { label: weekDay, value: i + '' };
     });
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Dropdown, MenuProps, message } from 'antd';
-import { useTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 const Wrapper = styled.div`
     width: 42px;
@@ -38,7 +38,6 @@ const items: MenuProps['items'] = [
 ];
 
 const LanguageButton = () => {
-    const { i18n } = useTranslation();
     const onClick: MenuProps['onClick'] = ({ key }) => {
         message.info(`Click on item ${key}`);
         // change language

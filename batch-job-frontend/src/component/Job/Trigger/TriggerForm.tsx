@@ -38,7 +38,7 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
                     console.error(e);
                     messageApi.open({
                         type: 'error',
-                        content: '保存に失敗しました。もう一度お試しください',
+                        content: t('job.saveError'),
                     });
                 });
         }
@@ -73,7 +73,7 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
                     rules={[
                         {
                             required: true,
-                            message: 'バッチ名を入力してください',
+                            message: t('job.jobNameValidate'),
                         },
                     ]}
                 >
@@ -86,7 +86,7 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
                     rules={[
                         {
                             required: true,
-                            message: 'バッチURLを入力してください',
+                            message: t('job.jobUrlValidate'),
                         },
                     ]}
                 >
@@ -100,7 +100,7 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
                             rules={[
                                 {
                                     required: true,
-                                    message: '定時周期JOBを入力してください',
+                                    message: t('job.jobTriggerIdValidate'),
                                 },
                             ]}
                         >
@@ -117,7 +117,7 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'バッチ番号を入力してください',
+                                    message: t('job.jobNoValidate'),
                                 },
                             ]}
                         >

@@ -12,7 +12,7 @@ const MonthDayComponent: React.FC<HmProps> = () => {
                 rules={[
                     {
                         required: true,
-                        message: '日付を入力してください',
+                        message: t('job.dateValidate'),
                     },
                 ]}
             >
