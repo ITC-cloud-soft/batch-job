@@ -30,7 +30,8 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
     const [, setIsModalOpen] = useRecoilState(modalState);
     const [t] = useTranslation();
     const submit = (bJob: BJob) => {
-        console.log(generateCronExpressionString(bJob));
+        const cronExpressionStr = generateCronExpressionString(bJob);
+        bJob.cronExpressionStr = cronExpressionStr;
         setIsModalOpen(false);
         if (jobParam) {
             UpdateJob({ ...jobParam, ...bJob }).then(() => {

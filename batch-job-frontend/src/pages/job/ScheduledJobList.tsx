@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import LanguageButton from '../../component/LanguageButton/LanguageButton.tsx';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
+import { getScheduleTypeDes } from '../../utils/util.ts';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -94,8 +95,9 @@ const ScheduledJobList = () => {
             title: t('job.scheduleType'),
             dataIndex: 'ScheduleType',
             key: 'ScheduleType',
-            render: (_, { scheduleTypeStr }) => {
-                return scheduleTypeStr;
+            render: (_, { scheduleType }) => {
+                console.log(scheduleType);
+                return getScheduleTypeDes(scheduleType);
             },
         },
         {
