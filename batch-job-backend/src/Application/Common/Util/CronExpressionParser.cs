@@ -29,22 +29,6 @@ public class CronExpressionParser
         return cronExpression;
     }
     
-    public static string GenerateCronExpressionString(JobCommand job)
-    {
-        var cronExpression = "";
-        switch (job.ScheduleType)
-        {
-            // 2月3日0時30分
-            case ScheduleType.Year: cronExpression = $"{job.Month}月{job.Day}日{job.Hour}時{job.Minute}分"; break;
-            case ScheduleType.Month: cronExpression = $"{GenMonthDayString(job.BatchLaunchMonthDay)}{job.Hour}時{job.Minute}分";break;
-            case ScheduleType.Week: cronExpression = $"{GetWeekDayString("ja-JP", job.WeekDay)}{job.Hour}時{job.Minute}分"; break;
-            case ScheduleType.Day: cronExpression = $"{job.Hour}時{job.Minute}分"; break;
-            case ScheduleType.Hour: cronExpression = $"{GenLoopString(job.StartType?? 0, job.BatchLaunchMonthDay, job.BatchLaunchWeekDay)},間隔値{job.LoopStep}時間"; break;
-            case ScheduleType.Minute: cronExpression = $"{GenLoopString(job.StartType?? 0, job.BatchLaunchMonthDay, job.BatchLaunchWeekDay)},稼働時間帯:{job.WorkHourStart}時-{job.WorkHourEnd}時,間隔値:{job.LoopStep}分"; break;
-        }
-        return cronExpression;
-    }
-
     private static string GenMonthDayString(string[] batchLaunchMonthDay)
     {
         return string.Join("日,", batchLaunchMonthDay) + "日";
