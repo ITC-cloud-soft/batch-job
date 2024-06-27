@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-store-backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloud-store-backend-app
+  template:
+    metadata:
+      labels:
+        app: cloud-store-backend-app
+    spec:
+      containers:
+        - name: cloud-store-backend-app
+          image: thomaszy2077/cloud-store-backend:1.0.4
+          imagePullPolicy: Always
+          env:
+            - name: ConnectionStrings__DefaultConnection
+              valueFrom:
+                secretKeyRef:
+                  name: cloud-store-backend-secret
+                  key: DefaultConnection
+            - name: FrontendHost
+              valueFrom:
+                secretKeyRef:
+                  name: cloud-store-backend-secret
+                  key: FrontendHost           
+            - name: Hostname
+              valueFrom:
+                secretKeyRef:
+                  name: cloud-store-backend-secret
+                  key: Hostname
+                  
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config/appsettings.json
+              subPath: appsettings.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-store-backend-service
+spec:
+  selector:
+    app: cloud-store-backend-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP

@@ -33,6 +33,13 @@
     <PackageReference Include="FluentValidation.AspNetCore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Deploy.yaml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 <!--  <ItemGroup>-->
 <!--    &lt;!&ndash; Don't publish the SPA source files, but do show them in the project files list &ndash;&gt;-->
 <!--    <Content Remove="$(SpaRoot)**" />-->
