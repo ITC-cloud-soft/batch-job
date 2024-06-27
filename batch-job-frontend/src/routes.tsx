@@ -19,6 +19,10 @@ const routes = createBrowserRouter([
         element: <NotFoundPage />,
     },
     {
+        path: '/',
+        element: <ScheduledJobList />,
+    },
+    {
         path: '/scheduled',
         element: <ScheduledJobList />,
     },
