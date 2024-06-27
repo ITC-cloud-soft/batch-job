@@ -3,9 +3,9 @@ FROM node:18 AS build-frontend
 WORKDIR /app/frontend
 
 # 复制前端应用程序的源代码
-COPY frontend/package.json frontend/package-lock.json ./
+COPY batch-job-frontend/package.json ./
 RUN npm install
-COPY frontend/ ./
+COPY batch-job-backend/ ./
 
 # 设置环境变量
 ARG VITE_BASE_URL
@@ -19,15 +19,15 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-dotnet
 WORKDIR /src
 
 # 复制解决方案文件和配置文件
-COPY batch-job-backend.sln .
-COPY Directory.Build.props .
-COPY Directory.Packages.props .
+COPY batch-job-backend/batch-job-backend.sln .
+COPY batch-job-backend/Directory.Build.props .
+COPY batch-job-backend/Directory.Packages.props .
 
 # 复制各子项目的项目文件
 COPY batch-job-backend/src/Web/Web.csproj src/Web/
 COPY batch-job-backend/src/Application/Application.csproj src/Application/
 COPY batch-job-backend/src/Infrastructure/Infrastructure.csproj src/Infrastructure/
-COPY batch-job-backend/src/Domain/Domain.csproj src/Domain/
+COPY batch-job-bacxxxxxxxkend/src/Domain/Domain.csproj src/Domain/
 
 
 # 清理 NuGet 缓存
