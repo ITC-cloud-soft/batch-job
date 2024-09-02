@@ -84,7 +84,7 @@
         "jobUrlValidate": "请输入批处理URL",
         "jobNoValidate": "请输入批处理编号",
         "dateValidate": "请输入日期",
-        "greaterThan0": "数值必须大于0",
+        "greaterThan0": "数值必须大于等于0",
         "workHoursValidate": "请输入工作时间段",
         "saveError": "保存失败。请再试一次",
         "jobTriggerIdValidate": "请输入定时周期任务",

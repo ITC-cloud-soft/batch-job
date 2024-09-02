@@ -84,7 +84,7 @@
         "jobUrlValidate": "Please enter the batch URL",
         "jobNoValidate": "Please enter the batch number",
         "dateValidate": "Please enter the date",
-        "greaterThan0": "The number must be greater than 0",
+        "greaterThan0": "The number must be greater or equal to 0",
         "workHoursValidate": "Please enter the working hours",
         "saveError": "Save failed. Please try again",
         "jobTriggerIdValidate": "Please enter the scheduled periodic job",

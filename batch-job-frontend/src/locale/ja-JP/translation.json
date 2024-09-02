@@ -85,7 +85,7 @@
         "jobUrlValidate": "バッチURLを入力してください",
         "jobNoValidate": "バッチURLを入力してください",
         "dateValidate": "日付を入力してください",
-        "greaterThan0": "数値は0より大きい必要があります",
+        "greaterThan0": "数値は0以上必要があります",
         "workHoursValidate": "稼働時間帯を入力してください",
         "saveError": "保存に失敗しました。もう一度お試しください",
         "jobTriggerIdValidate": "定時周期JOBを入力してください",
