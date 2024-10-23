@@ -24,23 +24,25 @@
 
 ~~~
 batch-job-backend  
-├── Web                     // インターフェースモジュール
-│       └── Endpoint                                  // システムインターフェース
-├── Infrastructure          // 共通モジュール
-│       └── Data                                      // データベーステーブル管理モジュール
-│       └── Identity                                  // 認証モジュール
-├── Application             // ビジネスモジュール
-│       └── BatchJobs                                 // ジョブビジネスモジュール
-│       └── Common                                    // 共通クラスおよびメソッド
-│       └── TodoItems                                 // イベントビジネスモジュール
-│       └── TodoLists                                 // イベントリストモジュール
-├── Domain                  // データオブジェクトおよびDAOモジュール
-│       └── Common                                    // 共通クラスおよびメソッド
-│       └── Constants                                 // 定数
-│       └── Entities                                  // データベースオブジェクト
-│       └── Events                                    // イベントオブジェクト
-│       └── Exceptions                                // 例外クラス
-└── init.sql               // データベース初期化ファイル
+├── batch-job-frontend  
+└── batch-job-backend  
+    ├── Web                     // インターフェースモジュール
+    │       └── Endpoint                                  // システムインターフェース
+    ├── Infrastructure          // 共通モジュール
+    │       └── Data                                      // データベーステーブル管理モジュール
+    │       └── Identity                                  // 認証モジュール
+    ├── Application             // ビジネスモジュール
+    │       └── BatchJobs                                 // ジョブビジネスモジュール
+    │       └── Common                                    // 共通クラスおよびメソッド
+    │       └── TodoItems                                 // イベントビジネスモジュール
+    │       └── TodoLists                                 // イベントリストモジュール
+    ├── Domain                  // データオブジェクトおよびDAOモジュール
+    │       └── Common                                    // 共通クラスおよびメソッド
+    │       └── Constants                                 // 定数
+    │       └── Entities                                  // データベースオブジェクト
+    │       └── Events                                    // イベントオブジェクト
+    │       └── Exceptions                                // 例外クラス
+    └── init.sql               // データベース初期化ファイル
 ~~~
 
 ## 内蔵機能

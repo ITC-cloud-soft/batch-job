@@ -25,23 +25,25 @@ Batch Job是一套全部开源的任务管理执行工具，毫无保留给个�
 
 ~~~
 batch-job-backend  
-├── Web                     // 接口模块
-│       └── Endpoint                                  // 系统接口
-├── Infrastructure          // 通用模块
-│       └── Data                                      // 数据库表 表管理模块 
-│       └── IDentity                                  // 认证模块
-├── Application             // 业务模块
-│       └── BatchJobs                                 // job业务模块 
-│       └── Common                                    // 公共类 方法
-│       └── TodoItems                                 // 事件业务模块 
-│       └── TodoLists                                 // 事件列表模块 
-├── Domain                  // 数据对象和Dao模块
-│       └── Common                                    // 公共类 方法
-│       └── Constants                                 // 常量 
-│       └── Entities                                  // 数据库对象
-│       └── Events                                    // 事件对象
-│       └── Exceptions                                // 异常类
-└── init.sql               // 数据库初始文件
+├── batch-job-frontend  
+└── batch-job-backend  
+    ├── Web                     // 接口模块
+    │       └── Endpoint                                  // 系统接口
+    ├── Infrastructure          // 通用模块
+    │       └── Data                                      // 数据库表 表管理模块 
+    │       └── IDentity                                  // 认证模块
+    ├── Application             // 业务模块
+    │       └── BatchJobs                                 // job业务模块 
+    │       └── Common                                    // 公共类 方法
+    │       └── TodoItems                                 // 事件业务模块 
+    │       └── TodoLists                                 // 事件列表模块 
+    ├── Domain                  // 数据对象和Dao模块
+    │       └── Common                                    // 公共类 方法
+    │       └── Constants                                 // 常量 
+    │       └── Entities                                  // 数据库对象
+    │       └── Events                                    // 事件对象
+    │       └── Exceptions                                // 异常类
+    └── init.sql               // 数据库初始文件
 ~~~
 
 ## 内置功能

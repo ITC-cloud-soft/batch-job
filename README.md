@@ -25,23 +25,25 @@ Batch Job is a fully open-source task management and execution tool, freely avai
 
 ~~~
 batch-job-backend  
-├── Web                     // Interface module
-│       └── Endpoint                                  // System interface
-├── Infrastructure          // General module
-│       └── Data                                      // Database table management module 
-│       └── Identity                                  // Authentication module
-├── Application             // Business module
-│       └── BatchJobs                                 // Job business module 
-│       └── Common                                    // Common classes and methods
-│       └── TodoItems                                 // Event business module 
-│       └── TodoLists                                 // Event list module 
-├── Domain                  // Data objects and Dao module
-│       └── Common                                    // Common classes and methods
-│       └── Constants                                 // Constants 
-│       └── Entities                                  // Database objects
-│       └── Events                                    // Event objects
-│       └── Exceptions                                // Exception classes
-└── init.sql               // Initial database file
+├── batch-job-frontend  
+└── batch-job-backend  
+    ├── Web                     // Interface module
+    │       └── Endpoint                                  // System interface
+    ├── Infrastructure          // General module
+    │       └── Data                                      // Database table management module 
+    │       └── Identity                                  // Authentication module
+    ├── Application             // Business module
+    │       └── BatchJobs                                 // Job business module 
+    │       └── Common                                    // Common classes and methods
+    │       └── TodoItems                                 // Event business module 
+    │       └── TodoLists                                 // Event list module 
+    ├── Domain                  // Data objects and Dao module
+    │       └── Common                                    // Common classes and methods
+    │       └── Constants                                 // Constants 
+    │       └── Entities                                  // Database objects
+    │       └── Events                                    // Event objects
+    │       └── Exceptions                                // Exception classes
+    └── init.sql               // Initial database file
 ~~~
 
 ## Built-in Features
