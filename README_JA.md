@@ -12,7 +12,6 @@
   <a href="./README_CN.md"><img alt="简体中文版自述文件" src="https://img.shields.io/badge/简体中文-d9d9d9"></a>
   <a href="./README_JA.md"><img alt="日本語のREADME" src="https://img.shields.io/badge/日本語-d9d9d9"></a>
 </p>
-
 ## 概要
 
 バッチジョブは、個人および企業に対して無償で完全にオープンソース化されたタスク管理実行ツールです。
