@@ -49,14 +49,31 @@ batch-job-backend
 1. 定時ジョブ実行：指定された日時に定時ジョブを実行することができ、年単位、月単位、週単位、日単位、時単位、分単位での処理が可能。
 2. 関連ジョブ実行：定時ジョブが完了した後に関連ジョブを実行することができる。
 
+## Batch Job ホームページにアクセス
+Batch Job ホームページにアクセスする際に、Lens または Kubernetes コマンドを使用して URL をプロキシすることができます。
+
+1. Lens を使用してアクセスする
+   転送ボタンを押すと、URL に自動的に転送されま
+<table>
+    <tr>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch_lens.png"/></td>
+    </tr>
+</table>
+
+2. Kubernetes コマンドを使用してアクセスする
+```shell
+kubectl port-forward service/batch-job-batch-job-helm 8080:80 --namespace batch-job
+```
+その後、ブラウザで https://localhost:8081 にアクセスしま
+
 ## デモ画像
 <table>
     <tr>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img.png"/></td>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img_1.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-ja_1.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-ja_2.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img_2.png"/></td>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img_3.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-ja_3.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-ja_4.png"/></td>
     </tr>
 </table>

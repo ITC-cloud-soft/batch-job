@@ -49,16 +49,31 @@ batch-job-backend
 ## 内置功能
 1.  定时JOB执行：可以按指定的日期时间执行定时JOB。具体按年、按月、按周、按日、按时、按分处理。
 2.  关联JOB执行：可以在定时JOB执行完成后执行相关联的JOB。
+## 访问 Yamler
+当访问 Batch Job 首页时，可以使用 Lens 或 Kubernetes 命令。
 
+1. 使用 Lens 访问
+   按下转发按钮将自动转发到 URL
+<table>
+    <tr>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch_lens.png"/></td>
+    </tr>
+</table>
+
+2. 使用 Kubernetes 命令访问
+```shell
+kubectl port-forward service/batch-job-batch-job-helm 8080:80 --namespace batch-job
+```
+然后在浏览器中输入`https://localhost:8081`访问
 ## 演示图
 <table>
     <tr>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img.png"/></td>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img_1.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-cn_1.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-cn_2.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img_2.png"/></td>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img_3.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-cn_3.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-cn_4.png"/></td>
     </tr>
     
 </table>

@@ -50,15 +50,32 @@ batch-job-backend
 1. Scheduled Job Execution: Can execute scheduled jobs at specified date and time, supporting scheduling by year, month, week, day, hour, and minute.
 2. Linked Job Execution: Allows execution of linked jobs after the scheduled job is completed.
 
+## Access Batch Job Page
+When access  Batch Job homepage could use Lens or Kubernetes command to proxy the url.
+1. Use Lens to access
+   Press forward button will automatically forward to browser
+<table>
+    <tr>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch_lens.png"/></td>
+    </tr>
+</table>
+
+2. Use kubernetes command to access
+```shell
+kubectl port-forward service/batch-job-batch-job-helm 8080:80 --namespace batch-job
+```
+then access `https://localhost:8080` in browser
+### License
+
+Yamler is licensed under the MIT License.
 ## Demo Images
 <table>
     <tr>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img.png"/></td>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img_1.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-en_1.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-en_2.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img_2.png"/></td>
-        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/img_3.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-en_3.png"/></td>
+        <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-job-en_4.png"/></td>
     </tr>
-
 </table>
