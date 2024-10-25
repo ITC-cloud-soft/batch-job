@@ -61,6 +61,28 @@ batch-job-backend
     </tr>
 </table>
 
+## Installation
+
+You can easily install Batch-Job via Helm Charts. Follow these steps:
+
+1. Batch-Job Helm レポジトリを追加します：
+```bash
+helm repo add Batch-Job https://itc-cloud-soft.github.io/batch-job-helm/
+```
+2.	Helm レポジトリを更新します：
+```bash
+helm repo update
+```
+3.	Helm を使用して Batch Job をインストールします：
+```bash
+lm install my-batch-job batch-job/batch-job-chart
+```
+4.	インストールステータスを確認します：
+```bash
+helm status my-batch-job
+```
+
+
 ## Batch Job ホームページにアクセス
 Batch Job ホームページにアクセスする際に、Lens または Kubernetes コマンドを使用して URL をプロキシすることができます。
 

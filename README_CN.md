@@ -62,6 +62,27 @@ batch-job-backend
     </tr>
 </table>
 
+## 安装方式
+
+您可以通过 Helm Charts 轻松安装 Batch-Job。请按照以下步骤操作：
+
+1. 添加 Batch-Job Helm 仓库：
+```bash
+helm repo add batch-job https://itc-cloud-soft.github.io/batch-job-helm/
+```
+2. 更新 Helm 仓库：
+```bash
+helm repo update
+```
+3. 使用 Helm 安装  Batch-Job：
+```bash
+helm install my-batch-job batch-job/batch-job-chart
+```
+4. 查看安装状态：
+```bash
+helm status my-batch-job
+```
+
 ## 访问 Batch Job
 当访问 Batch Job 首页时，可以使用 Lens 或 Kubernetes 命令。
 

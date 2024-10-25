@@ -63,6 +63,28 @@ batch-job-backend
     </tr>
 </table>
 
+
+## Installation
+
+You can easily install Batch-Job via Helm Charts. Follow these steps:
+
+1. Add the Batch-Job Helm repository:
+```bash
+helm repo add Batch-Job https://itc-cloud-soft.github.io/batch-job-helm/
+```
+4. Update Helm repositories:
+```bash
+helm repo update
+```
+4. Install Batch-Job using Helm:
+```bash
+lm install my-batch-job batch-job/batch-job-chart
+```
+4. Check installation status:
+```bash
+helm status my-batch-job
+```
+
 ## Access Batch Job Page
 When access  Batch Job homepage could use Lens or Kubernetes command to proxy the url.
 1. Use Lens to access
