@@ -61,6 +61,7 @@ batch-job-backend
          <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-6.png"/></td>
     </tr>
 </table>
+
 ## 访问 Batch Job
 当访问 Batch Job 首页时，可以使用 Lens 或 Kubernetes 命令。
 

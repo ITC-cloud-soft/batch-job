@@ -60,6 +60,7 @@ batch-job-backend
          <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-6.png"/></td>
     </tr>
 </table>
+
 ## Batch Job ホームページにアクセス
 Batch Job ホームページにアクセスする際に、Lens または Kubernetes コマンドを使用して URL をプロキシすることができます。
 

@@ -62,6 +62,7 @@ batch-job-backend
          <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-e-6.png"/></td>
     </tr>
 </table>
+
 ## Access Batch Job Page
 When access  Batch Job homepage could use Lens or Kubernetes command to proxy the url.
 1. Use Lens to access
