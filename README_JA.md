@@ -50,14 +50,14 @@ batch-job-backend
 2. 関連ジョブ実行：定時ジョブが完了した後に関連ジョブを実行することができる。
 <table style="width: 400px">
     <tr>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-1.png"/></td>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-2.png"/></td>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-3.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-1.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-2.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-3.png"/></td>
     </tr>
     <tr>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-4.png"/></td>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-5.png"/></td>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-6.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-4.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-5.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-6.png"/></td>
     </tr>
 </table>
 ## Batch Job ホームページにアクセス

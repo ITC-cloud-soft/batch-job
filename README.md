@@ -52,14 +52,14 @@ batch-job-backend
 
 <table style="width: 400px">
     <tr>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-1.png"/></td>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-2.png"/></td>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-3.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-e-1.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-e-2.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-e-3.png"/></td>
     </tr>
     <tr>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-4.png"/></td>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-5.png"/></td>
-         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-6.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-e-4.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-e-5.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-e-6.png"/></td>
     </tr>
 </table>
 ## Access Batch Job Page
