@@ -63,7 +63,7 @@ batch-job-backend
 
 ## Installation
 
-You can easily install Batch-Job via Helm Charts. Follow these steps:
+以下の流れとおりに従って頂ければ、簡単にkubernetesシステムでインストールできます。
 
 1. Batch-Job Helm レポジトリを追加します：
 ```bash
