@@ -47,9 +47,21 @@ batch-job-backend
 ~~~
 
 ## 内置功能
-1.  定时JOB执行：可以按指定的日期时间执行定时JOB。具体按年、按月、按周、按日、按时、按分处理。
+1.  定时JOB执行：可以按指定的日期时间执行定时JOB。具体按年、按月、按周、按日、按时、按分处理。参考下面图片：
 2.  关联JOB执行：可以在定时JOB执行完成后执行相关联的JOB。
-## 访问 Yamler
+<table style="width: 400px">
+    <tr>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-1.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-2.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-3.png"/></td>
+    </tr>
+    <tr>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-4.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-5.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-6.png"/></td>
+    </tr>
+</table>
+## 访问 Batch Job
 当访问 Batch Job 首页时，可以使用 Lens 或 Kubernetes 命令。
 
 1. 使用 Lens 访问

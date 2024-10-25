@@ -48,7 +48,18 @@ batch-job-backend
 ## 内蔵機能
 1. 定時ジョブ実行：指定された日時に定時ジョブを実行することができ、年単位、月単位、週単位、日単位、時単位、分単位での処理が可能。
 2. 関連ジョブ実行：定時ジョブが完了した後に関連ジョブを実行することができる。
-
+<table style="width: 400px">
+    <tr>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-1.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-2.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-3.png"/></td>
+    </tr>
+    <tr>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-4.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-5.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-6.png"/></td>
+    </tr>
+</table>
 ## Batch Job ホームページにアクセス
 Batch Job ホームページにアクセスする際に、Lens または Kubernetes コマンドを使用して URL をプロキシすることができます。
 

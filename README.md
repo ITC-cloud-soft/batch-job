@@ -50,6 +50,18 @@ batch-job-backend
 1. Scheduled Job Execution: Can execute scheduled jobs at specified date and time, supporting scheduling by year, month, week, day, hour, and minute.
 2. Linked Job Execution: Allows execution of linked jobs after the scheduled job is completed.
 
+<table style="width: 400px">
+    <tr>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-1.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-2.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-3.png"/></td>
+    </tr>
+    <tr>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-4.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-5.png"/></td>
+         <td><img src="https://itc-cloud-soft.github.io/doc-open/img/batch-job/batch-t-j-6.png"/></td>
+    </tr>
+</table>
 ## Access Batch Job Page
 When access  Batch Job homepage could use Lens or Kubernetes command to proxy the url.
 1. Use Lens to access
@@ -67,7 +79,7 @@ kubectl port-forward service/batch-job-batch-job-helm 8080:80 --namespace batch-
 then access `https://localhost:8080` in browser
 ### License
 
-Yamler is licensed under the MIT License.
+Batch Job is licensed under the MIT License.
 ## Demo Images
 <table>
     <tr>
