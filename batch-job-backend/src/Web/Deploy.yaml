@@ -32,7 +32,6 @@ spec:
                 secretKeyRef:
                   name: cloud-store-backend-secret
                   key: Hostname
-                  
           volumeMounts:
             - name: config-volume
               mountPath: /app/config/appsettings.json

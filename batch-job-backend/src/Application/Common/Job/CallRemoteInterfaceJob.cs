@@ -22,7 +22,7 @@ public class  CallRemoteInterfaceJob : IJob
     {
         try
         {
-            _logger.LogInformation("Job CallRemoteInterfaceJob Start");
+            _logger.LogInformation("Job Starting");
             
             // get scheduled job from job parameters
             JobDataMap param = context.JobDetail.JobDataMap;
@@ -47,13 +47,13 @@ public class  CallRemoteInterfaceJob : IJob
                 throw new ArgumentException("Invalid job parameters");
             }
             
-            _logger.LogInformation("Execute scheduled job id: {TriggerId} name: {Name} and cron is {CronString}", job.Id, job.JobName, job.CronExpressionStr);
+            _logger.LogInformation("----- Execute [Scheduled Job] Id: {TriggerId} . Name: [{Name}] and Cron is {CronString}", job.Id, job.JobName, job.CronExpressionStr);
             var response = await GetRequest(job.JobUrl);
             LogResponse(response);
             
             foreach (BJob trigger in triggerList )
             {
-                _logger.LogInformation("Execute trigger job id: {TriggerId} name: {Name} ", trigger.Id, trigger.JobName);
+                _logger.LogInformation("------ Execute [Trigger Job] Id: {TriggerId} . Name: [{Name}] ", trigger.Id, trigger.JobName);
                 var triggerResponse = await GetRequest(trigger.JobUrl!);
                 LogResponse(triggerResponse);
             }

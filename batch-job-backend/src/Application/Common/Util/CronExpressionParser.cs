@@ -21,7 +21,7 @@ public class CronExpressionParser
         {
             case ScheduleType.Year: cronExpression = $"0 {job.Minute} {job.Hour} {job.Day} {job.Month} ? *"; break;
             case ScheduleType.Month: cronExpression = $"0 {job.Minute} {job.Hour} {batchLaunchMonthDay} * ? *"; break;
-            case ScheduleType.Week: cronExpression = $"0 {job.Minute} {job.Hour} ? * {job.WeekDay + 1} *"; break;
+            case ScheduleType.Week: cronExpression = $"0 {job.Minute} {job.Hour} ? * {job.WeekDay} *"; break;
             case ScheduleType.Day: cronExpression = $"0 {job.Minute} {job.Hour} * * ? *"; break;
             case ScheduleType.Hour: cronExpression = GenHourLoopCronExpression(job); break;
             case ScheduleType.Minute: cronExpression = GenMinLoopCronExpression(job); break;
@@ -74,7 +74,7 @@ public class CronExpressionParser
         // バッチ起動曜日
         if (job.StartType == 2)
         {
-            var weekDay = string.Join(",", job.BatchLaunchWeekDay.Select(x => int.Parse(x) + 1).ToList());
+            var weekDay = string.Join(",", job.BatchLaunchWeekDay.ToList());
             return $"0 0/{job.LoopStep} {job.WorkHourStart}-{job.WorkHourEnd} ? * {weekDay} * ";
         }
 
@@ -92,7 +92,7 @@ public class CronExpressionParser
         // バッチ起動曜日
         if (job.StartType == 2)
         {
-            var weekDay = string.Join(",", job.BatchLaunchWeekDay.Select(x => int.Parse(x) + 1).ToList());
+            var weekDay = string.Join(",", job.BatchLaunchWeekDay);
             return $"0 0 0/{job.LoopStep} ? * {weekDay} * ";
         }
 

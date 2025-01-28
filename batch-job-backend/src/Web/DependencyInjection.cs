@@ -1,5 +1,6 @@
 ﻿using Azure.Identity;
 using batch_job_backend.Application.Common.Interfaces;
+using batch_job_backend.Infrastructure;
 using batch_job_backend.Infrastructure.Data;
 using batch_job_backend.Web.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,17 +17,14 @@ public static class DependencyInjection
         {
             options.AddPolicy("AllowSpecificOrigin", builder =>
             {
-                Console.WriteLine(configuration["FrontendHost"]);
-                Console.WriteLine("configuration---------");
                 builder.WithOrigins(configuration["FrontendHost"] ?? "*")
                     .AllowAnyHeader()
                     .AllowAnyMethod();
-
             });
         });
         
         services.AddDatabaseDeveloperPageExceptionFilter();
-
+        services.AddSingleton<MySqlScriptExecutor>();
         services.AddScoped<IUser, CurrentUser>();
 
         services.AddHttpContextAccessor();
