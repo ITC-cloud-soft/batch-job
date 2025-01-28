@@ -83,13 +83,18 @@
         "jobNameValidate": "Please enter the batch name",
         "jobUrlValidate": "Please enter the batch URL",
         "jobNoValidate": "Please enter the batch number",
-        "dateValidate": "Please enter the date",
-        "greaterThan0": "The number must be greater or equal to 0",
+        "urlValidate": "The URL is invalid. Please enter a correct URL.",
+        "greaterThan0": " The value must be an integer and greater than 0.",
         "workHoursValidate": "Please enter the working hours",
         "saveError": "Save failed. Please try again",
         "jobTriggerIdValidate": "Please enter the scheduled periodic job",
-        "newScheduleJob": "New Scheduled Job"
+        "newScheduleJob": "New Scheduled Job",
+        "onlyNumber": "only input number",
+        "dateValidate": "Please enter the date",
+        "minValidate": "Please enter the minutes",
+        "hourValidate": "Please enter the hours",
+        "monthValidate": "Please enter the month",
+        "weekValidate": "Please enter the week"
     },
-
     "noResponse": "No response received from server. "
 }

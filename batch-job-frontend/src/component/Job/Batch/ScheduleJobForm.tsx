@@ -17,7 +17,10 @@ import { SaveJob, UpdateJob } from '../../../service/api.ts';
 import Title from 'antd/es/typography/Title';
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
-import { generateCronExpressionString } from '../../../utils/util.ts';
+import {
+    generateCronExpressionString,
+    isValidUrl,
+} from '../../../utils/util.ts';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -30,8 +33,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
     const [, setIsModalOpen] = useRecoilState(modalState);
     const [t] = useTranslation();
     const submit = (bJob: BJob) => {
-        const cronExpressionStr = generateCronExpressionString(bJob);
-        bJob.cronExpressionStr = cronExpressionStr;
+        bJob.cronExpressionStr = generateCronExpressionString(bJob);
         setIsModalOpen(false);
         if (jobParam) {
             UpdateJob({ ...jobParam, ...bJob }).then(() => {
@@ -47,10 +49,13 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                 .catch((error) => {
                     console.error(error);
                     closeModal();
-                    messageApi.open({
-                        type: 'error',
-                        content: '保存に失敗しました。もう一度お試しください',
-                    });
+                    messageApi
+                        .open({
+                            type: 'error',
+                            content:
+                                '保存に失敗しました。もう一度お試しください',
+                        })
+                        .then((r) => r);
                 });
         }
     };
@@ -78,6 +83,27 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
         value: `${i + 1}`,
         label: `${i + 1}${t('job.month')}`,
     }));
+
+    const array = [
+        {
+            validator: (_: any, value: string) => {
+                const numberValue = Number(value);
+                if (numberValue > 0) {
+                    return Promise.resolve().then((r) => r);
+                }
+                return Promise.reject(new Error(t('job.greaterThan0')));
+            },
+        },
+        {
+            validator: (_: any, value: string) => {
+                if (Number.isInteger(Number(value))) {
+                    return Promise.resolve().then((r) => r);
+                }
+                return Promise.reject(new Error(t('job.greaterThan0')));
+            },
+        },
+    ];
+
     return (
         <Wrapper>
             {contextHolder}
@@ -110,8 +136,13 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                         name="jobUrl"
                         rules={[
                             {
-                                required: true,
-                                message: t('job.jobUrlValidate'),
+                                validator: (_, value) => {
+                                    return isValidUrl(value)
+                                        ? Promise.resolve()
+                                        : Promise.reject(
+                                              new Error(t('job.urlValidate')),
+                                          );
+                                },
                             },
                         ]}
                     >
@@ -153,7 +184,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: t('job.dateValidate'),
+                                        message: t('job.monthValidate'),
                                     },
                                 ]}
                             >
@@ -190,14 +221,18 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                 label={t('job.loopStep')}
                                 rules={[
                                     {
-                                        validator: (_, value) =>
-                                            value > 0
+                                        validator: (_, value) => {
+                                            const numberValue = Number(value);
+                                            return Number.isInteger(
+                                                numberValue,
+                                            ) && numberValue > 0
                                                 ? Promise.resolve()
                                                 : Promise.reject(
                                                       new Error(
                                                           t('job.greaterThan0'),
                                                       ),
-                                                  ),
+                                                  );
+                                        },
                                     },
                                 ]}
                             >
@@ -215,8 +250,12 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                     label={t('job.loopStep')}
                                     rules={[
                                         {
-                                            validator: (_, value) =>
-                                                value > 0
+                                            validator: (_, value) => {
+                                                const numberValue =
+                                                    Number(value);
+                                                return Number.isInteger(
+                                                    numberValue,
+                                                ) && numberValue > 0
                                                     ? Promise.resolve()
                                                     : Promise.reject(
                                                           new Error(
@@ -224,7 +263,8 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                                                   'job.greaterThan0',
                                                               ),
                                                           ),
-                                                      ),
+                                                      );
+                                            },
                                         },
                                     ]}
                                 >
@@ -247,18 +287,7 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                                     'job.workHoursValidate',
                                                 ),
                                             },
-                                            {
-                                                validator: (_, value) =>
-                                                    value >= 0
-                                                        ? Promise.resolve()
-                                                        : Promise.reject(
-                                                              new Error(
-                                                                  t(
-                                                                      'job.greaterThan0',
-                                                                  ),
-                                                              ),
-                                                          ),
-                                            },
+                                            ...array,
                                         ]}
                                     >
                                         <Input />
@@ -272,17 +301,12 @@ const ScheduleJobForm: React.FC<JobProps> = ({ jobParam, closeModal }) => {
                                         }}
                                         rules={[
                                             {
-                                                validator: (_, value) =>
-                                                    value >= 0
-                                                        ? Promise.resolve()
-                                                        : Promise.reject(
-                                                              new Error(
-                                                                  t(
-                                                                      'job.greaterThan0',
-                                                                  ),
-                                                              ),
-                                                          ),
+                                                required: true,
+                                                message: t(
+                                                    'job.workHoursValidate',
+                                                ),
                                             },
+                                            ...array,
                                         ]}
                                     >
                                         <Input />

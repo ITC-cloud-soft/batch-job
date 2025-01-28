@@ -1,0 +1,38 @@
+.a-nav-icon {
+  $root: &;
+
+  position: relative;
+  display: flex;
+  width: 24px;
+  height: 24px;
+
+  @include sp() {
+    width: 28px;
+    height: 28px;
+  }
+
+  &__badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background: $color-primary-red;
+    border-radius: 50%;
+
+    #{$root}--large & {
+      top: 0;
+      right: 0;
+    }
+  }
+
+  &--large {
+    width: 32px;
+    height: 32px;
+
+    .a-icon {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}

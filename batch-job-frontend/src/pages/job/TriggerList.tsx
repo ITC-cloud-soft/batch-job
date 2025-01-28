@@ -5,7 +5,7 @@ import { BJob, JobType } from '../../props/DataStructure.ts';
 import { GetJobList } from '../../service/api.ts';
 import TriggerForm from '../../component/Job/Trigger/TriggerForm.tsx';
 import Title from 'antd/es/typography/Title';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LanguageButton from '../../component/LanguageButton/LanguageButton.tsx';
 import { useTranslation } from 'react-i18next';
 
@@ -17,10 +17,24 @@ const TriggerList = () => {
     const [jobList, setJobList] = useState<BJob[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [job, setJob] = useState<BJob>();
-    const { t } = useTranslation();
+    const [t, i18n] = useTranslation();
+    const [lng, setLng] = useState<string>();
+    const [showForwardButton, setShowForwardButton] = useState<boolean>(true);
+    const useQuery = () => {
+        return new URLSearchParams(useLocation().search);
+    };
+    const query = useQuery();
 
     const navigate = useNavigate();
     useEffect(() => {
+        // 获取参数，例如 ?id=123 则 query.get('id') 会返回 '123'
+        const language = query.get('lng');
+        if (language) {
+            setShowForwardButton(false);
+            setLng(language);
+            i18n.changeLanguage(language);
+        }
+
         GetJobList(JobType.Trigger).then((data) => {
             const jobList = data.items.map((job) => ({ ...job, key: job.id }));
             setJobList(jobList);
@@ -89,7 +103,7 @@ const TriggerList = () => {
 
     return (
         <Wrapper>
-            <LanguageButton />
+            {!lng && <LanguageButton />}
             <div style={{ padding: '30px' }}>
                 <Flex justify={'space-between'} align={'center'}>
                     <Title level={2}> {t('job.triggerJobList')}</Title>
@@ -102,13 +116,15 @@ const TriggerList = () => {
                         >
                             {t('job.newTriggerJob')}
                         </Button>
-                        <Button
-                            onClick={() => {
-                                navigate('/scheduled');
-                            }}
-                        >
-                            {t('job.scheduledJobList')}
-                        </Button>
+                        {showForwardButton && (
+                            <Button
+                                onClick={() => {
+                                    navigate('/scheduled');
+                                }}
+                            >
+                                {t('job.scheduledJobList')}
+                            </Button>
+                        )}
                     </Flex>
                 </Flex>
                 <Table dataSource={jobList} columns={columns}></Table>

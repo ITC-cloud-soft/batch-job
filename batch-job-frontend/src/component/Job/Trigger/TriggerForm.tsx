@@ -14,6 +14,7 @@ import { useForm } from 'antd/es/form/Form';
 import { GetJobList, SaveJob, UpdateJob } from '../../../service/api.ts';
 import Title from 'antd/es/typography/Title';
 import { useTranslation } from 'react-i18next';
+import { isValidUrl } from '../../../utils/util.ts';
 
 const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
     const [form] = useForm();
@@ -85,8 +86,13 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
                     name="jobUrl"
                     rules={[
                         {
-                            required: true,
-                            message: t('job.jobUrlValidate'),
+                            validator: (_, value) => {
+                                return isValidUrl(value)
+                                    ? Promise.resolve()
+                                    : Promise.reject(
+                                          new Error(t('job.urlValidate')),
+                                      );
+                            },
                         },
                     ]}
                 >
@@ -118,6 +124,14 @@ const TriggerForm: React.FC<JobProps> = ({ closeModal, jobParam }) => {
                                 {
                                     required: true,
                                     message: t('job.jobNoValidate'),
+                                },
+
+                                {
+                                    type: 'number',
+                                    transform(value) {
+                                        return Number(value);
+                                    },
+                                    message: t('job.onlyNumber'),
                                 },
                             ]}
                         >

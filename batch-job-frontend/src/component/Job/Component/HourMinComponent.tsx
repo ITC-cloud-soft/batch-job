@@ -25,7 +25,7 @@ const HourMinComponent: React.FC<HmProps> = () => {
                 rules={[
                     {
                         required: true,
-                        message: t('job.dateValidate'),
+                        message: t('job.minValidate'),
                     },
                 ]}
             >
@@ -45,7 +45,7 @@ const HourMinComponent: React.FC<HmProps> = () => {
                 rules={[
                     {
                         required: true,
-                        message: t('job.dateValidate'),
+                        message: t('job.hourValidate'),
                     },
                 ]}
             >

@@ -4,6 +4,7 @@ import ServerErrorPage from './pages/ServerErrorPage.tsx';
 import ScheduledJobList from './pages/job/ScheduledJobList.tsx';
 import TriggerList from './pages/job/TriggerList.tsx';
 import ResultPage from './pages/job/ResultPage.tsx';
+import Login from './pages/Login.tsx';
 
 const routes = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const routes = createBrowserRouter([
     {
         path: '/trigger',
         element: <TriggerList />,
+    },
+    {
+        path: '/login',
+        element: <Login />,
     },
     {
         path: '/success/:id/type/:type',

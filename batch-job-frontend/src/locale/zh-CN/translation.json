@@ -83,12 +83,18 @@
         "jobNameValidate": "请输入批处理名称",
         "jobUrlValidate": "请输入批处理URL",
         "jobNoValidate": "请输入批处理编号",
-        "dateValidate": "请输入日期",
-        "greaterThan0": "数值必须大于等于0",
+        "urlValidate": "Url 无效，请输入正确url",
+        "greaterThan0": "数值必须为整数且必须大于0",
         "workHoursValidate": "请输入工作时间段",
         "saveError": "保存失败。请再试一次",
         "jobTriggerIdValidate": "请输入定时周期任务",
-        "newScheduleJob": "新建定时任务"
+        "newScheduleJob": "新建定时任务",
+        "onlyNumber": "只能输入数字",
+        "dateValidate": "请输入日期",
+        "minValidate": "请输入分钟",
+        "hourValidate": "请输入小时",
+        "monthValidate": "请输入月份",
+        "weekValidate": "请输入星期"
     },
 "noResponse": "服务器无响应"
 

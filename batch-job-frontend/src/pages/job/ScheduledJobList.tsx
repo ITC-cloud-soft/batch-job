@@ -10,7 +10,7 @@ import {
 import { ExecuteJob, GetJobList, StopJob } from '../../service/api.ts';
 import ScheduleJobForm from '../../component/Job/Batch/ScheduleJobForm.tsx';
 import Title from 'antd/es/typography/Title';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LanguageButton from '../../component/LanguageButton/LanguageButton.tsx';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
@@ -25,8 +25,23 @@ const ScheduledJobList = () => {
     const [job, setJob] = useState<BJob>();
     const [isModalOpen, setIsModalOpen] = useRecoilState(modalState);
     const navigate = useNavigate();
-    const [t] = useTranslation();
+    const [t, i18n] = useTranslation();
+    const [lng, setLng] = useState<string>();
+    const [showForwardButton, setShowForwardButton] = useState<boolean>(true);
+
+    const useQuery = () => {
+        return new URLSearchParams(useLocation().search);
+    };
+    const query = useQuery();
+
     useEffect(() => {
+        // 获取参数，例如 ?id=123 则 query.get('id') 会返回 '123'
+        const language = query.get('lng');
+        if (language) {
+            setShowForwardButton(false);
+            setLng(language);
+            i18n.changeLanguage(language);
+        }
         GetJobList(JobType.Scheduled).then((data) => {
             const jobList = data.items.map((job) => ({ ...job, key: job.id }));
             setJobList(jobList);
@@ -96,7 +111,6 @@ const ScheduledJobList = () => {
             dataIndex: 'ScheduleType',
             key: 'ScheduleType',
             render: (_, { scheduleType }) => {
-                console.log(scheduleType);
                 return getScheduleTypeDes(scheduleType);
             },
         },
@@ -154,7 +168,7 @@ const ScheduledJobList = () => {
 
     return (
         <Wrapper>
-            <LanguageButton />
+            {!lng && <LanguageButton />}
             <div style={{ padding: '30px' }}>
                 <Flex justify={'space-between'} align={'center'}>
                     <Title level={2}>{t('job.scheduledJobList')}</Title>
@@ -167,13 +181,15 @@ const ScheduledJobList = () => {
                         >
                             {t('job.newScheduleJob')}
                         </Button>
-                        <Button
-                            onClick={() => {
-                                navigate('/trigger');
-                            }}
-                        >
-                            {t('job.triggerJobList')}
-                        </Button>
+                        {showForwardButton && (
+                            <Button
+                                onClick={() => {
+                                    navigate('/trigger');
+                                }}
+                            >
+                                {t('job.triggerJobList')}
+                            </Button>
+                        )}
                     </Flex>
                 </Flex>
                 <Table dataSource={jobList} columns={columns}></Table>

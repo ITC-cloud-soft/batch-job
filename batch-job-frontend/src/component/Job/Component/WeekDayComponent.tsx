@@ -11,9 +11,10 @@ const WeekDayComponent = () => {
 
     const daysOfWeek = [...Array(7).keys()].map((i) => {
         const date = new Date();
-        date.setDate(date.getDate() - date.getDay() + i);
+        // 设置星期为 i + 1，确保从周一开始
+        date.setDate(date.getDate() - ((date.getDay() + 6) % 7) + i);
         const weekDay = dayOfWeekFormatter.format(date);
-        return { label: weekDay, value: i + '' };
+        return { label: weekDay, value: (i + 1).toString() };
     });
 
     const [t] = useTranslation();
@@ -24,6 +25,12 @@ const WeekDayComponent = () => {
                 label={t('job.weekday')}
                 name="weekDay"
                 style={{ width: '80px' }}
+                rules={[
+                    {
+                        required: true,
+                        message: t('job.weekValidate'),
+                    },
+                ]}
             >
                 <Select options={daysOfWeek} />
             </Form.Item>

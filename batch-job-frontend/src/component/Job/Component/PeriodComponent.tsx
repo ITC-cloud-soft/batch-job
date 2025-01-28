@@ -15,10 +15,11 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
 
     const daysOfWeek = [...Array(7).keys()].map((i) => {
         const date = new Date();
-        date.setDate(date.getDate() - date.getDay() + i);
-        return dayOfWeekFormatter.format(date);
+        // 设置星期为 i + 1，确保从周一开始
+        date.setDate(date.getDate() - ((date.getDay() + 6) % 7) + i);
+        const weekDay = dayOfWeekFormatter.format(date);
+        return { label: weekDay, value: (i + 1).toString() };
     });
-
     return (
         <Flex vertical>
             <Flex>
@@ -79,10 +80,10 @@ const PeriodComponent: React.FC<HmProps> = ({ job, setJob }) => {
                     >
                         <Checkbox.Group>
                             <Row>
-                                {daysOfWeek.map((value, i) => (
-                                    <Col span={6} key={i}>
-                                        <Checkbox value={`${i}`}>
-                                            {value}
+                                {daysOfWeek.map(({ label, value }) => (
+                                    <Col span={6} key={value}>
+                                        <Checkbox value={value}>
+                                            {label}
                                         </Checkbox>
                                     </Col>
                                 ))}

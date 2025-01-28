@@ -24,6 +24,9 @@ import LanguageButton from '../component/LanguageButton/LanguageButton.tsx';
 import { UserLoginParam } from '../props/DataStructure.ts';
 import { login } from '../service/api.ts';
 import featureWorkImg from '/src/assets/img/banner-img-01.svg';
+import { Text } from '../component/stories/atoms/text';
+import { Icon } from '../component/stories/atoms/icon';
+import { NavIcon } from '../component/stories/atoms/nav-icon';
 
 const Wrapper = styled.div`
     height: 85vh;
@@ -82,31 +85,8 @@ const ActionIcons = () => {
     const { styles } = useStyles();
     return (
         <>
-            <GithubFilled
-                size={20}
-                key="GithubOutlined"
-                className={styles.action}
-                onClick={() => {
-                    window.location.href =
-                        'https://github.com/login/oauth/authorize?client_id=5503e92a98b97e2bb88c&scope=user:email';
-                }}
-            />
-            <GoogleCircleFilled
-                key="TaobaoCircleOutlined"
-                className={styles.action}
-                onClick={() => {
-                    const clientId =
-                        '729990845534-c145j6j8o80kjdbmefivel12rate842j.apps.googleusercontent.com';
-                    const redirectUri = encodeURIComponent(
-                        'https://e110-240f-140-ba1-1-ed2e-5bfe-103a-9d16.ngrok-free.app/oauth/google/callback',
-                    );
-                    const responseType = 'code';
-                    const scope = encodeURIComponent('email profile');
-                    const state = Math.random().toString(36).substring(7); // TODO 生成随机字符串作为 state 参数
-                    const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&state=${state}&access_type=offline`;
-                    window.location.href = googleUrl;
-                }}
-            />
+            <NavIcon active={true} />
+            <Text children={'12111111111111111111111111113'} />
         </>
     );
 };

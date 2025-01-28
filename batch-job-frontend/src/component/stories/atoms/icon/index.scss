@@ -1,0 +1,173 @@
+.a-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  @mixin icon-shape($name) {
+    &--#{$name} {
+      background-image: url('~design/images/icons/#{$name}.svg');
+    }
+  }
+
+  @mixin icon-size($name, $pc, $sp) {
+    &--#{$name} {
+      width: $pc;
+      height: $pc;
+
+      @include sp() {
+        width: $sp;
+        height: $sp;
+      }
+    }
+  }
+
+  @mixin icon($name, $pc, $sp) {
+    @include icon-shape($name);
+    @include icon-size($name, $pc, $sp);
+  }
+
+  @mixin icon-size-full($name, $pcw, $pch, $spw, $sph) {
+    &--#{$name} {
+      width: $pcw;
+      height: $pch;
+
+      @include sp() {
+        width: $spw;
+        height: $sph;
+      }
+    }
+  }
+
+  @mixin icon-full($name, $pcw, $pch, $spw, $sph) {
+    @include icon-shape($name);
+    @include icon-size-full($name, $pcw, $pch, $spw, $sph);
+  }
+
+  @include icon('add-item', 16px, 16px);
+  @include icon('arrow-down', 16px, 16px);
+  @include icon('arrow-down-white', 16px, 16px);
+  @include icon('arrow-down-black', 16px, 16px);
+  @include icon('arrow-left', 16px, 16px);
+  @include icon('arrow-left-white', 16px, 16px);
+  @include icon('arrow-right', 16px, 16px);
+  @include icon('arrow-right-white', 16px, 16px);
+  @include icon('arrow-up', 16px, 16px);
+  @include icon('check-purple', 10px, 10px);
+  @include icon('check-white', 10px, 10px);
+  @include icon('close-bold', 16px, 16px);
+  @include icon('close-hover', 24px, 24px);
+  @include icon('close', 24px, 24px);
+  @include icon('dot-action', 16px, 16px);
+  @include icon('edit', 20px, 20px);
+  @include icon('menu', 32px, 32px);
+  @include icon('news', 28px, 32px);
+  @include icon('waiting', 40px, 40px);
+  @include icon('remand', 40px, 40px);
+  @include icon('draft', 40px, 40px);
+  @include icon('download', 16px, 16px);
+  @include icon('download-disabled', 16px, 16px);
+  @include icon('in-progress', 40px, 40px);
+  @include icon('approval', 40px, 40px);
+  @include icon('denial', 40px, 40px);
+  @include icon('request', 20px, 24px);
+  @include icon('request-list', 24px, 28px);
+  @include icon('approval-list', 24px, 28px);
+  @include icon('labor-menu', 24px, 28px);
+  @include icon('settings', 24px, 28px);
+  @include icon('avatar', 24px, 28px);
+  @include icon('request-list-selected', 24px, 28px);
+  @include icon('approval-list-selected', 24px, 28px);
+  @include icon('labor-menu-selected', 24px, 28px);
+  @include icon('settings-selected', 24px, 28px);
+  @include icon('news-selected', 28px, 32px);
+  @include icon('avatar-selected', 24px, 28px);
+  @include icon('search', 16px, 20px);
+  @include icon('search-white', 16px, 20px);
+  @include icon('calendar', 16px, 16px);
+  @include icon('back', 16px, 16px);
+  @include icon('back-white', 16px, 16px);
+  @include icon('link', 16px, 16px);
+  @include icon('link-new-window', 16px, 16px);
+  @include icon('help', 24px, 24px);
+  @include icon('status-a', 24px, 24px);
+  @include icon('status-b', 24px, 24px);
+  @include icon('status-c', 24px, 24px);
+  @include icon-full('unit-age', 20px, 26px, 20px, 26px);
+  @include icon-full('unit-age-white', 20px, 26px, 20px, 26px);
+  @include icon-full('unit-age-black', 20px, 26px, 20px, 26px);
+  @include icon-full('unit-hour', 38px, 20px, 38px, 20px);
+  @include icon-full('unit-hour-white', 38px, 20px, 38px, 20px);
+  @include icon-full('unit-hour-black', 38px, 20px, 38px, 20px);
+  @include icon-full('unit-minute', 19px, 26px, 19px, 26px);
+  @include icon-full('unit-minute-white', 19px, 26px, 19px, 26px);
+  @include icon-full('unit-minute-black', 19px, 26px, 19px, 26px);
+  @include icon-full('unit-yen', 19px, 26px, 19px, 26px);
+  @include icon-full('unit-yen-white', 19px, 26px, 19px, 26px);
+  @include icon-full('unit-yen-black', 19px, 26px, 19px, 26px);
+  @include icon-full('unit-manyen', 38px, 20px, 38px, 20px);
+  @include icon-full('unit-manyen-white', 38px, 20px, 38px, 20px);
+  @include icon-full('unit-manyen-black', 38px, 20px, 38px, 20px);
+  @include icon-full('unit-km', 38px, 20px, 38px, 20px);
+  @include icon-full('unit-km-white', 38px, 20px, 38px, 20px);
+  @include icon-full('unit-km-black', 38px, 20px, 38px, 20px);
+  @include icon-full('unit-go', 19px, 26px, 19px, 26px);
+  @include icon-full('unit-go-white', 19px, 26px, 19px, 26px);
+  @include icon-full('unit-go-black', 19px, 26px, 19px, 26px);
+  @include icon('save', 16px, 16px);
+  @include icon('search_p', 16px, 20px);
+  @include icon('search_p-white', 16px, 20px);
+  @include icon('edit_link', 16px, 16px);
+  @include icon-full('unit-people', 20px, 26px, 20px, 26px);
+  @include icon('unit-phone', 16px, 16px);
+  @include icon-full('days', 30px, 25px, 30px, 25px);
+  @include icon-full('days-white', 30px, 25px, 30px, 25px);
+  @include icon-full('timenum', 30px, 25px, 30px, 25px);
+  @include icon-full('timenum-white', 30px, 25px, 30px, 25px);
+  @include icon-full('year', 19px, 25px, 19px, 25px);
+  @include icon-full('year-white', 19px, 25px, 19px, 25px);
+  @include icon-full('year-black', 19px, 25px, 19px, 25px);
+  @include icon-full('month', 19px, 25px, 19px, 25px);
+  @include icon-full('month-white', 19px, 25px, 19px, 25px);
+  @include icon-full('month-black', 19px, 25px, 19px, 25px);
+  @include icon-full('day', 19px, 25px, 19px, 25px);
+  @include icon-full('day-white', 19px, 25px, 19px, 25px);
+  @include icon-full('day-black', 19px, 25px, 19px, 25px);
+  @include icon('unit-download', 16px, 16px);
+  @include icon('status-a-no1', 24px, 24px);
+  @include icon('status-a-no2', 24px, 24px);
+  @include icon('status-a-no3', 24px, 24px);
+  @include icon('status-a-no4', 24px, 24px);
+  @include icon('status-a-no5', 24px, 24px);
+  @include icon('status-b-no1', 24px, 24px);
+  @include icon('status-b-no2', 24px, 24px);
+  @include icon('status-b-no3', 24px, 24px);
+  @include icon('status-b-no4', 24px, 24px);
+  @include icon('status-b-no5', 24px, 24px);
+  @include icon('unit-post', 16px, 16px);
+  @include icon('modify', 16px, 16px);
+  @include icon('minus', 16px, 16px);
+  @include icon-full('times', 30px, 25px, 30px, 25px);
+  // @include icon-full('times-white', 30px, 25px, 30px, 25px);
+  @include icon('download-thick', 16px, 16px);
+  @include icon('maps', 16px, 16px);
+  @include icon-full('mei', 19px, 25px, 19px, 25px);
+  @include icon-full('mei-black', 19px, 25px, 19px, 25px);
+  @include icon-full('mei-white', 19px, 25px, 19px, 25px);
+  @include icon-full('unit-dai', 19px, 25px, 19px, 25px);
+  @include icon-full('unit-dai-black', 19px, 25px, 19px, 25px);
+  @include icon-full('unit-dai-white', 19px, 25px, 19px, 25px);
+  @include icon-full('unit-haku', 19px, 25px, 19px, 25px);
+  @include icon-full('unit-haku-black', 19px, 25px, 19px, 25px);
+  @include icon-full('unit-haku-white', 19px, 25px, 19px, 25px);
+  @include icon-full('station', 19px, 25px, 19px, 25px);
+  @include icon-full('station-white', 19px, 25px, 19px, 25px);
+  @include icon-full('station-black', 19px, 25px, 19px, 25px);
+  @include icon('id-grey', 24px, 28px);
+  @include icon('id-white', 24px, 28px);
+  @include icon('id-menu', 24px, 28px);
+  @include icon('id-menu-selected', 24px, 28px);
+}
