@@ -1,0 +1,1009 @@
+{
+  "x-generator": "NSwag v14.0.3.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "batch_job_backend API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/BatchJobs": {
+      "post": {
+        "tags": [
+          "BatchJobs"
+        ],
+        "operationId": "CreateJob",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBatchJobCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BJob"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "BatchJobs"
+        ],
+        "operationId": "QueryByPage",
+        "parameters": [
+          {
+            "name": "JobType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/JobType"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedListOfBatchJobVm"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BatchJobs/{jobId}": {
+      "put": {
+        "tags": [
+          "BatchJobs"
+        ],
+        "operationId": "UpdateJob",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBatchJobCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BJob"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "BatchJobs"
+        ],
+        "operationId": "Query",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchJobVm"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BatchJobs/start/{jobId}": {
+      "get": {
+        "tags": [
+          "BatchJobs"
+        ],
+        "operationId": "ExecuteJob",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/BatchJobs/stop/{jobId}": {
+      "delete": {
+        "tags": [
+          "BatchJobs"
+        ],
+        "operationId": "StopJob",
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/TodoItems": {
+      "get": {
+        "tags": [
+          "TodoItems"
+        ],
+        "operationId": "GetTodoItemsWithPagination",
+        "parameters": [
+          {
+            "name": "ListId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedListOfTodoItemBriefDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TodoItems"
+        ],
+        "operationId": "CreateTodoItem",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTodoItemCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/TodoItems/{id}": {
+      "put": {
+        "tags": [
+          "TodoItems"
+        ],
+        "operationId": "UpdateTodoItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTodoItemCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TodoItems"
+        ],
+        "operationId": "DeleteTodoItem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/TodoItems/UpdateDetail/{id}": {
+      "put": {
+        "tags": [
+          "TodoItems"
+        ],
+        "operationId": "UpdateTodoItemDetail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTodoItemDetailCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BJob": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseAuditableEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "jobName": {
+                "type": "string"
+              },
+              "jobGroup": {
+                "type": "string"
+              },
+              "jobType": {
+                "$ref": "#/components/schemas/JobType"
+              },
+              "jobUrl": {
+                "type": "string",
+                "nullable": true
+              },
+              "cronExpression": {
+                "type": "string",
+                "nullable": true
+              },
+              "cronExpressionStr": {
+                "type": "string",
+                "nullable": true
+              },
+              "scheduleType": {
+                "type": "string",
+                "nullable": true
+              },
+              "year": {
+                "type": "string",
+                "nullable": true
+              },
+              "month": {
+                "type": "string",
+                "nullable": true
+              },
+              "day": {
+                "type": "string",
+                "nullable": true
+              },
+              "weekDay": {
+                "type": "string",
+                "nullable": true
+              },
+              "hour": {
+                "type": "string",
+                "nullable": true
+              },
+              "minute": {
+                "type": "string",
+                "nullable": true
+              },
+              "second": {
+                "type": "string",
+                "nullable": true
+              },
+              "batchLaunchMonthDay": {
+                "type": "string",
+                "nullable": true
+              },
+              "batchLaunchWeedDay": {
+                "type": "string",
+                "nullable": true
+              },
+              "loopStep": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "workHourStart": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "workHourEnd": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "jobTriggerId": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "jobNo": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "startType": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "status": {
+                "$ref": "#/components/schemas/TaskJobStatus"
+              }
+            }
+          }
+        ]
+      },
+      "JobType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Scheduled",
+          "Trigger"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "TaskJobStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Enqueued",
+          "Scheduled",
+          "Processing",
+          "Succeeded",
+          "Failed",
+          "Deleted",
+          "Awaiting",
+          "Stop",
+          "Paused",
+          "Canceled",
+          "Rescheduled"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "BaseAuditableEntity": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseEntity"
+          },
+          {
+            "type": "object",
+            "x-abstract": true,
+            "additionalProperties": false,
+            "properties": {
+              "created": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdBy": {
+                "type": "string",
+                "nullable": true
+              },
+              "lastModified": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "lastModifiedBy": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "BaseEntity": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "domainEvents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BaseEvent"
+            }
+          }
+        }
+      },
+      "BaseEvent": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false
+      },
+      "CreateBatchJobCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/JobCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "JobCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "jobName": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "jobType": {
+            "$ref": "#/components/schemas/JobType"
+          },
+          "jobUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "cronExpression": {
+            "type": "string",
+            "nullable": true
+          },
+          "cronExpressionStr": {
+            "type": "string",
+            "nullable": true
+          },
+          "scheduleType": {
+            "type": "string",
+            "nullable": true
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "month": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "day": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "weekDay": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "hour": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "minute": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "second": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "batchLaunchMonthDay": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "batchLaunchWeekDay": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "loopStep": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "workHourStart": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "workHourEnd": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "jobTriggerId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "jobNo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "startType": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        }
+      },
+      "UpdateBatchJobCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/JobCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "PaginatedListOfBatchJobVm": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BatchJobVm"
+            }
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          }
+        }
+      },
+      "BatchJobVm": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "jobName": {
+            "type": "string"
+          },
+          "jobGroup": {
+            "type": "string"
+          },
+          "jobType": {
+            "$ref": "#/components/schemas/JobType"
+          },
+          "jobUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "cronExpression": {
+            "type": "string",
+            "nullable": true
+          },
+          "cronExpressionStr": {
+            "type": "string",
+            "nullable": true
+          },
+          "scheduleType": {
+            "type": "string",
+            "nullable": true
+          },
+          "scheduleTypeStr": {
+            "type": "string",
+            "nullable": true
+          },
+          "year": {
+            "type": "string",
+            "nullable": true
+          },
+          "month": {
+            "type": "string",
+            "nullable": true
+          },
+          "day": {
+            "type": "string",
+            "nullable": true
+          },
+          "weekDay": {
+            "type": "string",
+            "nullable": true
+          },
+          "hour": {
+            "type": "string",
+            "nullable": true
+          },
+          "minute": {
+            "type": "string",
+            "nullable": true
+          },
+          "second": {
+            "type": "string",
+            "nullable": true
+          },
+          "batchLaunchMonthDay": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "batchLaunchWeekDay": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "loopStep": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "workHourStart": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "workHourEnd": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "jobTriggerId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "jobNo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "startType": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/TaskJobStatus"
+          },
+          "taskJobStatusDes": {
+            "type": "string"
+          },
+          "taskJobStatusColor": {
+            "type": "string"
+          }
+        }
+      },
+      "PaginatedListOfTodoItemBriefDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TodoItemBriefDto"
+            }
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TodoItemBriefDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "listId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "done": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CreateTodoItemCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "listId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "UpdateTodoItemCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "done": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdateTodoItemDetailCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "listId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/PriorityLevel"
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "PriorityLevel": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "None",
+          "Low",
+          "Medium",
+          "High"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    }
+  }
+}
